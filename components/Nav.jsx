@@ -9,11 +9,11 @@ const links = [
   { path: "/contact", name: "Contact" },
 ];
 
-const Nav = () => {
+const Nav = ({ containerStyles }) => {
   const pathname = usePathname();
 
   return (
-    <nav className="hidden xl:flex gap-x-8 items-center">
+    <nav className={`${containerStyles}`}>
       {links.map((link, index) => {
         return (
           <Link

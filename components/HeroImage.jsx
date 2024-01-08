@@ -1,8 +1,10 @@
-const HeroImage = () => {
+import Image from "next/image";
+
+const HeroImage = ({ containerStyles, imgSrc }) => {
   return (
-    <section>
-      <div className="container mx-auto"></div>
-    </section>
+    <div className={`${containerStyles}`}>
+      <Image src={imgSrc} fill priority alt="hero image" />
+    </div>
   );
 };
 
