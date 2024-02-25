@@ -16,7 +16,7 @@ const Hero = () => {
   return (
     <section className="py-12  h-[84vh] xl:pt-28 bg-hero bg-no-repeat bg-cover bg-bottom dark:bg-none">
       <div className="container mx-auto">
-        <div className="flex justify-center gap-x-8">
+        <div className="flex justify-center">
           <div className="flex max-w-[575px] flex-col justify-center  text-center">
             <div className="text-sm uppercase font-semibold mb-4 text-primary tracking-[4px]">
               Software Engineer
@@ -42,7 +42,6 @@ const Hero = () => {
               iconStyles="text-foreground text-[22px] hover:text-primary transition-all"
             />
           </div>
-          <div className="hidden xl:flex relative"></div>
         </div>
         <div className="hidden md:flex absolute left-2/4 bottom-44 xl:bottom-12 animate-bounce">
           <RiArrowDownSLine className="text-3xl text-primary" />
