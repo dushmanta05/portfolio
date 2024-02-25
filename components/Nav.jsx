@@ -9,7 +9,7 @@ const links = [
   { path: "/contact", name: "Contact" },
 ];
 
-const Nav = ({ containerStyles }) => {
+const Nav = ({ containerStyles, linkStyles, underlineStyles }) => {
   const pathname = usePathname();
 
   return (
@@ -19,15 +19,15 @@ const Nav = ({ containerStyles }) => {
           <Link
             key={index}
             href={link.path}
-            className="capitalize relative hover:text-primary transition-all"
+            className={`capitalize ${linkStyles}`}
           >
             {link.path === pathname && (
               <motion.span
-                initial={{ y: "-100&" }}
+                initial={{ y: "-100%" }}
                 animate={{ y: 0 }}
                 transition={{ type: "tween" }}
                 layoutId="underline"
-                className="absolute left-0 top-full h-[2px] bg-primary w-full"
+                className={`${underlineStyles}`}
               ></motion.span>
             )}
             {link.name}
