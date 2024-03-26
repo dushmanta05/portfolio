@@ -1,3 +1,6 @@
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import Image from "next/image";
+
 import {
   Briefcase,
   Calendar,
@@ -7,9 +10,6 @@ import {
   PhoneCall,
   User2,
 } from "lucide-react";
-import DevImg from "./DevImg";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import Image from "next/image";
 
 const infoData = [
   {
@@ -135,13 +135,7 @@ const About = () => {
           About Me
         </h2>
         <div className="flex flex-col xl:flex-row">
-          <div className="hidden xl:flex flex-1 relative">
-            <DevImg
-              containerStyles="bg-about_shape_light dark:bg-about_shape_dark w-[505px] h-[505px] bg-no-repeat relative"
-              imgSrc="/images/about/developer.png"
-            />
-          </div>
-          <div className="flex-1">
+          <div className="flex-auto">
             <Tabs defaultValue="personal">
               <TabsList className="w-full grid xl:grid-cols-3 xl:max-w-[520px] xl:border dark:border-none">
                 <TabsTrigger className="w-[162px] xl:w-auto" value="personal">
