@@ -1,7 +1,4 @@
 ---
-// Learn about using Astro layouts:
-// https://docs.astro.build/en/core-concepts/layouts/
-
 import MainHead from '../components/MainHead.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
@@ -17,6 +14,8 @@ const {
   description = 'Personal portfolio showcasing my projects and expertise in software development.',
   image = 'https://dushmanta.dev/og-image.png',
 } = Astro.props;
+const twitterDescription =
+  'Full-Stack Developer specializing in backend development. Building efficient digital solutions with Node.js, MongoDB, and modern web technologies.';
 
 const canonicalURL = new URL(Astro.url.pathname, 'https://dushmanta.dev');
 ---
@@ -44,11 +43,14 @@ const canonicalURL = new URL(Astro.url.pathname, 'https://dushmanta.dev');
     <meta property='og:image:alt' content='Dushmanta Portfolio Preview' />
 
     <!-- Twitter -->
-    <meta property='twitter:card' content='summary_large_image' />
-    <meta property='twitter:url' content={canonicalURL} />
-    <meta property='twitter:title' content={title} />
-    <meta property='twitter:description' content={description} />
-    <meta property='twitter:image' content={image} />
+    <meta name='twitter:card' content='summary_large_image' />
+    <meta name='twitter:creator' content='@dushmanta05' />
+    <meta name='twitter:site' content='@dushmanta05' />
+    <meta name='twitter:url' content={canonicalURL} />
+    <meta name='twitter:title' content={title} />
+    <meta name='twitter:description' content={twitterDescription} />
+    <meta name='twitter:image' content={image} />
+    <meta name='twitter:image:alt' content='Dushmanta Portfolio Preview' />
 
     <MainHead title={title} description={description} />
   </head>
