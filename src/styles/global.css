@@ -130,8 +130,7 @@
 
 html,
 body {
-  min-height: 100%;
-  overflow-x: hidden;
+  @apply min-h-full overflow-x-hidden;
 }
 
 body {
@@ -192,27 +191,16 @@ h5 {
 /* Utilities */
 
 .sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
+  @apply absolute w-px h-px p-0 m-[-1px] overflow-hidden whitespace-nowrap border-0;
   clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
 }
 
 .wrapper {
-  width: 100%;
-  max-width: 83rem;
-  margin-inline: auto;
-  padding-inline: 1.5rem;
+  @apply w-full max-w-[83rem] mx-auto px-6;
 }
 
 .stack {
-  display: flex;
-  flex-direction: column;
+  @apply flex flex-col;
 }
 
 .gap-2 {

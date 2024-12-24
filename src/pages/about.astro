@@ -67,9 +67,7 @@ import Hero from '../components/Hero.astro';
 
 <style>
   .about {
-    display: flex;
-    flex-direction: column;
-    gap: 3.5rem;
+    @apply flex flex-col gap-14;
   }
 
   img {
@@ -79,16 +77,11 @@ import Hero from '../components/Hero.astro';
   }
 
   section {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    color: var(--gray-200);
+    @apply flex flex-col gap-2 text-gray-200;
   }
 
   .section-title {
-    grid-column-start: 1;
-    font-size: var(--text-xl);
-    color: var(--gray-0);
+    @apply col-start-1 text-gray-0 text-xl;
   }
 
   .content {
@@ -96,6 +89,7 @@ import Hero from '../components/Hero.astro';
   }
 
   .content :global(a) {
+    @apply underline underline-offset-2
     text-decoration: 1px solid underline transparent;
     text-underline-offset: 0.25em;
     transition: text-decoration-color var(--theme-transition);
@@ -117,8 +111,7 @@ import Hero from '../components/Hero.astro';
     }
 
     section {
-      display: contents;
-      font-size: var(--text-lg);
+      @apply contents text-lg;
     }
   }
 </style>

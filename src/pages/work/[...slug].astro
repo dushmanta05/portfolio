@@ -62,21 +62,15 @@ const { Content } = await entry.render();
 
 <style>
   .back-link {
-    display: none;
+    @apply hidden;
   }
 
   .details {
-    display: flex;
-    flex-direction: column;
-    padding: 0.5rem;
-    gap: 1.5rem;
-    justify-content: space-between;
-    align-items: center;
+    @apply flex flex-col p-2 gap-6 justify-between items-center;
   }
 
   .tags {
-    display: flex;
-    gap: 0.5rem;
+    @apply flex gap-2;
   }
 
   .description {
@@ -134,17 +128,15 @@ const { Content } = await entry.render();
 
   @media (min-width: 50em) {
     .back-link {
-      display: block;
-      align-self: flex-start;
+      @apply self-start block;
     }
 
     .details {
-      flex-direction: row;
-      gap: 2.5rem;
+      @apply flex-row gap-10;
     }
 
     .content :global(blockquote) {
-      font-size: var(--text-2xl);
+      @apply text-2xl;
     }
   }
 </style>
