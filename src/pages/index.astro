@@ -17,6 +17,10 @@ const projects = (await getCollection('work'))
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
   .slice(0, 4);
 
+const blogs = (await getCollection('blog'))
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, 4);
+
 const siteUrl = 'https://dushmanta.dev';
 const title = 'Dushmanta | Portfolio';
 const description =
@@ -66,7 +70,7 @@ const ogImage = `${siteUrl}/og-image.png`;
             {
               projects.map((project) => (
                 <li>
-                  <PortfolioPreview project={project} />
+                  <PortfolioPreview content={project} type="work" />
                 </li>
               ))
             }
@@ -103,6 +107,34 @@ const ogImage = `${siteUrl}/og-image.png`;
               )
             }
           </Grid>
+        </div>
+      </section>
+
+      <section class='section with-background with-cta'>
+        <header class='section-header stack gap-2 lg:gap-4'>
+          <h3>Tech Blog</h3>
+          <p>
+          Discover insights, learning, and experiences through my blogs, showcasing my skills and passion for development.
+          </p>
+        </header>
+
+        <div class='gallery'>
+          <Grid variant='offset'>
+            {
+              blogs.map((blog) => (
+                <li>
+                  <PortfolioPreview content={blog} type="blog" />
+                </li>
+              ))
+            }
+          </Grid>
+        </div>
+
+        <div class='cta'>
+          <CallToAction href='/work/'>
+            View All
+            <Icon icon='arrow-right' size='1.2em' />
+          </CallToAction>
         </div>
       </section>
     </main>
