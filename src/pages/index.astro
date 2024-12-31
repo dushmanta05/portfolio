@@ -9,6 +9,7 @@ import Hero from '../components/Hero.astro';
 import Icon from '../components/Icon.astro';
 import Pill from '../components/Pill.astro';
 import PortfolioPreview from '../components/PortfolioPreview.astro';
+import BlogPreview from '../components/BlogPreview.astro';
 
 import ContactCTA from '../components/ContactCTA.astro';
 import Skills from '../components/Skills.astro';
@@ -70,7 +71,7 @@ const ogImage = `${siteUrl}/og-image.png`;
             {
               projects.map((project) => (
                 <li>
-                  <PortfolioPreview content={project} type="work" />
+                  <PortfolioPreview project={project} />
                 </li>
               ))
             }
@@ -123,7 +124,7 @@ const ogImage = `${siteUrl}/og-image.png`;
             {
               blogs.map((blog) => (
                 <li>
-                  <PortfolioPreview content={blog} type="blog" />
+                  <BlogPreview project={blog}/>
                 </li>
               ))
             }
