@@ -20,6 +20,10 @@ export async function getStaticPaths() {
   }));
 }
 
+function isValidImageUrl(url: string) {
+  return url?.startsWith('https://');
+}
+
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
@@ -42,10 +46,14 @@ const { Content } = await entry.render();
       </header>
       <main class='wrapper'>
         <div class='stack gap-10 content'>
-          {
+        {
             entry.data.img && (
-              <img src={entry.data.img} alt={entry.data.img_alt || ''} />
-            )
+                <img
+                    src={isValidImageUrl(entry.data.img) ? entry.data.img : `/assets${entry.data.img}`}
+                    alt={entry.data.img_alt || ''}
+                    class="featured-image"
+                />
+              )
           }
           <div class='content'>
             <Content />
@@ -58,8 +66,20 @@ const { Content } = await entry.render();
 </BaseLayout>
 
 <style>
+
+  header {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--gray-800);
+    margin-bottom: 2rem;
+  }
+
   .back-link {
-    display: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease;
   }
 
   .details {
@@ -71,19 +91,30 @@ const { Content } = await entry.render();
     align-items: center;
   }
 
-  .tags {
-    display: flex;
-    gap: 0.5rem;
+  .featured-image {
+    width: 100%;
+    height: auto;
+    max-height: 600px;
+    object-fit: cover;
+    border-radius: 1.5rem;
+    margin-bottom: 2rem;
   }
 
-  .description {
-    font-size: var(--text-lg);
-    max-width: 54ch;
+  .tags {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
   }
 
   .content {
-    max-width: 65ch;
+    max-width: 90ch;
     margin-inline: auto;
+    font-size: var(--text-lg);
+  }
+
+  .description {
+    font-size: var(--text-md);
+    max-width: 75ch;
   }
 
   .content > :global(* + *) {
@@ -99,6 +130,8 @@ const { Content } = await entry.render();
   }
 
   .content :global(img) {
+    width: 100%;
+    height: auto;
     border-radius: 1.5rem;
     box-shadow: var(--shadow-sm);
     background: var(--gradient-subtle);
@@ -135,13 +168,34 @@ const { Content } = await entry.render();
       align-self: flex-start;
     }
 
-    .details {
-      flex-direction: row;
-      gap: 2.5rem;
-    }
-
     .content :global(blockquote) {
       font-size: var(--text-2xl);
     }
+
+    .wrapper.stack.gap-2 {
+      padding: 3rem 2rem;
+    }
+
+    details {
+      flex-direction: row;
+      padding: 1.5rem 0;
+      gap: 3rem;
+    }
+
+    .description {
+      font-size: var(--text-xl);
+    }
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+      img.addEventListener('error', () => {
+        img.src = '/fallback-image.jpg';
+        img.alt = 'Image failed to load';
+      });
+    });
+  });
+</script>

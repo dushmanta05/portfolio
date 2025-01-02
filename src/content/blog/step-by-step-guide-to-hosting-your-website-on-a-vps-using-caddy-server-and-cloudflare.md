@@ -31,25 +31,25 @@ _Caddy server_ is a free and open-source web server written in _Golang_. You mig
 
 First, go to your [Cloudflare dashboard](https://dash.cloudflare.com) and, in the Website section, add the domain name you want to host on your VPS. I've already added mine, and it should look something like this:
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1730954884053/f8b7aa18-a7e7-46e1-9ab5-8915e45acffb.png align="center")
+![Cloudflare Dashboard](https://cdn.hashnode.com/res/hashnode/image/upload/v1730954884053/f8b7aa18-a7e7-46e1-9ab5-8915e45acffb.png)
 
 First, let's set up our SSL/TLS encryption. On the Cloudflare dashboard, click on the domain name you added (for example, _dushmanta.dev_ in my case). This will open the domain overview page and settings, which should look like this:
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1731006257330/b4810ff3-8e87-4ac9-89c5-2d5bdc434824.png align="center")
+![Domain Overview](https://cdn.hashnode.com/res/hashnode/image/upload/v1731006257330/b4810ff3-8e87-4ac9-89c5-2d5bdc434824.png)
 
 #### Set SSL/TLS encryption mode:
 
 On the domain settings page, go to the _SSL/TLS_ section (refer to the image above). It should look like this:
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1731031885410/769e7383-f85d-48fc-bc5b-29910c0d3047.png align="center")
+![SSL Settings](https://cdn.hashnode.com/res/hashnode/image/upload/v1731031885410/769e7383-f85d-48fc-bc5b-29910c0d3047.png)
 
 From the _SSL/TLS_ overview page, go to the configuration settings. It should look something like this:
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1731032103598/3a334d98-46bb-4e03-bcb0-379af13574eb.png align="center")
+![SSL Overview Page](https://cdn.hashnode.com/res/hashnode/image/upload/v1731032103598/3a334d98-46bb-4e03-bcb0-379af13574eb.png)
 
 In this section, set the custom _SSL/TLS_ to "Full (Strict)" and save it.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1731032206411/62c821b5-847a-44cb-8d4c-50cb221fe4ae.png align="center")
+![Custom SSL/TLS Setting](https://cdn.hashnode.com/res/hashnode/image/upload/v1731032206411/62c821b5-847a-44cb-8d4c-50cb221fe4ae.png)
 
 The reason to choose "Full (Strict)" is to ensure the request connection is encrypted from end to end. This means when someone visits your domain, the request goes to Cloudflare, and then Cloudflare serves the content by connecting to your VPS. The flow looks like this:
 
@@ -62,17 +62,17 @@ Cloudflare → User (HTTPS)
 
 Now, let's get the IP of the VPS from the [DigitalOcean dashboard](https://cloud.digitalocean.com/). The dashboard should look like this, and you need to copy your IPv4 address.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1731005945225/61882225-1d7c-47e7-b3e9-3b7decae2000.png align="center")
+![DigitalOcean Dashboard](https://cdn.hashnode.com/res/hashnode/image/upload/v1731005945225/61882225-1d7c-47e7-b3e9-3b7decae2000.png)
 
 #### Add “A” records to Cloudflare DNS
 
 On the domain settings page, go to the _DNS_ section.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1731059870680/18bdacf5-d349-4dcb-ae81-f8b763569647.png align="center")
+![Domain Settings](https://cdn.hashnode.com/res/hashnode/image/upload/v1731059870680/18bdacf5-d349-4dcb-ae81-f8b763569647.png)
 
 Now, if you have used Cloudflare for your website before, you might have some **"A"**, **"AAAA"**, **"CNAME"**, and **"TXT"** records. In my case, since I deployed my site with Netlify, my DNS records from Netlify looked something like this:
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1731061322869/ef23bbad-d3aa-4960-a329-b580911fcc21.png align="center")
+![DNS Records](https://cdn.hashnode.com/res/hashnode/image/upload/v1731061322869/ef23bbad-d3aa-4960-a329-b580911fcc21.png)
 
 Before adding our VPS server's IP, we need to delete all the **"A"**, **"AAAA"**, and **"CNAME"** records (only for the root domain) if they exist. After removing them, we need to add **"A"** and **"CNAME"** DNS records pointing to the VPS IP address.
 
@@ -82,11 +82,11 @@ Before adding our VPS server's IP, we need to delete all the **"A"**, **"AAAA"**
 
 When adding a new DNS record, set the type to **"A"**. In the Name section, add **@**, which represents your website (in my case, it’s dushmanta.dev), and ensure the _proxy status_ is turned _on_. Then save it. It should look like this.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1731063788371/c341f4d7-987d-4166-953c-d48542bbff8f.png align="center")
+![DNS Records](https://cdn.hashnode.com/res/hashnode/image/upload/v1731063788371/c341f4d7-987d-4166-953c-d48542bbff8f.png)
 
 Next, add a **"CNAME"** record named **"WWW"** to create an alias. This way, if someone accesses the website using *www.dushmanta.dev*, it will redirect to the main website. Set your website as the target and ensure the proxy status is turned on. It should look like this.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1731064827909/5319db89-8dcc-48a8-8416-f426c3ffbeab.png align="center")
+![DNS Record Alias](https://cdn.hashnode.com/res/hashnode/image/upload/v1731064827909/5319db89-8dcc-48a8-8416-f426c3ffbeab.png)
 
 Now that our Cloudflare DNS is set up, let's move on to build the portfolio from the repository and configuring Caddy on our VPS to manage the requests.
 
