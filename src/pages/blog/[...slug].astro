@@ -9,12 +9,12 @@ import Icon from '../../components/Icon.astro';
 import Pill from '../../components/Pill.astro';
 
 interface Props {
-  entry: CollectionEntry<'work'>;
+  entry: CollectionEntry<'blog'>;
 }
 
 export async function getStaticPaths() {
-  const work = await getCollection('blog');
-  return work.map((entry) => ({
+  const blog = await getCollection('blog');
+  return blog.map((entry) => ({
     params: { slug: entry.slug },
     props: { entry },
   }));
