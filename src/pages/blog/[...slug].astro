@@ -67,6 +67,104 @@ const { Content } = await entry.render();
 
 <style>
 
+  .content :global(pre) {
+    background-color: var(--background-code);
+    border: 1px solid var(--code-border);
+    padding: 1.5rem;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+
+  .content :global(code) {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.9em;
+  }
+
+  .content :global(:not(pre) > code) {
+    background: var(--background-code);
+    color: var(--text-normal);
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    border: 1px solid var(--code-border);
+  }
+
+  .content :global(h1) {
+    color: var(--text-heading);
+    font-size: 2.5em;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.3em;
+    margin-top: 2em;
+  }
+
+  .content :global(h2) {
+    color: var(--text-heading);
+    font-size: 2em;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.2em;
+    margin-top: 1.5em;
+  }
+
+  .content :global(h3) {
+    color: var(--text-heading);
+    font-size: 1.5em;
+    margin-top: 1.2em;
+  }
+
+  .content :global(ol) {
+  color: var(--text-list);
+  margin: 2rem 0;
+  list-style-type: decimal;
+  list-style-position: outside;
+}
+
+  .content :global(ul) {
+  color: var(--text-list);
+  margin: 2rem 0;
+  list-style-type: disc;
+  list-style-position: outside;
+}
+
+  .content :global(li) {
+    color: var(--text-list);
+    margin: 1rem 0;
+    display: list-item; 
+  }
+
+  .content :global(ul > li::marker),
+  .content :global(ol > li::marker) {
+    color: var(--text-list);
+  }
+
+  .content :global(a) {
+    color: var(--link-color);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+  }
+
+  .content :global(a:hover) {
+    border-bottom-color: var(--link-color);
+  }
+
+  .content :global(blockquote) {
+    border-left: 4px solid var(--border-color);
+    margin: 1em 0;
+    padding: 0.5em 1em;
+    background-color: var(--background-code);
+    color: var(--text-muted);
+  }
+
+  .content :global(ul),
+  .content :global(ol) {
+    padding-left: 1.5em;
+    color: var(--text-normal);
+  }
+
+  .content :global(li) {
+    margin: 0.5em 0;
+  }
+
   header {
     padding-bottom: 2rem;
     border-bottom: 1px solid var(--gray-800);
@@ -95,9 +193,9 @@ const { Content } = await entry.render();
     width: 100%;
     height: auto;
     max-height: 600px;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 1.5rem;
-    margin-bottom: 2rem;
+    margin: 2rem auto;
   }
 
   .tags {
@@ -118,7 +216,7 @@ const { Content } = await entry.render();
   }
 
   .content > :global(* + *) {
-    margin-top: 1rem;
+    margin-top: 2rem;
   }
 
   .content :global(h1),
