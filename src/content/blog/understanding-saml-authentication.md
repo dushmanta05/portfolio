@@ -1,5 +1,5 @@
 ---
-title: "Step-by-Step Guide to Hosting Your Website on a VPS Using Caddy Server and Cloudflare"
+title: 'Step-by-Step Guide to Hosting Your Website on a VPS Using Caddy Server and Cloudflare'
 description: |
   Learn about SAML authentication, its definitions, workings, and the differences between SP and IdP initiated flows in this comprehensive guide
 publishDate: 2025-03-07 12:16:00
@@ -59,10 +59,9 @@ The **Relay State** is a parameter provided by the **SP** to the **IdP**. It is 
 
 A **public-private key pair** (Public Key Infrastructure) is used to secure the SAML authentication process through encryption and signature.
 
-* Both the **IdP** and **SP** generate their own **public-private key pairs** and share their public keys with each other.
+- Both the **IdP** and **SP** generate their own **public-private key pairs** and share their public keys with each other.
 
-* These keys are used to sign the requests and responses with private keys, and they can be verified using the shared public keys. This ensures that the requests or responses are legitimate and have not been tampered with.
-
+- These keys are used to sign the requests and responses with private keys, and they can be verified using the shared public keys. This ensures that the requests or responses are legitimate and have not been tampered with.
 
 These above configuration are used to establish trust between the **IdP** and **SP**.
 
@@ -71,35 +70,34 @@ These above configuration are used to establish trust between the **IdP** and **
 Next, let’s explore how **SAML authentication** works.
 
 1. **User Request Access**
-    The user tries to access a service (**SP**) like **Healthy Inc.**
+   The user tries to access a service (**SP**) like **Healthy Inc.**
 
 2. **SP Redirects User to IdP SSO URL**
 
-    The **SP** generates a **SAML Authentication Request** and redirects the user to the **IdP SSO Login URL**.
+   The **SP** generates a **SAML Authentication Request** and redirects the user to the **IdP SSO Login URL**.
 
 3. **User Authenticates with IdP**
-    The user logs into the **Identity Provider (IdP)** (**Acme Inc.** in this example).
+   The user logs into the **Identity Provider (IdP)** (**Acme Inc.** in this example).
 
 4. **IdP Generates SAML Response**
-    Upon successful authentication, the **IdP** creates a **SAML Response**, including a **SAML Assertion** (more about **SAML Response** and **Assertion** are discussed below) containing the user’s identity data. Then the response is digitally **signed with the IdP’s private key** to ensure authenticity.
+   Upon successful authentication, the **IdP** creates a **SAML Response**, including a **SAML Assertion** (more about **SAML Response** and **Assertion** are discussed below) containing the user’s identity data. Then the response is digitally **signed with the IdP’s private key** to ensure authenticity.
 
 5. **IdP Sends Response to SP**
-    The **IdP** redirects the user back to the **SP’s ACS (Assertion Consumer Service) URL** with the **SAML Response**, including the **Relay State**, via an **HTTP POST request**.
+   The **IdP** redirects the user back to the **SP’s ACS (Assertion Consumer Service) URL** with the **SAML Response**, including the **Relay State**, via an **HTTP POST request**.
 
 6. **SP Validates the SAML Response**
-    The **SP**:
+   The **SP**:
 
-    * Verifies the **digital signature** using the IdP’s **public key** (which was provided during trust establishment).
+   - Verifies the **digital signature** using the IdP’s **public key** (which was provided during trust establishment).
 
-    * Ensures that the response is valid and hasn’t been tampered with.
+   - Ensures that the response is valid and hasn’t been tampered with.
 
 7. **Redirects to Relay State**
-    After successful verification, the **SP** redirects the user to the **Relay State URL** (provided in the initial request). This ensures the user lands on the correct page after authentication.
-
+   After successful verification, the **SP** redirects the user to the **Relay State URL** (provided in the initial request). This ensures the user lands on the correct page after authentication.
 
 Here’s an image illustrating SAML authentication flow:
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1741349403971/7c99e184-fd60-495e-9952-296b6291f1ef.png)
+![SAML Authentication Flow](https://cdn.hashnode.com/res/hashnode/image/upload/v1741349403971/7c99e184-fd60-495e-9952-296b6291f1ef.png)
 
 ### SAML Response and Assertion
 
@@ -115,19 +113,17 @@ A **SAML Assertion** is the **core part of the SAML Response,** as it carries th
 
 Before sending the **SAML Response**, the IdP **signs it using its private key**. The response includes:
 
-* **Digest value** (ensuring data integrity)
+- **Digest value** (ensuring data integrity)
 
-* **Signature value** (confirming authenticity)
+- **Signature value** (confirming authenticity)
 
-* **X.509 certificate** (used for validation)
-
+- **X.509 certificate** (used for validation)
 
 Additionally, the **SAML Assertion itself can also be signed** with the same key. This means:
 
-* Both the **SAML Response** and the **SAML Assertion** can be signed separately.
+- Both the **SAML Response** and the **SAML Assertion** can be signed separately.
 
-* The **digest value, signature, and X.509 certificate** are included in both if needed.
-
+- The **digest value, signature, and X.509 certificate** are included in both if needed.
 
 For **better security**, it is recommended to **sign both the SAML Assertion and the SAML Response** to prevent tampering.
 
@@ -143,7 +139,6 @@ A typical SAML response contains the following data:
 
 4. Signature & Encryption → Contains the signature data for the whole SAML response.
 
-
 ### SP-Initiated vs. IdP-Initiated Flow
 
 Now that we understand how SAML works, it's important to know that there are **two types of authentication flows** in which SAML can be implemented:
@@ -151,7 +146,6 @@ Now that we understand how SAML works, it's important to know that there are **t
 1. **SP-Initiated Flow** → The user starts at the **Service Provider (SP)**.
 
 2. **IdP-Initiated Flow** → The user starts at the **Identity Provider (IdP)**.
-
 
 #### SP-Initiated Flow:
 
@@ -169,12 +163,11 @@ How it works:
 
 5. The **SP validates the response** and logs the user in.
 
-
 **Note:** In an **SP-Initiated Flow**, the **authentication request starts from the SP**, and the **SAML Authentication Request is sent from the SP to the IdP**.
 
 Here’s an image illustrating the SP-Initiated SAML authentication flow:
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1741349469357/54789fc2-283b-4ce2-b8f1-a3574f473b06.png)
+![SP-Initiated SAML Authentication Flow](https://cdn.hashnode.com/res/hashnode/image/upload/v1741349469357/54789fc2-283b-4ce2-b8f1-a3574f473b06.png)
 
 #### IdP-Initiated Flow:
 
@@ -186,27 +179,25 @@ The **IdP-Initiated Flow** is **less common** but is often used in **enterprise 
 
 3. The **SP validates the response** and logs the **user in**.
 
-
 **Note:** In an **IdP-Initiated Flow**, there is **no authentication request sent from the SP**. The **IdP directly initiates the authentication process** and sends the **SAML Response to the SP**.
 
 Here’s an image illustrating the IdP-Initiated SAML authentication flow:
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1741349512482/3bb4fb03-2569-4c66-b454-98909feea11b.png)
+![IdP-Initiated SAML Authentication Flow](https://cdn.hashnode.com/res/hashnode/image/upload/v1741349512482/3bb4fb03-2569-4c66-b454-98909feea11b.png)
 
 ## Benefits of SAML Auth
 
 Here are some key benefits of using SAML authentication:
 
-* Eliminates the need for multiple passwords, reducing the risk of phishing and credential theft.
+- Eliminates the need for multiple passwords, reducing the risk of phishing and credential theft.
 
-* Users only need to log in once to access multiple service providers, reducing password fatigue.
+- Users only need to log in once to access multiple service providers, reducing password fatigue.
 
-* Users don’t have to remember multiple credentials, leading to faster and smoother access.
+- Users don’t have to remember multiple credentials, leading to faster and smoother access.
 
-* Enterprises can use their own IdP to manage authentication securely across various platforms.
+- Enterprises can use their own IdP to manage authentication securely across various platforms.
 
-* Service providers don’t need to store or manage user credentials in their database, reducing security risks and compliance overhead.
-
+- Service providers don’t need to store or manage user credentials in their database, reducing security risks and compliance overhead.
 
 ## How SAML is Different from Oauth?
 
@@ -214,10 +205,9 @@ Now that we've learned about SAML, you might wonder how it differs from OAuth an
 
 Both **SAML** and **OAuth** are open standards, but they serve different purposes:
 
-* **SAML** is primarily used for **authentication**, verifying a user’s identity.
+- **SAML** is primarily used for **authentication**, verifying a user’s identity.
 
-* **OAuth** is used for **authorization**, granting access to resources without exposing login credentials.
-
+- **OAuth** is used for **authorization**, granting access to resources without exposing login credentials.
 
 **Example**: Let’s say you want to log in to multiple services—**Microsoft 365, Slack, and Salesforce**—using **OAuth with Google** instead of SAML. Here’s what happens:
 
@@ -227,15 +217,13 @@ Both **SAML** and **OAuth** are open standards, but they serve different purpose
 
 3. Once you grant permission, **Microsoft 365** receives an **OAuth access token** and logs you in.
 
-
 Now, if you want to log in to more service providers, you have to **repeat the same process** for each provider separately. Not to mention, your **IdP must be Google** since you’re using Google OAuth. This becomes difficult for enterprises that have their **own Identity Provider (IdP).**
 
 Now, if we use **SAML instead**,
 
-* We can **integrate multiple service providers** with a single **enterprise IdP**.
+- We can **integrate multiple service providers** with a single **enterprise IdP**.
 
-* Users can **log in once** and seamlessly access all service providers from **one dashboard** through SAML authentication.
-
+- Users can **log in once** and seamlessly access all service providers from **one dashboard** through SAML authentication.
 
 ## Conclusion
 

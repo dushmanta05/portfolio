@@ -2,7 +2,7 @@
 title: Step-by-Step Guide to Hosting Your Website on a VPS Using Caddy Server and Cloudflare
 description: |
   Learn how to host your website on a VPS using Caddy Server and Cloudflare with this step-by-step guide
-publishDate: 2024=11-11 22:39:07
+publishDate: 2024-11-11 22:39:07
 img: https://cdn.hashnode.com/res/hashnode/image/upload/v1731364644904/188b7635-5e25-4da3-97ed-b12af73c9cd3.png
 # img_alt
 tags:
@@ -19,7 +19,7 @@ In this article, we'll explore how I achieved this using my **VPS**, **Caddy ser
 
 #### Cloudflare:
 
-You might already know about _Cloudflare_, a well-known company that offers services to enhance website performance and security. I'm using Cloudflare's _reverse proxy_ service, which is nearly free. You might wonder, what is a reverse proxy? Simply put, a reverse proxy is a server that sits between my VPS and the user. It acts as a protective layer between my website and the public, helping to hide my server's IP address and prevent certain types of malware and cyberattacks.
+You might already know about _Cloudflare_, a well-known company that offers services to enhance website performance and security. I'm using Cloudflare's _reverse proxy_ service, which is nearly free. You might wonder, what is a reverse proxy? Simply put, a reverse proxy is a server that sits between my VPS and the user. It acts as a protective layer between my website and the public, helping to hide my server's IP address and prevent certain types of malware and cyber attacks.
 
 #### Caddy server:
 
