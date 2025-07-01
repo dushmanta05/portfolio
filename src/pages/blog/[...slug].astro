@@ -33,8 +33,23 @@ const { Content } = await entry.render();
     <div class='stack gap-15'>
       <header class='pb-10 border-b border-gray-800'>
         <div class='wrapper stack gap-2'>
-          <a class='back-link' href='/work/'><Icon icon='arrow-left' /> Blog</a>
-          <Hero title={entry.data.title} align='start'>
+          <a class='back-link' href='/blog/'><Icon icon='arrow-left' /> Blog</a>
+
+          {
+            entry.data.img && (
+              <img
+                src={
+                  isValidImageUrl(entry.data.img)
+                    ? entry.data.img
+                    : `/assets${entry.data.img}`
+                }
+                alt={entry.data.img_alt || ''}
+                class='featured-image'
+              />
+            )
+          }
+
+          <Hero title={entry.data.title} align='center'>
             <div class='details'>
               <div class='tags'>
                 {entry.data.tags.map((t) => <Pill>{t}</Pill>)}
@@ -44,17 +59,9 @@ const { Content } = await entry.render();
           </Hero>
         </div>
       </header>
+
       <main class='wrapper'>
         <div class='stack gap-10 content'>
-        {
-            entry.data.img && (
-                <img
-                    src={isValidImageUrl(entry.data.img) ? entry.data.img : `/assets${entry.data.img}`}
-                    alt={entry.data.img_alt || ''}
-                    class="featured-image"
-                />
-              )
-          }
           <div class='content'>
             <Content />
           </div>
