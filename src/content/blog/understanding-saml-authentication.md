@@ -1,5 +1,5 @@
 ---
-title: 'Step-by-Step Guide to Hosting Your Website on a VPS Using Caddy Server and Cloudflare'
+title: 'SAML Authentication: SP vs. IdP Flows Explained'
 description: |
   Learn about SAML authentication, its definitions, workings, and the differences between SP and IdP initiated flows in this comprehensive guide
 publishDate: 2025-03-07 12:16:00

@@ -1,5 +1,5 @@
 ---
-title: Step-by-Step Guide to Hosting Your Website on a VPS Using Caddy Server and Cloudflare
+title: Host Your Website with VPS, Caddy & Cloudflare
 description: |
   Learn how to host your website on a VPS using Caddy Server and Cloudflare with this step-by-step guide
 publishDate: 2024-11-11 22:39:07
