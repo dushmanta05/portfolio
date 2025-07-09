@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import GradientPlaceholder from './GradientPlaceholder.astro';
 
 interface Props {
   project: CollectionEntry<'blog'>;
@@ -9,46 +10,117 @@ const { data, slug } = Astro.props.project;
 ---
 
 <a class='card' href={`/blog/${slug}`}>
-  <span class='title'>{data.title}</span>
-  <img
-    src={data.img}
-    alt={data.img_alt || ''}
-    loading='lazy'
-    decoding='async'
-  />
+  <div class="card-image">
+    <GradientPlaceholder title={data.title} size="small" alt={data.img_alt || data.title} />
+  </div>
+  <div class="card-content">
+    <h3 class='title'>{data.title}</h3>
+    <p class="description">{data.description.substring(0, 100)}...</p>
+    <div class="card-meta">
+      <span class="date">{new Date(data.publishDate).toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'})}</span>
+      {data.tags && data.tags.length > 0 &&
+        <span class="tag">{data.tags[0]}</span>
+      }
+    </div>
+  </div>
 </a>
 
 <style>
+  :global(.card img[src='/fallback-image.jpg']) {
+    object-fit: cover;
+    background-color: var(--gray-800);
+  }
+
   .card {
-    @apply grid grid-rows-[auto_1fr] grid-cols-[auto_1fr] h-[11rem] rounded-xl overflow-hidden no-underline font-medium text-lg;
-    background: var(--gradient-subtle);
+    @apply flex flex-col rounded-lg overflow-hidden no-underline relative;
+    background: var(--gray-100);
     border: 1px solid var(--gray-800);
     box-shadow: var(--shadow-sm);
-    font-family: var(--font-brand);
-    transition: box-shadow var(--theme-transition);
+    height: 100%;
+    transition: all 0.3s ease;
   }
 
   .card:hover {
     @apply shadow-md;
+    transform: translateY(-5px);
+  }
+
+  .card-image {
+    @apply w-full h-48 overflow-hidden relative;
+  }
+
+  .card-image :global(.gradient-placeholder) {
+    @apply w-full h-full transition-transform duration-500;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .card:hover .card-image :global(.gradient-placeholder) {
+    transform: scale(1.03);
+  }
+
+  .card-content {
+    @apply p-5 flex flex-col flex-grow;
+    background: var(--gradient-subtle);
   }
 
   .title {
-    @apply rounded-[0.375rem] z-[1] m-2 py-2 px-4 text-gray-200 bg-gray-999;
-    grid-area: 1 / 1 / 2 / 2;
+    @apply text-lg font-bold mb-2;
+    color: var(--gray-0);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
-  img {
-    @apply w-full h-full object-cover;
-    grid-area: 1 / 1 / 3 / 3;
+  .description {
+    @apply text-sm mb-3 flex-grow;
+    color: var(--gray-300);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
-  @media (min-width: 50em) {
-    .card {
-      @apply rounded-3xl h-[22em];
+  .card-meta {
+    @apply flex justify-between items-center text-xs mt-2 pt-2;
+    border-top: 1px solid var(--gray-800);
+    color: var(--gray-400);
+  }
+
+  .date, .tag {
+    @apply inline-block;
+  }
+
+  .tag {
+    @apply px-2 py-1 rounded-sm;
+    background-color: var(--accent-regular);
+    color: white;
+  }
+
+  /* Mobile */
+  @media (max-width: 40em) {
+    .card-image {
+      @apply h-44;
+    }
+  }
+
+  /* Tablet and Desktop */
+  @media (min-width: 40em) {
+    .card-image {
+      @apply h-52 relative;
+      min-height: 200px;
     }
 
     .title {
-      @apply rounded-[0.9375rem];
+      @apply text-xl mb-3;
+    }
+
+    .description {
+      @apply text-base;
     }
   }
 </style>

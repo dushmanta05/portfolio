@@ -2,11 +2,11 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
-
 import ContactCTA from '../../components/ContactCTA.astro';
 import Hero from '../../components/Hero.astro';
 import Icon from '../../components/Icon.astro';
 import Pill from '../../components/Pill.astro';
+import GradientPlaceholder from '../../components/GradientPlaceholder.astro';
 
 interface Props {
   entry: CollectionEntry<'blog'>;
@@ -35,19 +35,15 @@ const { Content } = await entry.render();
         <div class='wrapper stack gap-2'>
           <a class='back-link' href='/blog/'><Icon icon='arrow-left' /> Blog</a>
 
-          {
-            entry.data.img && (
-              <img
-                src={
-                  isValidImageUrl(entry.data.img)
-                    ? entry.data.img
-                    : `/assets${entry.data.img}`
-                }
-                alt={entry.data.img_alt || ''}
-                class='featured-image'
+          <div class="featured-image-container">
+            <div class="gradient-wrapper">
+              <GradientPlaceholder
+                title={entry.data.title}
+                size="large"
+                alt={entry.data.img_alt || entry.data.title}
               />
-            )
-          }
+            </div>
+          </div>
 
           <Hero title={entry.data.title} align='center'>
             <div class='details'>
@@ -135,7 +131,7 @@ const { Content } = await entry.render();
   .content :global(li) {
     color: var(--text-list);
     margin: 1rem 0;
-    display: list-item; 
+    display: list-item;
   }
 
   .content :global(ul > li::marker),
@@ -196,13 +192,28 @@ const { Content } = await entry.render();
     align-items: center;
   }
 
-  .featured-image {
+  .featured-image-container {
     width: 100%;
-    height: auto;
-    max-height: 600px;
-    object-fit: contain;
-    border-radius: 1.5rem;
+    max-width: 900px;
     margin: 2rem auto;
+  }
+
+  .gradient-wrapper {
+    width: 100%;
+    height: 400px;
+    position: relative;
+    border-radius: 1.5rem;
+    overflow: hidden;
+  }
+
+  .featured-image-container :global(.gradient-placeholder) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 1.5rem;
+    margin: 0 auto;
   }
 
   .tags {
