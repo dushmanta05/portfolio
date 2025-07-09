@@ -1,0 +1,76 @@
+---
+interface Props {
+  title: string;
+  size?: 'small' | 'medium' | 'large';
+  alt?: string;
+}
+
+const { title, size = 'medium', alt = 'Gradient placeholder' } = Astro.props;
+
+const letter = title.charAt(0).toUpperCase();
+
+function getHSLFromLetter(letter: string) {
+  const charCode = letter.charCodeAt(0);
+  const hue = (charCode * 15) % 360;
+  return `hsl(${hue}, 80%, 60%)`;
+}
+
+function getDarkerShade(color: string) {
+  const hsl = color.match(/hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)/);
+  if (!hsl) return 'hsl(0, 0%, 20%)';
+
+  const h = hsl[1];
+  const s = hsl[2];
+  const l = Math.max(20, Number.parseInt(hsl[3]) - 30);
+
+  return `hsl(${h}, ${s}%, ${l}%)`;
+}
+
+const mainColor = getHSLFromLetter(letter);
+const secondColor = getDarkerShade(mainColor);
+
+const sizeMap = {
+  small: {
+    fontSize: '3rem'
+  },
+  medium: {
+    fontSize: '4rem'
+  },
+  large: {
+    fontSize: '5rem'
+  }
+};
+
+const dimensions = sizeMap[size];
+---
+
+<div
+  class="gradient-placeholder"
+  style={`
+    background: linear-gradient(135deg, ${mainColor} 0%, ${secondColor} 100%);
+  `}
+  role="img"
+  aria-label={alt}
+>
+  <span style={`font-size: ${dimensions.fontSize};`}>{letter}</span>
+</div>
+
+<style>
+  .gradient-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border-radius: 0.75rem; */
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    min-height: 180px;
+  }
+
+  .gradient-placeholder span {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    font-family: var(--font-brand);
+  }
+</style>
