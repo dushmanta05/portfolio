@@ -57,32 +57,31 @@ const ogImage = `${siteUrl}/og-image.png`;
     </div>
 
     <main class='wrapper stack gap-20 lg:gap-48'>
-      <section class='section with-background with-cta'>
-        <header class='section-header stack gap-2 lg:gap-4'>
-          <h3>Personal Projects</h3>
-          <p>
-            Take a look some highlighted personal projects, showcasing my skills
-            and passion for development.
-          </p>
-        </header>
-
-        <div class='gallery'>
-          <Grid variant='offset'>
-            {
-              projects.map((project) => (
-                <li>
-                  <PortfolioPreview project={project} />
-                </li>
-              ))
-            }
-          </Grid>
+      <section class='project-section'>
+        <div class='project-section-header'>
+          <div class='header-content'>
+            <h3>Personal Projects</h3>
+            <p>
+              Take a look some highlighted personal projects, showcasing my skills
+              and passion for development.
+            </p>
+          </div>
+          <div class='project-cta'>
+            <a href='/work/' class="view-all-link">
+              View All
+              <Icon icon='arrow-right' size='1.2em' />
+            </a>
+          </div>
         </div>
 
-        <div class='cta'>
-          <CallToAction href='/work/'>
-            View All
-            <Icon icon='arrow-right' size='1.2em' />
-          </CallToAction>
+        <div class='project-gallery'>
+          {
+            projects.map((project) => (
+              <div class='project-card-container'>
+                <PortfolioPreview project={project} />
+              </div>
+            ))
+          }
         </div>
       </section>
 
@@ -111,31 +110,30 @@ const ogImage = `${siteUrl}/og-image.png`;
         </div>
       </section>
 
-      <section class='section with-background with-cta'>
-        <header class='section-header stack gap-2 lg:gap-4'>
-          <h3>Tech Blog</h3>
-          <p>
-          Discover insights, learning, and experiences through my blogs, showcasing my skills and passion for development.
-          </p>
-        </header>
-
-        <div class='gallery'>
-          <Grid variant='offset'>
-            {
-              blogs.map((blog) => (
-                <li>
-                  <BlogPreview project={blog}/>
-                </li>
-              ))
-            }
-          </Grid>
+      <section class='blog-section'>
+        <div class='blog-section-header'>
+          <div class='header-content'>
+            <h3>Tech Blog</h3>
+            <p>
+              Discover insights, learning, and experiences through my blogs, showcasing my skills and passion for development.
+            </p>
+          </div>
+          <div class='blog-cta'>
+            <a href='/blog/' class="view-all-link">
+              View All
+              <Icon icon='arrow-right' size='1.2em' />
+            </a>
+          </div>
         </div>
 
-        <div class='cta'>
-          <CallToAction href='/work/'>
-            View All
-            <Icon icon='arrow-right' size='1.2em' />
-          </CallToAction>
+        <div class='blog-gallery'>
+          {
+            blogs.slice(0, 3).map((blog) => (
+              <div class='blog-card-container'>
+                <BlogPreview project={blog}/>
+              </div>
+            ))
+          }
         </div>
       </section>
     </main>
@@ -256,6 +254,147 @@ const ogImage = `${siteUrl}/og-image.png`;
   @media (min-width: 50em) {
     .mention-card {
       @apply h-[9.5rem] rounded-3xl;
+    }
+  }
+
+  /* Blog Section Styles */
+  .blog-section {
+    @apply py-16 px-4 my-12 rounded-xl;
+    background: var(--gray-999_40);
+    border: 1px solid var(--gray-800);
+  }
+
+  .blog-section-header {
+    @apply flex flex-row items-center justify-between gap-4 mb-12;
+  }
+
+  .header-content h3 {
+    @apply text-2xl font-bold mb-2;
+    color: var(--gray-0);
+  }
+
+  .header-content p {
+    @apply text-base max-w-[50ch];
+    color: var(--gray-300);
+  }
+
+  .blog-gallery {
+    @apply grid gap-6 grid-cols-1;
+  }
+
+  .blog-card-container {
+    @apply w-full;
+  }
+
+  .blog-cta {
+    @apply w-auto flex justify-end;
+  }
+
+  .view-all-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--text-sm);
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.5rem;
+    background: var(--gradient-accent-cta);
+    color: var(--accent-text-over);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .view-all-link:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* Tablet view */
+  @media (min-width: 40em) and (max-width: 64em) {
+    .blog-section {
+      @apply px-6 rounded-xl;
+    }
+
+    .blog-gallery {
+      @apply grid-cols-2 gap-6;
+    }
+  }
+
+  /* Desktop view */
+  @media (min-width: 64em) {
+    .blog-section {
+      @apply px-8 rounded-xl;
+    }
+
+    .blog-section-header {
+      @apply justify-between items-center;
+    }
+
+    .blog-gallery {
+      @apply grid-cols-3 gap-8;
+    }
+
+    .view-all-link {
+      font-size: var(--text-md);
+      padding: 0.5rem 1rem;
+    }
+  }
+
+  /* Project Section Styles */
+  .project-section {
+    @apply py-16 px-4 my-12 rounded-xl;
+    background: var(--gray-999_40);
+    border: 1px solid var(--gray-800);
+  }
+
+  .project-section-header {
+    @apply flex flex-row items-center justify-between gap-4 mb-12;
+  }
+
+  .project-section .header-content h3 {
+    @apply text-2xl font-bold mb-2;
+    color: var(--gray-0);
+  }
+
+  .project-section .header-content p {
+    @apply text-base max-w-[50ch];
+    color: var(--gray-300);
+  }
+
+  .project-gallery {
+    @apply grid gap-8 grid-cols-1;
+  }
+
+  .project-card-container {
+    @apply w-full;
+  }
+
+  .project-cta {
+    @apply w-auto flex justify-end;
+  }
+
+  /* Tablet view */
+  @media (min-width: 40em) and (max-width: 64em) {
+    .project-section {
+      @apply px-6 rounded-xl;
+    }
+
+    .project-gallery {
+      @apply grid-cols-1 gap-8;
+    }
+  }
+
+  /* Desktop view */
+  @media (min-width: 64em) {
+    .project-section {
+      @apply px-8 rounded-xl;
+    }
+
+    .project-section-header {
+      @apply justify-between items-center;
+    }
+
+    .project-gallery {
+      @apply grid-cols-2 gap-8;
     }
   }
 </style>
