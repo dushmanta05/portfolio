@@ -2,8 +2,6 @@
 import { getCollection } from 'astro:content';
 
 import BaseLayout from '../layouts/BaseLayout.astro';
-
-import CallToAction from '../components/CallToAction.astro';
 import Grid from '../components/Grid.astro';
 import Hero from '../components/Hero.astro';
 import Icon from '../components/Icon.astro';
@@ -34,25 +32,25 @@ const ogImage = `${siteUrl}/og-image.png`;
     <div class='wrapper stack gap-8 lg:gap-20'>
       <header class='hero'>
         <Hero
-          title='Hi, my name is Dushmanta'
-          tagline='I am a Full-Stack Developer with a focus on backend development and a passion for building efficient digital solutions.'
+          title='I build fast, efficient, and scalable digital experiences.'
+          tagline='Backend-focused. Detail-obsessed. Open to bold ideas.'
           align='start'
         >
-          <div class='roles'>
-            <Pill><Icon icon='code' size='1.33em' /> Developer</Pill>
-            <Pill><Icon icon='laptop' size='1.33em' /> Freelancer</Pill>
-            <Pill><Icon icon='pencil-line' size='1.33em' />Tech Blogger</Pill>
+          <div class='stack gap-3 mt-4'>
+            <div class='roles'>
+              <Pill><Icon icon='code' size='1.33em' /> Developer</Pill>
+              <Pill><Icon icon='laptop' size='1.33em' /> Freelancer</Pill>
+              <Pill><Icon icon='pencil-line' size='1.33em' /> Tech Blogger</Pill>
+            </div>
+
+            <p class='now-line'>
+              <small class='text-muted'>
+                Currently building a real-time event-streaming backend for a fintech product.
+              </small>
+            </p>
           </div>
         </Hero>
-
-        <img
-          alt='Dushmanta smiling.'
-          width='480'
-          height='620'
-          src='/assets/portrait.jpg'
-        />
       </header>
-
       <Skills />
     </div>
 
@@ -62,12 +60,12 @@ const ogImage = `${siteUrl}/og-image.png`;
           <div class='header-content'>
             <h3>Personal Projects</h3>
             <p>
-              Take a look some highlighted personal projects, showcasing my skills
-              and passion for development.
+              Take a look some highlighted personal projects, showcasing my skills and passion for
+              development.
             </p>
           </div>
           <div class='project-cta'>
-            <a href='/work/' class="view-all-link">
+            <a href='/work/' class='view-all-link'>
               View All
               <Icon icon='arrow-right' size='1.2em' />
             </a>
@@ -89,22 +87,19 @@ const ogImage = `${siteUrl}/og-image.png`;
         <header class='section-header stack gap-2 lg:gap-4'>
           <h3>Skills & Expertise</h3>
           <p>
-            I specialize in frontend and backend technologies. Below, you can
-            explore my key skills and the tools I use to build efficient and
-            scalable solutions.
+            I specialize in frontend and backend technologies. Below, you can explore my key skills
+            and the tools I use to build efficient and scalable solutions.
           </p>
         </header>
 
         <div class='gallery'>
           <Grid variant='small'>
             {
-              ['JavaScript', 'Node.js', 'MongoDB', 'Express.js.', 'React'].map(
-                (brand) => (
-                  <li class='mention-card'>
-                    <p>{brand}</p>
-                  </li>
-                )
-              )
+              ['JavaScript', 'Node.js', 'MongoDB', 'Express.js.', 'React'].map((brand) => (
+                <li class='mention-card'>
+                  <p>{brand}</p>
+                </li>
+              ))
             }
           </Grid>
         </div>
@@ -115,11 +110,12 @@ const ogImage = `${siteUrl}/og-image.png`;
           <div class='header-content'>
             <h3>Tech Blog</h3>
             <p>
-              Discover insights, learning, and experiences through my blogs, showcasing my skills and passion for development.
+              Discover insights, learning, and experiences through my blogs, showcasing my skills
+              and passion for development.
             </p>
           </div>
           <div class='blog-cta'>
-            <a href='/blog/' class="view-all-link">
+            <a href='/blog/' class='view-all-link'>
               View All
               <Icon icon='arrow-right' size='1.2em' />
             </a>
@@ -130,7 +126,7 @@ const ogImage = `${siteUrl}/og-image.png`;
           {
             blogs.slice(0, 3).map((blog) => (
               <div class='blog-card-container'>
-                <BlogPreview project={blog}/>
+                <BlogPreview project={blog} />
               </div>
             ))
           }
@@ -144,7 +140,23 @@ const ogImage = `${siteUrl}/og-image.png`;
 
 <style>
   .hero {
-    @apply flex flex-col items-center gap-8;
+    font-size: var(--text-xl);
+    text-align: start;
+    max-width: 80ch;
+    margin-inline: auto;
+  }
+
+  .title {
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    color: var(--gray-0);
+    line-height: 1.2;
+  }
+
+  .tagline {
+    font-size: var(--text-lg);
+    color: var(--gray-300);
+    font-weight: 400;
   }
 
   .roles {
@@ -157,15 +169,19 @@ const ogImage = `${siteUrl}/og-image.png`;
 
   @media (min-width: 50em) {
     .hero {
-      @apply grid grid-cols-[6fr_4fr] px-10 gap-[3.75rem];
+      font-size: var(--text-2xl);
+    }
+
+    .title {
+      font-size: var(--text-6xl);
+    }
+
+    .tagline {
+      font-size: var(--text-xl);
     }
 
     .roles {
       @apply mt-2 flex gap-2;
-    }
-
-    .hero img {
-      @apply aspect-[3/4] rounded-[4.5rem] object-cover;
     }
   }
 
