@@ -42,15 +42,11 @@ const shadows = {
 };
 
 const fontSize = {
-  sm: '0.875rem',
-  base: '1rem',
-  md: '1.125rem',
-  lg: '1.25rem',
-  xl: '1.625rem',
-  '2xl': '2.125rem',
-  '3xl': '2.625rem',
-  '4xl': '3.5rem',
-  '5xl': '4.5rem',
+  'xl-custom': '1.625rem',
+  '2xl-custom': '2.125rem',
+  '3xl-custom': '2.625rem',
+  '4xl-custom': '3.5rem',
+  '5xl-custom': '4.5rem',
 };
 
 // Dark mode

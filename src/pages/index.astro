@@ -28,23 +28,22 @@ const ogImage = `${siteUrl}/og-image.png`;
 ---
 
 <BaseLayout title={title} description={description} image={ogImage}>
-  <div class='stack gap-20 lg:gap-48'>
-    <div class='wrapper stack gap-8 lg:gap-20'>
-      <header class='hero'>
+  <div class="flex flex-col gap-20 lg:gap-[12rem]">
+    <div class="wrapper flex flex-col gap-8 lg:gap-20">
+      <header class="text-lg text-left max-w-[80ch] mx-auto">
         <Hero
-          title='I build fast, efficient, and scalable digital experiences.'
-          tagline='Backend-focused. Detail-obsessed. Open to bold ideas.'
-          align='start'
+          title="I build fast, efficient, and scalable digital experiences."
+          tagline="Backend-focused. Detail-obsessed. Open to bold ideas."
+          align="start"
         >
-          <div class='stack gap-3 mt-4'>
-            <div class='roles'>
-              <Pill><Icon icon='code' size='1.33em' /> Developer</Pill>
-              <Pill><Icon icon='laptop' size='1.33em' /> Freelancer</Pill>
-              <Pill><Icon icon='pencil-line' size='1.33em' /> Tech Blogger</Pill>
+          <div class="flex flex-col gap-3 mt-4">
+            <div class="hidden mt-2 flex gap-2">
+              <Pill><Icon icon="code" size="1.33em" /> Developer</Pill>
+              <Pill><Icon icon="laptop" size="1.33em" /> Freelancer</Pill>
+              <Pill><Icon icon="pencil-line" size="1.33em" /> Tech Blogger</Pill>
             </div>
-
-            <p class='now-line'>
-              <small class='text-muted'>
+            <p>
+              <small class="text-gray-400">
                 Currently building a real-time event-streaming backend for a fintech product.
               </small>
             </p>
@@ -54,28 +53,27 @@ const ogImage = `${siteUrl}/og-image.png`;
       <Skills />
     </div>
 
-    <main class='wrapper stack gap-20 lg:gap-48'>
-      <section class='project-section'>
-        <div class='project-section-header'>
-          <div class='header-content'>
-            <h3>Personal Projects</h3>
-            <p>
+    <main class="wrapper flex flex-col gap-20 lg:gap-[12rem]">
+      <section class="py-16 px-4 my-12 rounded-xl bg-gray-100/40 border border-gray-800">
+        <div class="flex flex-row items-center justify-between gap-4 mb-12">
+          <div>
+            <h3 class="text-2xl font-bold mb-2 text-gray-900">Personal Projects</h3>
+            <p class="text-base max-w-[50ch] text-gray-400">
               Take a look some highlighted personal projects, showcasing my skills and passion for
               development.
             </p>
           </div>
-          <div class='project-cta'>
-            <a href='/work/' class='view-all-link'>
+          <div class="flex justify-end">
+            <a href="/work/" class="flex items-center gap-2 px-2 py-1 rounded-md bg-gradient-to-r from-accent-regular to-accent-dark text-white text-sm hover:-translate-y-0.5 hover:shadow transition">
               View All
-              <Icon icon='arrow-right' size='1.2em' />
+              <Icon icon="arrow-right" size="1.2em" />
             </a>
           </div>
         </div>
-
-        <div class='project-gallery'>
+        <div class="grid gap-8 grid-cols-1 md:grid-cols-2">
           {
             projects.map((project) => (
-              <div class='project-card-container'>
+              <div>
                 <PortfolioPreview project={project} />
               </div>
             ))
@@ -83,20 +81,19 @@ const ogImage = `${siteUrl}/og-image.png`;
         </div>
       </section>
 
-      <section class='section with-background bg-variant'>
-        <header class='section-header stack gap-2 lg:gap-4'>
-          <h3>Skills & Expertise</h3>
+      <section class="grid gap-8 relative">
+        <header class="justify-self-center text-center max-w-[50ch] text-md text-gray-400 flex flex-col gap-2 lg:gap-4">
+          <h3 class="text-2xl lg:text-4xl font-bold">Skills & Expertise</h3>
           <p>
             I specialize in frontend and backend technologies. Below, you can explore my key skills
             and the tools I use to build efficient and scalable solutions.
           </p>
         </header>
-
-        <div class='gallery'>
-          <Grid variant='small'>
+        <div>
+          <Grid variant="small">
             {
               ['JavaScript', 'Node.js', 'MongoDB', 'Express.js.', 'React'].map((brand) => (
-                <li class='mention-card'>
+                <li class="flex h-28 md:h-38 items-center justify-center text-center rounded-[1.5rem] md:rounded-3xl shadow-sm border border-gray-800 text-gray-400 bg-gradient-to-br from-gray-100 to-white">
                   <p>{brand}</p>
                 </li>
               ))
@@ -105,27 +102,26 @@ const ogImage = `${siteUrl}/og-image.png`;
         </div>
       </section>
 
-      <section class='blog-section'>
-        <div class='blog-section-header'>
-          <div class='header-content'>
-            <h3>Tech Blog</h3>
-            <p>
+      <section class="py-16 px-4 my-12 rounded-xl bg-gray-100/40 border border-gray-800">
+        <div class="flex flex-row items-center justify-between gap-4 mb-12">
+          <div>
+            <h3 class="text-2xl font-bold mb-2 text-gray-900">Tech Blog</h3>
+            <p class="text-base max-w-[50ch] text-gray-400">
               Discover insights, learning, and experiences through my blogs, showcasing my skills
               and passion for development.
             </p>
           </div>
-          <div class='blog-cta'>
-            <a href='/blog/' class='view-all-link'>
+          <div class="flex justify-end">
+            <a href="/blog/" class="flex items-center gap-2 px-2 py-1 rounded-md bg-gradient-to-r from-accent-regular to-accent-dark text-white text-sm hover:-translate-y-0.5 hover:shadow transition">
               View All
-              <Icon icon='arrow-right' size='1.2em' />
+              <Icon icon="arrow-right" size="1.2em" />
             </a>
           </div>
         </div>
-
-        <div class='blog-gallery'>
+        <div class="grid gap-6 grid-cols-1 md:grid-cols-3">
           {
             blogs.slice(0, 3).map((blog) => (
-              <div class='blog-card-container'>
+              <div>
                 <BlogPreview project={blog} />
               </div>
             ))
@@ -133,28 +129,27 @@ const ogImage = `${siteUrl}/og-image.png`;
         </div>
       </section>
     </main>
-
     <ContactCTA />
   </div>
 </BaseLayout>
 
 <style>
   .hero {
-    font-size: var(--text-xl);
+    font-size: var(--text-lg);
     text-align: start;
     max-width: 80ch;
     margin-inline: auto;
   }
 
   .title {
-    font-size: var(--text-4xl);
+    font-size: var(--text-2xl);
     font-weight: 700;
     color: var(--gray-0);
     line-height: 1.2;
   }
 
   .tagline {
-    font-size: var(--text-lg);
+    @apply text-base;
     color: var(--gray-300);
     font-weight: 400;
   }
@@ -169,15 +164,15 @@ const ogImage = `${siteUrl}/og-image.png`;
 
   @media (min-width: 50em) {
     .hero {
-      font-size: var(--text-2xl);
+      font-size: var(--text-xl);
     }
 
     .title {
-      font-size: var(--text-6xl);
+      font-size: var(--text-3xl);
     }
 
     .tagline {
-      font-size: var(--text-xl);
+      font-size: var(--text-lg);
     }
 
     .roles {
@@ -240,7 +235,7 @@ const ogImage = `${siteUrl}/og-image.png`;
     }
 
     .section-header h3 {
-      font-size: var(--text-4xl);
+      @apply text-4xl-custom;
     }
 
     .with-cta .section-header {
@@ -310,7 +305,6 @@ const ogImage = `${siteUrl}/og-image.png`;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: var(--text-sm);
     padding: 0.4rem 0.8rem;
     border-radius: 0.5rem;
     background: var(--gradient-accent-cta);

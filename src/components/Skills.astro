@@ -2,39 +2,29 @@
 import Icon from './Icon.astro';
 ---
 
-<section class='box skills'>
-  <div class='stack gap-2 lg:gap-4'>
-    <Icon
-      icon='terminal-window'
-      color='var(--accent-regular)'
-      size='2.5rem'
-      gradient
-    />
+<section class="box skills">
+  <div class="stack gap-2 lg:gap-4">
+    <Icon icon="terminal-window" color="var(--accent-regular)" size="2.5rem" gradient />
     <h2>Full Stack</h2>
     <p>
-      Skilled in both frontend and backend, with a primary focus on building
-      secure, efficient, and scalable backend systems.
+      Skilled in both frontend and backend, with a primary focus on building secure, efficient, and
+      scalable backend systems.
     </p>
   </div>
-  <div class='stack gap-2 lg:gap-4'>
-    <Icon icon='puzzle' color='var(--accent-regular)' size='2.5rem' gradient />
+  <div class="stack gap-2 lg:gap-4">
+    <Icon icon="puzzle" color="var(--accent-regular)" size="2.5rem" gradient />
     <h2>Problem Solver</h2>
     <p>
-      Detail-oriented and analytical, I tackle challenges with a clear approach,
-      creating efficient and reliable solutions.
+      Detail-oriented and analytical, I tackle challenges with a clear approach, creating efficient
+      and reliable solutions.
     </p>
   </div>
-  <div class='stack gap-2 lg:gap-4'>
-    <Icon
-      icon='binoculars'
-      color='var(--accent-regular)'
-      size='2.5rem'
-      gradient
-    />
+  <div class="stack gap-2 lg:gap-4">
+    <Icon icon="binoculars" color="var(--accent-regular)" size="2.5rem" gradient />
     <h2>Tech Explorer</h2>
     <p>
-      Always on the lookout for new tools and technologies to implement
-      effective and modern solutions.
+      Always on the lookout for new tools and technologies to implement effective and modern
+      solutions.
     </p>
   </div>
 </section>
@@ -55,7 +45,7 @@ import Icon from './Icon.astro';
   }
 
   .skills h2 {
-    font-size: var(--text-lg);
+    @apply text-xl-custom;
   }
 
   .skills p {
@@ -75,7 +65,7 @@ import Icon from './Icon.astro';
     }
 
     .skills h2 {
-      font-size: var(--text-2xl);
+      @apply text-2xl-custom;
     }
   }
 </style>
