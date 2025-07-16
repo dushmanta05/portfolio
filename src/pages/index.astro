@@ -28,24 +28,21 @@ const ogImage = `${siteUrl}/og-image.png`;
 ---
 
 <BaseLayout title={title} description={description} image={ogImage}>
-  <div class="flex flex-col gap-20 lg:gap-[12rem]">
-    <div class="wrapper flex flex-col gap-8 lg:gap-20">
-      <header class="text-lg text-left max-w-[80ch] mx-auto">
-        <Hero
-          title="I build fast, efficient, and scalable digital experiences."
-          tagline="Backend-focused. Detail-obsessed. Open to bold ideas."
-          align="start"
-        >
-          <div class="flex flex-col gap-3 mt-4">
-            <div class="hidden mt-2 flex gap-2">
+  <div class="flex flex-col gap-20 lg:gap-32">
+    <!-- Hero Section -->
+    <div class="wrapper">
+      <header class="hero-container">
+        <Hero align="center">
+          <div class="hero-content">
+            <div class="pills-container">
               <Pill><Icon icon="code" size="1.33em" /> Developer</Pill>
               <Pill><Icon icon="laptop" size="1.33em" /> Freelancer</Pill>
               <Pill><Icon icon="pencil-line" size="1.33em" /> Tech Blogger</Pill>
             </div>
-            <p>
-              <small class="text-gray-400">
+            <p class="current-work">
+              <p class="text-gray-400">
                 Currently building a real-time event-streaming backend for a fintech product.
-              </small>
+              </p>
             </p>
           </div>
         </Hero>
@@ -53,27 +50,28 @@ const ogImage = `${siteUrl}/og-image.png`;
       <Skills />
     </div>
 
-    <main class="wrapper flex flex-col gap-20 lg:gap-[12rem]">
-      <section class="py-16 px-4 my-12 rounded-xl bg-gray-100/40 border border-gray-800">
-        <div class="flex flex-row items-center justify-between gap-4 mb-12">
-          <div>
-            <h3 class="text-2xl font-bold mb-2 text-gray-900">Personal Projects</h3>
-            <p class="text-base max-w-[50ch] text-gray-400">
-              Take a look some highlighted personal projects, showcasing my skills and passion for
-              development.
+    <main class="wrapper flex flex-col gap-20 lg:gap-32">
+      <!-- Projects Section -->
+      <section class="content-section">
+        <div class="section-header">
+          <div class="header-content">
+            <h3 class="section-title">Personal Projects</h3>
+            <p class="section-description">
+              Take a look at some highlighted personal projects, showcasing my skills and passion
+              for development.
             </p>
           </div>
-          <div class="flex justify-end">
-            <a href="/work/" class="flex items-center gap-2 px-2 py-1 rounded-md bg-gradient-to-r from-accent-regular to-accent-dark text-white text-sm hover:-translate-y-0.5 hover:shadow transition">
+          <div class="section-cta">
+            <a href="/work/" class="cta-button">
               View All
               <Icon icon="arrow-right" size="1.2em" />
             </a>
           </div>
         </div>
-        <div class="grid gap-8 grid-cols-1 md:grid-cols-2">
+        <div class="projects-grid">
           {
             projects.map((project) => (
-              <div>
+              <div class="project-card">
                 <PortfolioPreview project={project} />
               </div>
             ))
@@ -81,47 +79,51 @@ const ogImage = `${siteUrl}/og-image.png`;
         </div>
       </section>
 
-      <section class="grid gap-8 relative">
-        <header class="justify-self-center text-center max-w-[50ch] text-md text-gray-400 flex flex-col gap-2 lg:gap-4">
-          <h3 class="text-2xl lg:text-4xl font-bold">Skills & Expertise</h3>
-          <p>
+      <!-- Skills Section -->
+      <section class="skills-section">
+        <header class="skills-header">
+          <h3 class="skills-title">Skills & Expertise</h3>
+          <p class="skills-description">
             I specialize in frontend and backend technologies. Below, you can explore my key skills
             and the tools I use to build efficient and scalable solutions.
           </p>
         </header>
-        <div>
+        <div class="skills-grid">
           <Grid variant="small">
             {
-              ['JavaScript', 'Node.js', 'MongoDB', 'Express.js.', 'React'].map((brand) => (
-                <li class="flex h-28 md:h-38 items-center justify-center text-center rounded-[1.5rem] md:rounded-3xl shadow-sm border border-gray-800 text-gray-400 bg-gradient-to-br from-gray-100 to-white">
-                  <p>{brand}</p>
-                </li>
-              ))
+              ['JavaScript', 'Node.js', 'MongoDB', 'Express.js', 'React', 'TypeScript'].map(
+                (brand) => (
+                  <li class="skill-item">
+                    <p class="skill-name">{brand}</p>
+                  </li>
+                )
+              )
             }
           </Grid>
         </div>
       </section>
 
-      <section class="py-16 px-4 my-12 rounded-xl bg-gray-100/40 border border-gray-800">
-        <div class="flex flex-row items-center justify-between gap-4 mb-12">
-          <div>
-            <h3 class="text-2xl font-bold mb-2 text-gray-900">Tech Blog</h3>
-            <p class="text-base max-w-[50ch] text-gray-400">
+      <!-- Blog Section -->
+      <section class="content-section">
+        <div class="section-header">
+          <div class="header-content">
+            <h3 class="section-title">Tech Blog</h3>
+            <p class="section-description">
               Discover insights, learning, and experiences through my blogs, showcasing my skills
               and passion for development.
             </p>
           </div>
-          <div class="flex justify-end">
-            <a href="/blog/" class="flex items-center gap-2 px-2 py-1 rounded-md bg-gradient-to-r from-accent-regular to-accent-dark text-white text-sm hover:-translate-y-0.5 hover:shadow transition">
+          <div class="section-cta">
+            <a href="/blog/" class="cta-button">
               View All
               <Icon icon="arrow-right" size="1.2em" />
             </a>
           </div>
         </div>
-        <div class="grid gap-6 grid-cols-1 md:grid-cols-3">
+        <div class="blogs-grid">
           {
             blogs.slice(0, 3).map((blog) => (
-              <div>
+              <div class="blog-card">
                 <BlogPreview project={blog} />
               </div>
             ))
@@ -134,277 +136,268 @@ const ogImage = `${siteUrl}/og-image.png`;
 </BaseLayout>
 
 <style>
-  .hero {
-    font-size: var(--text-lg);
-    text-align: start;
+  /* Hero Section Styles */
+  .hero-container {
+    text-align: center;
     max-width: 80ch;
-    margin-inline: auto;
+    margin: 0 auto;
+    padding: 2rem 0;
   }
 
-  .title {
-    font-size: var(--text-2xl);
-    font-weight: 700;
-    color: var(--gray-0);
-    line-height: 1.2;
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
   }
 
-  .tagline {
-    @apply text-base;
-    color: var(--gray-300);
-    font-weight: 400;
+  .pills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 1rem;
   }
 
-  .roles {
-    @apply hidden;
+  .current-work {
+    text-align: center;
+    margin-top: 0.5rem;
   }
 
-  .hero img {
-    @apply aspect-[5/4] object-cover object-top rounded-[1.5rem] shadow-md;
-  }
-
-  @media (min-width: 50em) {
-    .hero {
-      font-size: var(--text-xl);
-    }
-
-    .title {
-      font-size: var(--text-3xl);
-    }
-
-    .tagline {
-      font-size: var(--text-lg);
-    }
-
-    .roles {
-      @apply mt-2 flex gap-2;
-    }
-  }
-
-  .section {
-    @apply grid gap-8;
-  }
-
-  .with-background {
-    @apply relative;
-  }
-
-  .with-background::before {
-    @apply absolute left-1/2 top-0 w-[100vw] z-[-1];
-    --hero-bg: var(--bg-image-subtle-2);
-
-    content: '';
-    pointer-events: none;
-    aspect-ratio: calc(2.25 / var(--bg-scale));
-    top: 0;
-    transform: translateY(-75%) translateX(-50%);
-    background:
-      var(--hero-bg) center center / var(--bg-gradient-size) no-repeat,
-      var(--gray-999);
-    background-blend-mode: overlay, normal, normal, normal;
-    mix-blend-mode: var(--bg-blend-mode);
-  }
-
-  .with-background.bg-variant::before {
-    --hero-bg: var(--bg-image-subtle-1);
-  }
-
-  .section-header {
-    @apply justify-self-center text-center max-w-[50ch];
-    font-size: var(--text-md);
-    color: var(--gray-300);
-  }
-
-  .section-header h3 {
-    font-size: var(--text-2xl);
-  }
-
-  @media (min-width: 50em) {
-    .section {
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-areas: 'header header header header' 'gallery gallery gallery gallery';
-      gap: 5rem;
-    }
-
-    .section.with-cta {
-      grid-template-areas: 'header header header cta' 'gallery gallery gallery gallery';
-    }
-
-    .section-header {
-      grid-area: header;
-      font-size: var(--text-lg);
-    }
-
-    .section-header h3 {
-      @apply text-4xl-custom;
-    }
-
-    .with-cta .section-header {
-      justify-self: flex-start;
+  /* Mobile-first: start alignment */
+  @media (max-width: 1024px) {
+    .hero-container {
       text-align: left;
     }
 
-    .gallery {
-      grid-area: gallery;
+    .pills-container {
+      justify-content: flex-start;
     }
 
-    .cta {
-      grid-area: cta;
+    .current-work {
+      text-align: left;
     }
   }
 
-  /* ====================================================== */
-
-  .mention-card {
-    @apply flex h-[7rem] items-center justify-center text-center rounded-[1.5rem] shadow-sm;
+  /* Content Sections */
+  .content-section {
+    padding: 4rem 1rem;
+    margin: 3rem 0;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--gray-800);
-    color: var(--gray-300);
-    background: var(--gradient-subtle);
-    box-shadow: var(--shadow-sm);
+    backdrop-filter: blur(10px);
   }
 
-  @media (min-width: 50em) {
-    .mention-card {
-      @apply h-[9.5rem] rounded-3xl;
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-header {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
     }
-  }
-
-  /* Blog Section Styles */
-  .blog-section {
-    @apply py-16 px-4 my-12 rounded-xl;
-    background: var(--gray-999_40);
-    border: 1px solid var(--gray-800);
-  }
-
-  .blog-section-header {
-    @apply flex flex-row items-center justify-between gap-4 mb-12;
   }
 
   .header-content h3 {
-    @apply text-2xl font-bold mb-2;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
     color: var(--gray-0);
   }
 
   .header-content p {
-    @apply text-base max-w-[50ch];
+    font-size: 1rem;
+    max-width: 50ch;
     color: var(--gray-300);
   }
 
-  .blog-gallery {
-    @apply grid gap-6 grid-cols-1;
+  .section-cta {
+    display: flex;
+    justify-content: flex-start;
   }
 
-  .blog-card-container {
-    @apply w-full;
+  @media (min-width: 768px) {
+    .section-cta {
+      justify-content: flex-end;
+    }
   }
 
-  .blog-cta {
-    @apply w-auto flex justify-end;
-  }
-
-  .view-all-link {
+  .cta-button {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.4rem 0.8rem;
+    padding: 0.75rem 1.5rem;
     border-radius: 0.5rem;
-    background: var(--gradient-accent-cta);
-    color: var(--accent-text-over);
+    background: linear-gradient(135deg, var(--accent-regular), var(--accent-dark));
+    color: white;
     text-decoration: none;
-    transition: all 0.2s ease;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
-  .view-all-link:hover {
+  .cta-button:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   }
 
-  /* Tablet view */
-  @media (min-width: 40em) and (max-width: 64em) {
-    .blog-section {
-      @apply px-6 rounded-xl;
-    }
-
-    .blog-gallery {
-      @apply grid-cols-2 gap-6;
-    }
+  /* Projects Grid */
+  .projects-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
   }
 
-  /* Desktop view */
-  @media (min-width: 64em) {
-    .blog-section {
-      @apply px-8 rounded-xl;
-    }
-
-    .blog-section-header {
-      @apply justify-between items-center;
-    }
-
-    .blog-gallery {
-      @apply grid-cols-3 gap-8;
-    }
-
-    .view-all-link {
-      font-size: var(--text-md);
-      padding: 0.5rem 1rem;
+  @media (min-width: 768px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 
-  /* Project Section Styles */
-  .project-section {
-    @apply py-16 px-4 my-12 rounded-xl;
-    background: var(--gray-999_40);
-    border: 1px solid var(--gray-800);
+  .project-card {
+    transition: transform 0.3s ease;
   }
 
-  .project-section-header {
-    @apply flex flex-row items-center justify-between gap-4 mb-12;
+  .project-card:hover {
+    transform: translateY(-4px);
   }
 
-  .project-section .header-content h3 {
-    @apply text-2xl font-bold mb-2;
+  /* Skills Section */
+  .skills-section {
+    display: grid;
+    gap: 2rem;
+    position: relative;
+  }
+
+  .skills-header {
+    text-align: center;
+    max-width: 50ch;
+    margin: 0 auto;
+    color: var(--gray-400);
+  }
+
+  .skills-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
     color: var(--gray-0);
   }
 
-  .project-section .header-content p {
-    @apply text-base max-w-[50ch];
-    color: var(--gray-300);
-  }
-
-  .project-gallery {
-    @apply grid gap-8 grid-cols-1;
-  }
-
-  .project-card-container {
-    @apply w-full;
-  }
-
-  .project-cta {
-    @apply w-auto flex justify-end;
-  }
-
-  /* Tablet view */
-  @media (min-width: 40em) and (max-width: 64em) {
-    .project-section {
-      @apply px-6 rounded-xl;
-    }
-
-    .project-gallery {
-      @apply grid-cols-1 gap-8;
+  @media (min-width: 1024px) {
+    .skills-title {
+      font-size: 2.25rem;
     }
   }
 
-  /* Desktop view */
-  @media (min-width: 64em) {
-    .project-section {
-      @apply px-8 rounded-xl;
-    }
+  .skills-description {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
 
-    .project-section-header {
-      @apply justify-between items-center;
-    }
+  .skills-grid {
+    margin-top: 2rem;
+  }
 
-    .project-gallery {
-      @apply grid-cols-2 gap-8;
+  .skill-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 7rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--gray-800);
+    color: var(--gray-400);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+
+  .skill-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    color: var(--gray-200);
+  }
+
+  @media (min-width: 768px) {
+    .skill-item {
+      height: 9.5rem;
+      border-radius: 1.875rem;
+    }
+  }
+
+  .skill-name {
+    font-weight: 500;
+    font-size: 0.875rem;
+  }
+
+  @media (min-width: 768px) {
+    .skill-name {
+      font-size: 1rem;
+    }
+  }
+
+  /* Blog Grid */
+  .blogs-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .blogs-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .blogs-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  .blog-card {
+    transition: transform 0.3s ease;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-4px);
+  }
+
+  /* Enhanced animations */
+  .content-section {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Improved spacing */
+  .wrapper {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .wrapper {
+      padding: 0 2rem;
     }
   }
 </style>
