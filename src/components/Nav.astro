@@ -3,7 +3,6 @@ import Icon from './Icon.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import type { iconPaths } from './IconPaths';
 
-/** Main menu items */
 const textLinks: { label: string; href: string }[] = [
   { label: 'Home', href: '/' },
   { label: 'Work', href: '/work/' },
@@ -11,125 +10,145 @@ const textLinks: { label: string; href: string }[] = [
   { label: 'Blog', href: '/blog' },
 ];
 
-/** Icon links to social media — edit these with links to your profiles! */
 const iconLinks: {
   label: string;
   href: string;
   icon: keyof typeof iconPaths;
 }[] = [
   {
-    label: 'Twitter',
-    href: 'https://twitter.com/dushmanta05',
-    icon: 'twitter-logo',
-  },
-  {
     label: 'GitHub',
     href: 'https://github.com/dushmanta05',
-    icon: 'github-logo',
+    icon: 'github',
   },
   {
     label: 'LinkedIn',
     href: 'https://www.linkedin.com/in/dushmanta05/',
-    icon: 'linkedin-logo',
+    icon: 'linkedin',
+  },
+  {
+    label: 'Twitter',
+    href: 'https://twitter.com/dushmanta05',
+    icon: 'xLogo',
   },
 ];
 ---
 
-<nav class='wrapper stack gap-8 lg:gap-20'>
-  <div class='menu-header'>
-    <a href='/' class='site-title'>
-      <Icon
-        icon='terminal-window'
-        color='var(--accent-regular)'
-        size='1.6em'
-        gradient
-      />
-      Dushmanta
-    </a>
+<nav class='navbar'>
+  <div class='max-w-7xl flex items-center justify-between h-16 mx-auto px-4 sm:px-6 lg:px-8'>
+    <div class='flex-shrink-0'>
+      <a href='/' class='brand-title'>
+        <Icon icon='terminal' color=' var(--accent-regular)' size='1.6em' gradient />
+        Dushmanta
+      </a>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <div class='hidden md:flex flex-1 items-center justify-between'>
+      <div class='flex-1 flex justify-center'>
+        <ul class='flex items-center gap-1 list-none m-0 p-0'>
+          {
+            textLinks.map(({ label, href }) => (
+              <li>
+                <a
+                  aria-current={Astro.url.pathname === href}
+                  class:list={[
+                    'nav-link',
+                    {
+                      active:
+                        Astro.url.pathname === href ||
+                        (href !== '/' && Astro.url.pathname.startsWith(href)),
+                    },
+                  ]}
+                  href={href}
+                >
+                  {label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class='flex items-center gap-4'>
+        <div class='flex items-center gap-2'>
+          {
+            iconLinks.map(({ href, icon, label }) => (
+              <a href={href} class='social-link'>
+                <span class='sr-only'>{label}</span>
+                <Icon icon={icon} />
+              </a>
+            ))
+          }
+        </div>
+        <ThemeToggle />
+      </div>
+    </div>
+
+    <!-- Mobile Menu Button -->
     <menu-button>
       <template>
-        <button class='menu-button' aria-expanded='false'>
+        <button class='menu-toggle' aria-expanded='false'>
           <span class='sr-only'>Menu</span>
-          <Icon icon='list' />
+          <div class='hamburger'>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </button>
       </template>
     </menu-button>
   </div>
-  <noscript>
-    <ul class='nav-items'>
-      {
-        textLinks.map(({ label, href }) => (
-          <li>
-            <a
-              aria-current={Astro.url.pathname === href}
-              class:list={[
-                'link',
-                {
-                  active:
-                    Astro.url.pathname === href ||
-                    (href !== '/' && Astro.url.pathname.startsWith(href)),
-                },
-              ]}
-              href={href}
-            >
-              {label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </noscript>
-  <noscript>
-    <div class='menu-footer'>
-      <div class='socials'>
-        {
-          iconLinks.map(({ href, icon, label }) => (
-            <a href={href} class='social'>
-              <span class='sr-only'>{label}</span>
-              <Icon icon={icon} />
-            </a>
-          ))
-        }
-      </div>
-    </div>
-  </noscript>
-  <div id='menu-content' hidden>
-    <ul class='nav-items'>
-      {
-        textLinks.map(({ label, href }) => (
-          <li>
-            <a
-              aria-current={Astro.url.pathname === href}
-              class:list={[
-                'link',
-                {
-                  active:
-                    Astro.url.pathname === href ||
-                    (href !== '/' && Astro.url.pathname.startsWith(href)),
-                },
-              ]}
-              href={href}
-            >
-              {label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-    <div class='menu-footer'>
-      <div class='socials'>
-        {
-          iconLinks.map(({ href, icon, label }) => (
-            <a href={href} class='social'>
-              <span class='sr-only'>{label}</span>
-              <Icon icon={icon} />
-            </a>
-          ))
-        }
-      </div>
 
-      <div class='theme-toggle'>
-        <ThemeToggle />
+  <!-- Mobile Menu Overlay -->
+  <div id='mobile-menu' class='mobile-menu bg-white dark:bg-black/95' hidden>
+    <div class='mobile-menu-header'>
+      <a href='/' class='brand-title'>
+        <Icon icon='terminal' color='var(--accent-regular)' size='1.6em' gradient />
+        Dushmanta
+      </a>
+      <button class='close-menu' aria-label='Close menu'>
+        <Icon icon='close' size='1.5em' />
+      </button>
+    </div>
+
+    <div class='mobile-menu-content'>
+      <ul class='mobile-nav-items'>
+        {
+          textLinks.map(({ label, href }) => (
+            <li>
+              <a
+                aria-current={Astro.url.pathname === href}
+                class:list={[
+                  'mobile-nav-link',
+                  {
+                    active:
+                      Astro.url.pathname === href ||
+                      (href !== '/' && Astro.url.pathname.startsWith(href)),
+                  },
+                ]}
+                href={href}
+              >
+                {label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class='mobile-menu-footer'>
+        <div class='mobile-socials'>
+          {
+            iconLinks.map(({ href, icon, label }) => (
+              <a href={href} class='mobile-social-link'>
+                <span class='sr-only'>{label}</span>
+                <Icon icon={icon} />
+              </a>
+            ))
+          }
+        </div>
+        <div class='mobile-theme-toggle'>
+          <ThemeToggle />
+        </div>
       </div>
     </div>
   </div>
@@ -140,31 +159,48 @@ const iconLinks: {
     constructor() {
       super();
 
-      // Inject menu toggle button when JS runs.
       this.appendChild(this.querySelector('template')!.content.cloneNode(true));
       const btn = this.querySelector('button')!;
+      const menu = document.getElementById('mobile-menu')!;
+      const closeBtn = menu.querySelector('.close-menu')!;
+      const body = document.body;
 
-      // Hide menu (shown by default to support no-JS browsers).
-      const menu = document.getElementById('menu-content')!;
       menu.hidden = true;
-      // Add "menu-content" class in JS to avoid covering content in non-JS browsers.
-      menu.classList.add('menu-content');
 
-      /** Set whether the menu is currently expanded or collapsed. */
       const setExpanded = (expand: boolean) => {
         btn.setAttribute('aria-expanded', expand ? 'true' : 'false');
         menu.hidden = !expand;
+
+        btn.classList.toggle('active', expand);
+
+        if (expand) {
+          body.style.overflow = 'hidden';
+          body.style.position = 'fixed';
+          body.style.width = '100%';
+        } else {
+          body.style.overflow = '';
+          body.style.position = '';
+          body.style.width = '';
+        }
       };
 
-      // Toggle menu visibility when the menu button is clicked.
       btn.addEventListener('click', () => setExpanded(menu.hidden));
+      closeBtn.addEventListener('click', () => setExpanded(false));
+      const navLinks = menu.querySelectorAll('.mobile-nav-link');
+      navLinks.forEach((link) => {
+        link.addEventListener('click', () => setExpanded(false));
+      });
 
-      // Hide menu button for large screens.
       const handleViewports = (e: MediaQueryList | MediaQueryListEvent) => {
-        setExpanded(e.matches);
-        btn.hidden = e.matches;
+        if (e.matches) {
+          setExpanded(false);
+          btn.hidden = true;
+        } else {
+          btn.hidden = false;
+        }
       };
-      const mediaQueries = window.matchMedia('(min-width: 50em)');
+
+      const mediaQueries = window.matchMedia('(min-width: 768px)');
       handleViewports(mediaQueries);
       mediaQueries.addEventListener('change', handleViewports);
     }
@@ -173,199 +209,246 @@ const iconLinks: {
 </script>
 
 <style>
-  nav {
-    @apply z-[9999] relative mb-14 font-medium;
-    font-family: var(--font-brand);
+  .navbar {
+    @apply fixed top-0 left-0 right-0 z-[9999] font-medium backdrop-blur-[2px];
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
   }
 
-  .menu-header {
-    @apply flex justify-between gap-2 p-6;
-  }
-
-  .site-title {
-    @apply flex gap-2 items-center leading-[1.1] no-underline;
-    color: var(--gray-0);
-  }
-
-  .menu-button {
-    @apply relative flex border-0 rounded-[999rem] p-2 text-[1.5rem];
+  .nav-link {
+    @apply px-4 py-2 text-sm font-medium no-underline rounded-full;
+    @apply transition-all duration-200 ease-in-out;
     color: var(--gray-300);
-    background: radial-gradient(var(--gray-900), var(--gray-800) 150%);
-    box-shadow: var(--shadow-md);
+    position: relative;
   }
 
-  .menu-button[aria-expanded='true'] {
+  .nav-link:hover {
     color: var(--gray-0);
-    background: linear-gradient(180deg, var(--gray-600), transparent),
-      radial-gradient(var(--gray-900), var(--gray-800) 150%);
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
   }
 
-  .menu-button[hidden] {
+  .nav-link.active {
+    color: var(--accent-text-over);
+    background: var(--accent-regular);
+    box-shadow: 0 4px 12px rgba(var(--accent-regular-rgb), 0.3);
+  }
+
+  .social-link {
+    @apply p-2 rounded-full no-underline transition-all duration-200 text-customGray-300 bg-[#ffffff0d];
+  }
+
+  .social-link:hover {
+    color: var(--accent-regular);
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+  }
+
+  /* Mobile Menu Button */
+  .menu-toggle {
+    @apply md:hidden relative p-2 rounded-lg border-0 bg-transparent cursor-pointer;
+    @apply transition-all duration-200;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .menu-toggle:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .hamburger {
+    @apply w-6 h-5 relative;
+  }
+
+  .hamburger span {
+    @apply block absolute h-0.5 w-full rounded-sm transition-all duration-300;
+    background: var(--gray-0);
+    transform-origin: center;
+  }
+
+  .hamburger span:nth-child(1) {
+    top: 0;
+  }
+
+  .hamburger span:nth-child(2) {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .hamburger span:nth-child(3) {
+    bottom: 0;
+  }
+
+  .menu-toggle.active .hamburger span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .menu-toggle.active .hamburger span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-toggle.active .hamburger span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+
+  .mobile-menu {
+    @apply fixed inset-0 z-[9998] md:hidden;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    animation: fadeIn 0.3s ease-out;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .mobile-menu[hidden] {
     display: none;
   }
 
-  .menu-button::before {
-    position: absolute;
-    inset: -1px;
-    content: '';
-    background: var(--gradient-stroke);
-    border-radius: 999rem;
-    z-index: -1;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 
-  .menu-content {
-    position: absolute;
-    left: 0;
-    right: 0;
+  .mobile-menu-header {
+    @apply flex items-center justify-between p-4 border-b border-gray-800;
+    flex-shrink: 0;
   }
 
-  .nav-items {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    font-size: var(--text-md);
-    line-height: 1.2;
-    list-style: none;
-    padding: 2rem;
-    background-color: var(--gray-999);
-    border-bottom: 1px solid var(--gray-800);
-  }
-
-  .link {
-    display: inline-block;
-    color: var(--gray-300);
-    text-decoration: none;
-  }
-
-  .link.active {
+  .brand-title {
+    @apply flex items-center gap-2 text-lg font-bold no-underline;
     color: var(--gray-0);
+    transition: color 0.3s ease;
+  }
+  .brand-title:hover {
+    color: var(--accent-regular);
   }
 
-  .menu-footer {
-    --icon-size: var(--text-xl);
-    --icon-padding: 0.5rem;
-
-    display: flex;
-    justify-content: space-between;
-    gap: 0.75rem;
-    padding: 1.5rem 2rem 1.5rem 1.5rem;
-    background-color: var(--gray-999);
-    border-radius: 0 0 0.75rem 0.75rem;
-    box-shadow: var(--shadow-lg);
+  .close-menu {
+    @apply p-2 rounded-lg border-0 bg-transparent cursor-pointer;
+    @apply transition-all duration-200;
+    color: var(--gray-300);
+    background: rgba(255, 255, 255, 0.1);
   }
 
-  .socials {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.625rem;
-    font-size: var(--icon-size);
+  .close-menu:hover {
+    color: var(--gray-0);
+    background: rgba(255, 255, 255, 0.15);
   }
 
-  .social {
-    display: flex;
-    padding: var(--icon-padding);
-    text-decoration: none;
-    color: var(--accent-dark);
-    transition: color var(--theme-transition);
+  .mobile-menu-content {
+    @apply flex flex-col px-4;
+    height: calc(100vh - 80px);
+    height: calc(100dvh - 80px);
+    overflow-y: auto;
   }
 
-  .social:hover,
-  .social:focus {
+  .mobile-nav-items {
+    @apply flex-1 list-none m-0 p-0 space-y-2;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .mobile-nav-link {
+    @apply block px-6 py-4 text-lg font-medium no-underline rounded-xl;
+    @apply transition-all duration-200;
+    color: var(--gray-300);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .mobile-nav-link:hover {
+    color: var(--gray-0);
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(8px);
+  }
+
+  .mobile-nav-link.active {
     color: var(--accent-text-over);
+    background: var(--accent-regular);
+    box-shadow: 0 4px 20px rgba(var(--accent-regular-rgb), 0.3);
   }
 
-  .theme-toggle {
-    display: flex;
-    align-items: center;
-    height: calc(var(--icon-size) + 2 * var(--icon-padding));
+  .mobile-menu-footer {
+    @apply pt-6 border-t border-gray-800;
+    flex-shrink: 0;
+    margin-top: auto;
+    padding-bottom: 2rem;
   }
 
-  @media (min-width: 50em) {
-    nav {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      padding: 2.5rem 4rem;
-      gap: 1rem;
-    }
+  .mobile-socials {
+    @apply flex justify-center gap-4 mb-6;
+  }
 
-    .menu-header {
-      padding: 0;
-    }
+  .mobile-social-link {
+    @apply p-3 rounded-full no-underline transition-all duration-200;
+    color: var(--gray-300);
+    background: rgba(255, 255, 255, 0.1);
+  }
 
-    .site-title {
-      font-size: var(--text-lg);
-    }
+  .mobile-social-link:hover {
+    color: var(--accent-regular);
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+  }
 
-    .menu-content {
-      display: contents;
-    }
+  .mobile-theme-toggle {
+    @apply flex justify-center;
+  }
 
-    .nav-items {
-      position: relative;
-      flex-direction: row;
-      font-size: var(--text-sm);
-      border-radius: 999rem;
-      border: 0;
-      padding: 0.5rem 0.5625rem;
-      background: radial-gradient(var(--gray-900), var(--gray-800) 150%);
-      box-shadow: var(--shadow-md);
-    }
+  .sr-only {
+    @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+    clip: rect(0, 0, 0, 0);
+  }
 
-    .nav-items::before {
-      position: absolute;
-      inset: -1px;
-      content: '';
-      background: var(--gradient-stroke);
-      border-radius: 999rem;
-      z-index: -1;
-    }
+  :global(body) {
+    padding-top: 4rem;
+  }
 
-    .link {
-      padding: 0.5rem 1rem;
-      border-radius: 999rem;
-      transition:
-        color var(--theme-transition),
-        background-color var(--theme-transition);
-    }
-
-    .link:hover,
-    .link:focus {
-      color: var(--gray-100);
-      background-color: var(--accent-subtle-overlay);
-    }
-
-    .link.active {
-      color: var(--accent-text-over);
-      background-color: var(--accent-regular);
-    }
-
-    .menu-footer {
-      --icon-padding: 0.375rem;
-
-      justify-self: flex-end;
-      align-items: center;
-      padding: 0;
-      background-color: transparent;
-      box-shadow: none;
-    }
-
-    .socials {
-      display: none;
+  /* Enhanced backdrop filter support */
+  @supports (backdrop-filter: blur(20px)) {
+    .navbar {
+      /* No background color - pure backdrop blur */
     }
   }
 
-  @media (min-width: 60em) {
-    .socials {
-      display: flex;
-      justify-content: flex-end;
-      gap: 0;
+  @supports not (backdrop-filter: blur(20px)) {
+    .navbar {
+      background: rgba(0, 0, 0, 0.85);
     }
   }
+
+  @media (prefers-color-scheme: dark) {
+    .navbar {
+      border-bottom-color: rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    .navbar {
+      border-bottom-color: rgba(0, 0, 0, 0.08);
+    }
+  }
+
   @media (forced-colors: active) {
-    .link.active {
+    .nav-link.active {
       color: SelectedItem;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
     }
   }
 </style>

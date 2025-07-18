@@ -1,30 +1,30 @@
 /** @type {import('tailwindcss').Config} */
 
 const colors = {
-  gray: {
-    0: 'var(--gray-0)',
-    50: 'var(--gray-50)',
-    100: 'var(--gray-100)',
-    200: 'var(--gray-200)',
-    300: 'var(--gray-300)',
-    400: 'var(--gray-400)',
-    500: 'var(--gray-500)',
-    600: 'var(--gray-600)',
-    700: 'var(--gray-700)',
-    800: 'var(--gray-800)',
-    900: 'var(--gray-900)',
-    999: 'var(--gray-999)',
-    '999_40': 'var(--gray-999_40)',
+  customGray: {
+    0: '#090b11',
+    50: '#141925',
+    100: '#283044',
+    200: '#3d4663',
+    300: '#505d84',
+    400: '#6474a2',
+    500: '#8490b5',
+    600: '#a3acc8',
+    700: '#c3cadb',
+    800: '#e3e6ee',
+    900: '#f3f4f7',
+    999: '#ffffff',
+    overlay: 'hsla(0, 0, 100%, 0.4)',
   },
   accent: {
-    light: 'var(--accent-light)',
-    regular: 'var(--accent-regular)',
-    dark: 'var(--accent-dark)',
-    overlay: 'var(--accent-overlay)',
-    textOver: 'var(--accent-text-over)',
+    light: '#2200ff',
+    regular: '#7f6df2',
+    dark: '#1c0056',
+    overlay: '#d3cef2)',
+    textOver: '#ffffff',
   },
   link: {
-    color: 'var(--accent-regular)',
+    color: '#7f6df2',
   },
 };
 
@@ -51,7 +51,7 @@ const fontSize = {
 
 // Dark mode
 const darkThemeColors = {
-  gray: {
+  customGray: {
     0: '#ffffff',
     50: '#f3f4f7',
     100: '#e3e6ee',
@@ -63,9 +63,8 @@ const darkThemeColors = {
     700: '#3d4663',
     800: '#283044',
     900: '#141925',
-    '999-basis': '225, 31%, 5%',
-    '999_40': 'hsla(225, 31%, 5%, 0.4)',
     999: '#090b11',
+    overlay: 'hsla(225, 31%, 5%, 0.4)',
   },
   accent: {
     light: '#1c0056',

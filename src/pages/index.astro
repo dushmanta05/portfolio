@@ -28,19 +28,19 @@ const ogImage = `${siteUrl}/og-image.png`;
 ---
 
 <BaseLayout title={title} description={description} image={ogImage}>
-  <div class="flex flex-col gap-20 lg:gap-32">
+  <div class='flex flex-col gap-20 lg:gap-32'>
     <!-- Hero Section -->
-    <div class="wrapper">
-      <header class="hero-container">
-        <Hero align="center">
-          <div class="hero-content">
-            <div class="pills-container">
-              <Pill><Icon icon="code" size="1.33em" /> Developer</Pill>
-              <Pill><Icon icon="laptop" size="1.33em" /> Freelancer</Pill>
-              <Pill><Icon icon="pencil-line" size="1.33em" /> Tech Blogger</Pill>
+    <div class='wrapper'>
+      <header class='hero-container'>
+        <Hero align='center'>
+          <div class='hero-content'>
+            <div class='pills-container'>
+              <Pill><Icon icon='code' size='1.33em' /> Developer</Pill>
+              <Pill><Icon icon='laptop' size='1.33em' /> Freelancer</Pill>
+              <Pill><Icon icon='pencil' size='1.33em' /> Tech Blogger</Pill>
             </div>
-            <p class="current-work">
-              <p class="text-gray-400">
+            <p class='current-work'>
+              <p class='text-customGray-400'>
                 Currently building a real-time event-streaming backend for a fintech product.
               </p>
             </p>
@@ -50,28 +50,28 @@ const ogImage = `${siteUrl}/og-image.png`;
       <Skills />
     </div>
 
-    <main class="wrapper flex flex-col gap-20 lg:gap-32">
+    <main class='wrapper flex flex-col gap-20 lg:gap-32'>
       <!-- Projects Section -->
-      <section class="content-section">
-        <div class="section-header">
-          <div class="header-content">
-            <h3 class="section-title">Personal Projects</h3>
-            <p class="section-description">
+      <section class='content-section'>
+        <div class='section-header'>
+          <div class='header-content'>
+            <h3 class='section-title'>Personal Projects</h3>
+            <p class='section-description'>
               Take a look at some highlighted personal projects, showcasing my skills and passion
               for development.
             </p>
           </div>
-          <div class="section-cta">
-            <a href="/work/" class="cta-button">
+          <div class='section-cta'>
+            <a href='/work/' class='cta-button'>
               View All
-              <Icon icon="arrow-right" size="1.2em" />
+              <Icon icon='arrowRight' size='1.2em' />
             </a>
           </div>
         </div>
-        <div class="projects-grid">
+        <div class='projects-grid'>
           {
             projects.map((project) => (
-              <div class="project-card">
+              <div class='project-card'>
                 <PortfolioPreview project={project} />
               </div>
             ))
@@ -80,21 +80,21 @@ const ogImage = `${siteUrl}/og-image.png`;
       </section>
 
       <!-- Skills Section -->
-      <section class="skills-section">
-        <header class="skills-header">
-          <h3 class="skills-title">Skills & Expertise</h3>
-          <p class="skills-description">
+      <section class='skills-section'>
+        <header class='skills-header'>
+          <h3 class='skills-title'>Skills & Expertise</h3>
+          <p class='skills-description'>
             I specialize in frontend and backend technologies. Below, you can explore my key skills
             and the tools I use to build efficient and scalable solutions.
           </p>
         </header>
-        <div class="skills-grid">
-          <Grid variant="small">
+        <div class='skills-grid'>
+          <Grid variant='small'>
             {
               ['JavaScript', 'Node.js', 'MongoDB', 'Express.js', 'React', 'TypeScript'].map(
                 (brand) => (
-                  <li class="skill-item">
-                    <p class="skill-name">{brand}</p>
+                  <li class='skill-item'>
+                    <p class='skill-name'>{brand}</p>
                   </li>
                 )
               )
@@ -104,26 +104,26 @@ const ogImage = `${siteUrl}/og-image.png`;
       </section>
 
       <!-- Blog Section -->
-      <section class="content-section">
-        <div class="section-header">
-          <div class="header-content">
-            <h3 class="section-title">Tech Blog</h3>
-            <p class="section-description">
+      <section class='content-section'>
+        <div class='section-header'>
+          <div class='header-content'>
+            <h3 class='section-title'>Tech Blog</h3>
+            <p class='section-description'>
               Discover insights, learning, and experiences through my blogs, showcasing my skills
               and passion for development.
             </p>
           </div>
-          <div class="section-cta">
-            <a href="/blog/" class="cta-button">
+          <div class='section-cta'>
+            <a href='/blog/' class='cta-button'>
               View All
-              <Icon icon="arrow-right" size="1.2em" />
+              <Icon icon='arrowRight' size='1.2em' />
             </a>
           </div>
         </div>
-        <div class="blogs-grid">
+        <div class='blogs-grid'>
           {
             blogs.slice(0, 3).map((blog) => (
-              <div class="blog-card">
+              <div class='blog-card'>
                 <BlogPreview project={blog} />
               </div>
             ))
