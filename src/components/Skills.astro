@@ -4,24 +4,30 @@ import Icon from './Icon.astro';
 
 <section class='box skills'>
   <div class='stack gap-2 lg:gap-4'>
-    <Icon icon='terminalWindow' color='var(--accent-regular)' size='2.5rem' gradient />
-    <h2>Full Stack</h2>
+    <div class='flex flex-row items-center gap-2'>
+      <Icon icon='terminalWindow' color='var(--accent-regular)' size='2rem' gradient />
+      <h2 class='text-2xl'>Full Stack</h2>
+    </div>
     <p>
       Skilled in both frontend and backend, with a primary focus on building secure, efficient, and
       scalable backend systems.
     </p>
   </div>
   <div class='stack gap-2 lg:gap-4'>
-    <Icon icon='puzzle' color='var(--accent-regular)' size='2.5rem' gradient />
-    <h2>Problem Solver</h2>
+    <div class='flex flex-row items-center gap-2'>
+      <Icon icon='puzzle' color='var(--accent-regular)' size='2rem' gradient />
+      <h2 class='text-2xl'>Problem Solver</h2>
+    </div>
     <p>
       Detail-oriented and analytical, I tackle challenges with a clear approach, creating efficient
       and reliable solutions.
     </p>
   </div>
   <div class='stack gap-2 lg:gap-4'>
-    <Icon icon='binoculars' color='var(--accent-regular)' size='2.5rem' gradient />
-    <h2>Tech Explorer</h2>
+    <div class='flex flex-row items-center gap-2'>
+      <Icon icon='binoculars' color='var(--accent-regular)' size='2rem' gradient />
+      <h2 class='text-2xl'>Tech Explorer</h2>
+    </div>
     <p>
       Always on the lookout for new tools and technologies to implement effective and modern
       solutions.
@@ -44,10 +50,6 @@ import Icon from './Icon.astro';
     gap: 3rem;
   }
 
-  .skills h2 {
-    @apply text-xl-custom;
-  }
-
   .skills p {
     color: var(--gray-400);
   }
@@ -62,10 +64,6 @@ import Icon from './Icon.astro';
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 5rem;
-    }
-
-    .skills h2 {
-      @apply text-2xl-custom;
     }
   }
 </style>
