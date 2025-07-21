@@ -106,6 +106,9 @@ export default {
         backgroundImage: darkThemeGradients,
         boxShadow: darkThemeShadows,
       },
+      screens: {
+        sm: '800px',
+      },
     },
   },
   darkMode: ['class', '[class="theme-dark"]'],
