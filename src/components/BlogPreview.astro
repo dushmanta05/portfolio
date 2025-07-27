@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import GradientPlaceholder from './GradientPlaceholder.astro';
+import GradientPlaceholder from '@components/GradientPlaceholder.astro';
 
 interface Props {
   project: CollectionEntry<'blog'>;
@@ -10,17 +10,23 @@ const { data, slug } = Astro.props.project;
 ---
 
 <a class='card' href={`/blog/${slug}`}>
-  <div class="card-image">
-    <GradientPlaceholder title={data.title} size="small" alt={data.img_alt || data.title} />
+  <div class='card-image'>
+    <GradientPlaceholder title={data.title} size='small' alt={data.img_alt || data.title} />
   </div>
-  <div class="card-content">
+  <div class='card-content'>
     <h3 class='title'>{data.title}</h3>
-    <p class="description">{data.description.substring(0, 100)}...</p>
-    <div class="card-meta">
-      <span class="date">{new Date(data.publishDate).toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'})}</span>
-      {data.tags && data.tags.length > 0 &&
-        <span class="tag">{data.tags[0]}</span>
-      }
+    <p class='description'>{data.description.substring(0, 100)}...</p>
+    <div class='card-meta'>
+      <span class='date'
+        >{
+          new Date(data.publishDate).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+          })
+        }</span
+      >
+      {data.tags && data.tags.length > 0 && <span class='tag'>{data.tags[0]}</span>}
     </div>
   </div>
 </a>
@@ -91,7 +97,8 @@ const { data, slug } = Astro.props.project;
     color: var(--gray-400);
   }
 
-  .date, .tag {
+  .date,
+  .tag {
     @apply inline-block;
   }
 

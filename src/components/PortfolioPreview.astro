@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import GradientPlaceholder from './GradientPlaceholder.astro';
+import GradientPlaceholder from '@components/GradientPlaceholder.astro';
 
 interface Props {
   project: CollectionEntry<'work'>;
@@ -10,16 +10,18 @@ const { data, slug } = Astro.props.project;
 ---
 
 <a class='card' href={`/work/${slug}`}>
-  <div class="card-image">
-    <GradientPlaceholder title={data.title} size="small" alt={data.img_alt || data.title} />
+  <div class='card-image'>
+    <GradientPlaceholder title={data.title} size='small' alt={data.img_alt || data.title} />
   </div>
-  <div class="card-content">
+  <div class='card-content'>
     <h3 class='title'>{data.title}</h3>
-    <p class="description">{data.description}</p>
-    <div class="tech-stack">
-      {data.tags && Array.isArray(data.tags) && data.tags.map((tag) => (
-        <span class="tech-tag">{tag}</span>
-      ))}
+    <p class='description'>{data.description}</p>
+    <div class='tech-stack'>
+      {
+        data.tags &&
+          Array.isArray(data.tags) &&
+          data.tags.map((tag) => <span class='tech-tag'>{tag}</span>)
+      }
     </div>
   </div>
 </a>

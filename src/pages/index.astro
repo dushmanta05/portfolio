@@ -1,16 +1,15 @@
 ---
 import { getCollection } from 'astro:content';
 
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Grid from '../components/Grid.astro';
-import Hero from '../components/Hero.astro';
-import Icon from '../components/Icon.astro';
-import Pill from '../components/Pill.astro';
-import PortfolioPreview from '../components/PortfolioPreview.astro';
-import BlogPreview from '../components/BlogPreview.astro';
-
-import ContactCTA from '../components/ContactCTA.astro';
-import Skills from '../components/Skills.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Grid from '@components/Grid.astro';
+import Hero from '@components/Hero.astro';
+import Icon from '@components/Icon.astro';
+import Pill from '@components/Pill.astro';
+import PortfolioPreview from '@components/PortfolioPreview.astro';
+import BlogPreview from '@components/BlogPreview.astro';
+import ContactCTA from '@components/ContactCTA.astro';
+import Skills from '@components/Skills.astro';
 
 const projects = (await getCollection('work'))
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())

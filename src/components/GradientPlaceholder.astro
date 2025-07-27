@@ -31,25 +31,25 @@ const secondColor = getDarkerShade(mainColor);
 
 const sizeMap = {
   small: {
-    fontSize: '3rem'
+    fontSize: '3rem',
   },
   medium: {
-    fontSize: '4rem'
+    fontSize: '4rem',
   },
   large: {
-    fontSize: '5rem'
-  }
+    fontSize: '5rem',
+  },
 };
 
 const dimensions = sizeMap[size];
 ---
 
 <div
-  class="gradient-placeholder"
+  class='gradient-placeholder'
   style={`
     background: linear-gradient(135deg, ${mainColor} 0%, ${secondColor} 100%);
   `}
-  role="img"
+  role='img'
   aria-label={alt}
 >
   <span style={`font-size: ${dimensions.fontSize};`}>{letter}</span>
