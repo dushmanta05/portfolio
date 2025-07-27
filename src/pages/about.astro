@@ -1,61 +1,55 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-
 import ContactCTA from '../components/ContactCTA.astro';
-import Hero from '../components/Hero.astro';
+import PageHeader from '../components/PageHeader.astro';
 ---
 
-<BaseLayout title='About | Dushmanta' description='About Dushmanta Lorem Ipsum'>
+<BaseLayout
+  title='About | Dushmanta'
+  description='Learn about Dushmanta - Full Stack Developer passionate about backend technologies and AI/ML'
+>
   <div class='stack gap-20'>
     <main class='wrapper about'>
-      <Hero
-        title='About'
-        tagline='Thanks for stopping by. Read below to learn more about myself and my background.'
-      >
-        <img
-          width='1553'
-          height='873'
-          src='/assets/at-work.jpg'
-          alt='Dushmanta at work with a colleague'
-        />
-      </Hero>
+      <PageHeader
+        title='About Me'
+        subtitle="Thanks for stopping by! Here's my journey from electrical engineering to full-stack development, and my passion for building solutions that matter."
+        align='start'
+      />
 
-      <section>
-        <h2 class='section-title'>Background</h2>
-        <div class='content'>
-          <p>
-            Lorem ipsum dolor sit amet, <a href='https://astro.build/'>Astro</a>
-            makes people happy. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin
-            nibh nisl condimentum id venenatis a condimentum vitae. Dapibus ultrices in iaculis nunc.
-            Arcu odio ut sem nulla pharetra diam sit amet. Diam quis enim lobortis scelerisque fermentum
-            dui faucibus in ornare.
-          </p>
-          <p>
-            Arcu dui vivamus arcu felis bibendum ut tristique et egestas. Eget gravida cum sociis
-            natoque penatibus. Cras fermentum odio eu feugiat pretium nibh. Proin nibh nisl
-            condimentum id venenatis. Porta nibh venenatis cras sed felis eget velit. Id diam vel
-            quam elementum pulvinar etiam non.
-          </p>
-          <p>
-            Ultrices tincidunt arcu non sodales neque sodales ut. Sed enim ut sem viverra aliquet
-            eget sit amet. Lacus luctus accumsan tortor posuere ac ut consequat semper viverra.
-            Viverra accumsan in nisl nisi scelerisque eu ultrices. In massa tempor nec feugiat nisl
-            pretium fusce.
-          </p>
-        </div>
-      </section>
-      <section>
-        <h2 class='section-title'>Education</h2>
-        <div class='content'>
-          <p>Corporis voluptates tenetur laudantium.</p>
-        </div>
-      </section>
-      <section>
-        <h2 class='section-title'>Skills</h2>
-        <div class='content'>
-          <p>officia unde omnis</p>
-        </div>
-      </section>
+      <div class='content-sections'>
+        <section class='content-section'>
+          <h2 class='section-title'>My Journey</h2>
+          <div class='journey-content'>
+            <div class='content'>
+              <p>
+                I'm a full-stack developer with a focus on backend development, although I know
+                frontend technologies as well. I work with Node.js, JavaScript, TypeScript, Laravel,
+                React, Next.js, Astro, Vite, MongoDB, and PostgreSQL - all technologies I have
+                experience with.
+              </p>
+              <p>
+                I'm actually an Electrical Engineer by graduation, but due to my passion I switched
+                to the computer science domain. I like building and solving real-world problems, and
+                I have a key focus on getting into the AI/ML field next and working with AI/ML.
+              </p>
+              <p>
+                Currently, I have nearly 2 years of experience in this field. I also like talking
+                about tech, teaching tech to people and newcomers, guiding them through their
+                journey.
+              </p>
+            </div>
+            <div class='image-container'>
+              <img
+                src='/assets/at-work.jpg'
+                alt='Dushmanta at work with a colleague'
+                class='journey-image'
+                width='400'
+                height='300'
+              />
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
 
     <ContactCTA />
@@ -64,51 +58,108 @@ import Hero from '../components/Hero.astro';
 
 <style>
   .about {
-    @apply flex flex-col gap-14;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
   }
 
-  img {
-    margin-top: 1.5rem;
-    border-radius: 1.5rem;
-    box-shadow: var(--shadow-md);
+  .content-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin-top: 2rem;
   }
 
-  section {
-    @apply flex flex-col gap-2 text-customGray-200;
+  .content-section {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--gray-800);
+  }
+
+  .content-section:last-child {
+    border-bottom: none;
   }
 
   .section-title {
-    @apply col-start-1 text-customGray-0 text-xl;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gray-0);
+    margin-bottom: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: 1.75rem;
+    }
+  }
+
+  .journey-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  @media (min-width: 1024px) {
+    .journey-content {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 4rem;
+    }
   }
 
   .content {
-    grid-column: 2 / 4;
+    color: var(--gray-200);
+    line-height: 1.7;
+    flex: 1;
   }
 
-  .content :global(a) {
-    @apply underline underline-offset-2;
-    text-decoration: 1px solid transparent;
+  .content p {
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .content p {
+      font-size: 1.125rem;
+    }
+  }
+
+  .content a {
+    color: #667eea;
+    text-decoration: underline;
     text-underline-offset: 0.25em;
-    transition: text-decoration-color var(--theme-transition);
+    transition: color 0.3s ease;
   }
 
-  .content :global(a:hover),
-  .content :global(a:focus) {
-    text-decoration-color: currentColor;
+  .content a:hover,
+  .content a:focus {
+    color: #764ba2;
   }
 
-  @media (min-width: 50em) {
-    .about {
-      display: grid;
-      grid-template-columns: 1fr 60% 1fr;
+  .image-container {
+    flex-shrink: 0;
+    max-width: 350px;
+  }
+
+  .journey-image {
+    width: 100%;
+    height: auto;
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+  }
+
+  .journey-image:hover {
+    transform: translateY(-4px);
+  }
+
+  /* Mobile: image comes after text */
+  @media (max-width: 1023px) {
+    .journey-content {
+      flex-direction: column;
     }
 
-    .about > :global(:first-child) {
-      grid-column-start: 2;
-    }
-
-    section {
-      @apply contents text-lg;
+    .image-container {
+      align-self: center;
     }
   }
 </style>

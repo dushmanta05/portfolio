@@ -2,10 +2,9 @@
 import { getCollection } from 'astro:content';
 
 import BaseLayout from '../layouts/BaseLayout.astro';
-
 import ContactCTA from '../components/ContactCTA.astro';
 import PortfolioPreview from '../components/PortfolioPreview.astro';
-import Hero from '../components/Hero.astro';
+import PageHeader from '../components/PageHeader.astro';
 import Grid from '../components/Grid.astro';
 
 const projects = (await getCollection('work')).sort(
@@ -15,25 +14,42 @@ const projects = (await getCollection('work')).sort(
 
 <BaseLayout
   title='My Work | Dushmanta'
-  description="Learn about Dushmanta's most recent projects"
+  description="Explore Dushmanta's portfolio of projects showcasing full-stack development expertise"
 >
   <div class='stack gap-20'>
-    <main class='wrapper stack gap-8'>
-      <Hero
+    <main class='wrapper stack gap-12'>
+      <PageHeader
         title='My Work'
-        tagline=" Check out projects I've worked on—built through challenges, learning, and curiosity."
+        subtitle='From concept to deployment, here are some of my most impactful projects that demonstrate my expertise in full-stack development.'
         align='start'
       />
-      <Grid variant='offset'>
-        {
-          projects.map((project) => (
-            <li>
-              <PortfolioPreview project={project} />
-            </li>
-          ))
-        }
-      </Grid>
+
+      <section class='projects-grid'>
+        <Grid variant='offset'>
+          {
+            projects.map((project) => (
+              <li class='project-item'>
+                <PortfolioPreview project={project} />
+              </li>
+            ))
+          }
+        </Grid>
+      </section>
     </main>
     <ContactCTA />
   </div>
 </BaseLayout>
+
+<style>
+  .projects-grid {
+    margin-top: 1rem;
+  }
+
+  .project-item {
+    transition: transform 0.3s ease;
+  }
+
+  .project-item:hover {
+    transform: translateY(-4px);
+  }
+</style>

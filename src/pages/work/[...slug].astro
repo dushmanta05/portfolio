@@ -3,7 +3,6 @@ import { type CollectionEntry, getCollection } from 'astro:content';
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
-import Hero from '../../components/Hero.astro';
 import Icon from '../../components/Icon.astro';
 import Pill from '../../components/Pill.astro';
 import GradientPlaceholder from '../../components/GradientPlaceholder.astro';
@@ -27,26 +26,29 @@ const { Content } = await entry.render();
 <BaseLayout title={entry.data.title} description={entry.data.description}>
   <div class='stack gap-20'>
     <div class='stack gap-15'>
-      <header class='pb-10 border-b border-gray-800'>
-        <div class='wrapper stack gap-2'>
-          <a class='back-link' href='/work/'><Icon icon='arrowLeft' /> Work</a>
-          <Hero title={entry.data.title} align='start'>
-            <div class='details'>
-              <div class='tags'>
-                {entry.data.tags.map((t) => <Pill>{t}</Pill>)}
-              </div>
-              <p class='description'>{entry.data.description}</p>
+      <header class='project-header'>
+        <div class='wrapper stack gap-4'>
+          <a class='back-link' href='/work/'>
+            <Icon icon='arrowLeft' /> Work
+          </a>
+
+          <div class='project-info'>
+            <h1 class='project-title'>{entry.data.title}</h1>
+            <div class='tags'>
+              {entry.data.tags.map((t) => <Pill>{t}</Pill>)}
             </div>
-          </Hero>
+            <p class='project-description'>{entry.data.description}</p>
+          </div>
         </div>
       </header>
+
       <main class='wrapper'>
         <div class='stack gap-10 content'>
-          <div class="featured-image-container">
-            <div class="gradient-wrapper">
+          <div class='featured-image-container'>
+            <div class='gradient-wrapper'>
               <GradientPlaceholder
                 title={entry.data.title}
-                size="large"
+                size='large'
                 alt={entry.data.img_alt || entry.data.title}
               />
             </div>
@@ -62,21 +64,59 @@ const { Content } = await entry.render();
 </BaseLayout>
 
 <style>
-  .back-link {
-    @apply hidden;
+  .project-header {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--gray-800);
   }
 
-  .details {
-    @apply flex flex-col p-2 gap-6 justify-between items-center;
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+    color: var(--gray-300);
+  }
+
+  .back-link:hover {
+    background-color: var(--gray-800);
+    color: var(--gray-0);
+  }
+
+  .project-info {
+    text-align: center;
+    max-width: 70ch;
+    margin: 0 auto;
+  }
+
+  .project-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--gray-0);
+    margin-bottom: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .project-title {
+      font-size: 2.25rem;
+    }
   }
 
   .tags {
-    @apply flex gap-2;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 1.5rem;
   }
 
-  .description {
-    font-size: var(--text-lg);
-    max-width: 54ch;
+  .project-description {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--gray-300);
   }
 
   .content {
@@ -138,31 +178,27 @@ const { Content } = await entry.render();
     color: var(--gray-0);
   }
 
-  .back-link,
   .content :global(a) {
     text-decoration: 1px solid underline transparent;
     text-underline-offset: 0.25em;
     transition: text-decoration-color var(--theme-transition);
   }
 
-  .back-link:hover,
-  .back-link:focus,
   .content :global(a:hover),
   .content :global(a:focus) {
     text-decoration-color: currentColor;
   }
 
+  /* Fallback for gradient text */
+  @supports not (-webkit-background-clip: text) {
+    .project-title {
+      color: #667eea;
+    }
+  }
+
   @media (min-width: 50em) {
-    .back-link {
-      @apply self-start block;
-    }
-
-    .details {
-      @apply flex-row gap-10;
-    }
-
     .content :global(blockquote) {
-      @apply text-2xl;
+      font-size: var(--text-2xl);
     }
   }
 </style>
