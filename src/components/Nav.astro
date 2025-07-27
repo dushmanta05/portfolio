@@ -26,15 +26,15 @@ const iconLinks: {
     icon: 'linkedin',
   },
   {
-    label: 'Twitter',
-    href: 'https://twitter.com/dushmanta05',
+    label: 'X',
+    href: 'https://x.com/dushmanta05',
     icon: 'xLogo',
   },
 ];
 ---
 
-<nav class='navbar'>
-  <div class='max-w-7xl flex items-center justify-between h-16 mx-auto px-4 sm:px-6 lg:px-8'>
+<nav class='w-full max-w-[83rem] mx-auto px-6 gap-8 lg:gap-20 navbar'>
+  <div class='max-w-7xl flex items-center justify-between h-16 mx-auto md:px-4 sm:px-6 lg:px-8'>
     <div class='flex-shrink-0'>
       <a href='/' class='brand-title'>
         <Icon icon='terminal' color=' var(--accent-regular)' size='1.6em' gradient />
@@ -75,7 +75,7 @@ const iconLinks: {
             iconLinks.map(({ href, icon, label }) => (
               <a href={href} class='social-link'>
                 <span class='sr-only'>{label}</span>
-                <Icon icon={icon} />
+                <Icon icon={icon} size='1.4em' />
               </a>
             ))
           }
@@ -89,10 +89,10 @@ const iconLinks: {
       <template>
         <button class='menu-toggle' aria-expanded='false'>
           <span class='sr-only'>Menu</span>
-          <div class='hamburger'>
-            <span></span>
-            <span></span>
-            <span></span>
+          <div class='hamburger w-6 h-5 relative'>
+            <span class='top-0'></span>
+            <span class='top-1/2 transform -translate-y-1/2'></span>
+            <span class='bottom-0'></span>
           </div>
         </button>
       </template>
@@ -141,7 +141,7 @@ const iconLinks: {
             iconLinks.map(({ href, icon, label }) => (
               <a href={href} class='mobile-social-link'>
                 <span class='sr-only'>{label}</span>
-                <Icon icon={icon} />
+                <Icon icon={icon} size='1.2em' />
               </a>
             ))
           }
@@ -257,27 +257,8 @@ const iconLinks: {
     background: rgba(255, 255, 255, 0.15);
   }
 
-  .hamburger {
-    @apply w-6 h-5 relative;
-  }
-
   .hamburger span {
-    @apply block absolute h-0.5 w-full rounded-sm transition-all duration-300;
-    background: var(--gray-0);
-    transform-origin: center;
-  }
-
-  .hamburger span:nth-child(1) {
-    top: 0;
-  }
-
-  .hamburger span:nth-child(2) {
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  .hamburger span:nth-child(3) {
-    bottom: 0;
+    @apply block absolute h-0.5 w-full left-0 rounded-sm transition-all duration-300 bg-customGray-0 origin-center;
   }
 
   .menu-toggle.active .hamburger span:nth-child(1) {
@@ -321,7 +302,7 @@ const iconLinks: {
   }
 
   .brand-title {
-    @apply flex items-center gap-2 text-lg font-bold no-underline;
+    @apply flex items-center gap-2 text-xl font-bold no-underline;
     color: var(--gray-0);
     transition: color 0.3s ease;
   }
