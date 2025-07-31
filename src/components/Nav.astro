@@ -248,7 +248,7 @@ const iconLinks: {
 
   /* Mobile Menu Button */
   .menu-toggle {
-    @apply md:hidden relative p-2 rounded-lg border-0 bg-transparent cursor-pointer;
+    @apply md:hidden relative border-0 bg-transparent cursor-pointer;
     @apply transition-all duration-200;
     background: rgba(255, 255, 255, 0.1);
   }
@@ -258,7 +258,7 @@ const iconLinks: {
   }
 
   .hamburger span {
-    @apply block absolute h-0.5 w-full left-0 rounded-sm transition-all duration-300 bg-customGray-0 origin-center;
+    @apply block absolute h-0.5 w-full left-0 rounded-sm transition-all duration-300 bg-[--gray-0] origin-center;
   }
 
   .menu-toggle.active .hamburger span:nth-child(1) {
@@ -297,7 +297,7 @@ const iconLinks: {
   }
 
   .mobile-menu-header {
-    @apply flex items-center justify-between p-4 border-b border-gray-800;
+    @apply flex items-center justify-between p-4 border-b border-gray-800 bg-[--gray-999];
     flex-shrink: 0;
   }
 
@@ -311,10 +311,9 @@ const iconLinks: {
   }
 
   .close-menu {
-    @apply p-2 rounded-lg border-0 bg-transparent cursor-pointer;
+    @apply border-0 bg-transparent cursor-pointer;
     @apply transition-all duration-200;
-    color: var(--gray-300);
-    background: rgba(255, 255, 255, 0.1);
+    color: var(--gray-0);
   }
 
   .close-menu:hover {
@@ -323,6 +322,7 @@ const iconLinks: {
   }
 
   .mobile-menu-content {
+    @apply bg-[--gray-999];
     @apply flex flex-col px-4;
     height: calc(100vh - 80px);
     height: calc(100dvh - 80px);
