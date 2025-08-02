@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 const colors = {
-  customGray: {
+  custom: {
     0: '#090b11',
     50: '#141925',
     100: '#283044',
@@ -49,9 +49,8 @@ const fontSize = {
   '5xl-custom': '4.5rem',
 };
 
-// Dark mode
 const darkThemeColors = {
-  customGray: {
+  custom: {
     0: '#ffffff',
     50: '#f3f4f7',
     100: '#e3e6ee',
@@ -66,6 +65,7 @@ const darkThemeColors = {
     999: '#090b11',
     overlay: 'hsla(225, 31%, 5%, 0.4)',
   },
+
   accent: {
     light: '#1c0056',
     regular: '#7f6df2',

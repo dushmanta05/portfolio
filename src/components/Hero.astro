@@ -11,7 +11,7 @@ const { align = 'center' } = Astro.props;
     align === 'center' ? 'text-center lg:text-center' : 'text-left lg:text-left',
   ]}
 >
-  <div class='stack gap-2'>
+  <div class='stack gap-2 mt-4'>
     <h1
       class:list={[
         'title text-4xl lg:text-6xl font-bold leading-tight',
@@ -25,9 +25,9 @@ const { align = 'center' } = Astro.props;
     </h1>
     <p
       class:list={[
-        'tagline text-base lg:text-lg font-normal text-customGray-300',
+        'tagline text-base lg:text-lg font-normal text-custom-300',
         align === 'center' ? 'mx-auto' : 'mx-0',
-        'max-w-[37ch]',
+        'max-w-[37ch] mt-8 mb-2',
       ]}
     >
       Backend-focused. Detail-obsessed.<br /><span class='highlight'>Ready to build the future</span
