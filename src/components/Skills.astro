@@ -37,7 +37,11 @@ import Icon from '@components/Icon.astro';
 
 <style>
   .box {
-    @apply text-customGray-overlay border border-customGray-800 rounded-xl p-6 shadow-[var(--shadow-sm)];
+    border: 1px solid var(--gray-800);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    background-color: var(--gray-999_40);
+    box-shadow: var(--shadow-sm);
   }
 
   .skills {
@@ -47,7 +51,7 @@ import Icon from '@components/Icon.astro';
   }
 
   .skills p {
-    @apply text-customGray-400;
+    color: var(--gray-400);
   }
 
   @media (min-width: 50em) {

@@ -113,7 +113,10 @@ import BaseLayout from '@layouts/BaseLayout.astro';
   }
 
   .error-title {
-    @apply mb-4 text-4xl font-bold text-customGray-0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gray-0);
+    margin-bottom: 1rem;
   }
 
   @media (min-width: 768px) {
@@ -123,7 +126,11 @@ import BaseLayout from '@layouts/BaseLayout.astro';
   }
 
   .error-message {
-    @apply mb-8 max-w-[50ch] text-base leading-[1.6] text-customGray-300;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--gray-300);
+    margin-bottom: 2rem;
+    max-width: 50ch;
   }
 
   @media (min-width: 1024px) {
@@ -187,11 +194,16 @@ import BaseLayout from '@layouts/BaseLayout.astro';
   }
 
   .work-button {
-    @apply text-customGray-0 border backdrop-blur-[10px] bg-white/10 border-customGray-600;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--gray-0);
+    border: 1px solid var(--gray-600);
+    backdrop-filter: blur(10px);
   }
 
   .work-button:hover {
-    @apply bg-white/15 -translate-y-2 border-customGray-500;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--gray-500);
+    transform: translateY(-2px);
   }
 
   .gif-section {
@@ -231,7 +243,11 @@ import BaseLayout from '@layouts/BaseLayout.astro';
   }
 
   .gif-caption {
-    @apply italic mt-4 text-sm text-center text-customGray-400;
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: var(--gray-400);
+    font-style: italic;
   }
 
   /* Fallback for gradient text */

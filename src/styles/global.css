@@ -136,7 +136,11 @@ body {
 }
 
 body {
-  @apply text-customGray-200 antialiased leading-[1.5] bg-customGray-999;
+  background-color: var(--gray-999);
+  color: var(--gray-200);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
 }
 
 *,

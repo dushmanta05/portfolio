@@ -28,7 +28,18 @@ const { data, slug } = Astro.props.project;
 
 <style>
   .card {
-    @apply flex flex-col h-auto shadow-[var(--shadow-sm)] no-underline transition-all duration-300 ease-in-out relative border border-customGray-800 bg-customGray-overlay rounded-xl overflow-hidden;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    background: var(--gray-999_40);
+    border: 1px solid var(--gray-800);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    text-decoration: none;
+    font-family: var(--font-brand);
+    transition: all 0.3s ease;
+    position: relative;
   }
 
   .card:hover {
@@ -59,23 +70,49 @@ const { data, slug } = Astro.props.project;
   }
 
   .card-content {
-    @apply p-5 flex flex-col flex-grow bg-customGray-overlay border-t border-customGray-800;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    background: var(--gray-999_40);
+    border-top: 1px solid var(--gray-800);
   }
 
   .title {
-    @apply mb-3 text-customGray-0 text-[var(--text-lg)] font-semibold leading-[1.3];
+    margin: 0 0 0.75rem 0;
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--gray-0);
+    line-height: 1.3;
   }
 
   .description {
-    @apply text-customGray-300 mb-4 text-[var(--text-sm)] leading-[1.5] line-clamp-2;
+    margin: 0 0 1rem 0;
+    font-size: var(--text-sm);
+    color: var(--gray-300);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .tech-stack {
-    @apply flex flex-wrap gap-2 mt-auto pt-3 border-t border-customGray-800;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--gray-800);
   }
 
   .tech-tag {
-    @apply text-customGray-200 font-medium py-1 px-2 rounded text-[var(--text-xs)] border-l border-customGray-800;
+    font-size: var(--text-xs);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    background-color: var(--gray-999);
+    color: var(--gray-200);
+    font-weight: 500;
   }
 
   @media (min-width: 50em) {

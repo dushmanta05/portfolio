@@ -71,7 +71,8 @@ import PageHeader from '@components/PageHeader.astro';
   }
 
   .content-section {
-    @apply border-b border-customGray-800 py-8;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--gray-800);
   }
 
   .content-section:last-child {
@@ -79,7 +80,10 @@ import PageHeader from '@components/PageHeader.astro';
   }
 
   .section-title {
-    @apply text-customGray-0 text-2xl font-bold mb-8;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gray-0);
+    margin-bottom: 2rem;
   }
 
   @media (min-width: 768px) {

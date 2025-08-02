@@ -65,15 +65,24 @@ const { Content } = await entry.render();
 
 <style>
   .project-header {
-    @apply border-b py-8 border-customGray-800;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--gray-800);
   }
 
   .back-link {
-    @apply inline-flex items-center gap-2 py-2 px-4 rounded-lg transition-colors duration-200 ease-in-out no-underline text-customGray-300;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+    color: var(--gray-300);
   }
 
   .back-link:hover {
-    @apply bg-customGray-800 text-customGray-0;
+    background-color: var(--gray-800);
+    color: var(--gray-0);
   }
 
   .project-info {
@@ -83,7 +92,11 @@ const { Content } = await entry.render();
   }
 
   .project-title {
-    @apply text-3xl font-bold leading-[1.2] mb-4 text-customGray-0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--gray-0);
+    margin-bottom: 1rem;
   }
 
   @media (min-width: 768px) {
@@ -101,7 +114,9 @@ const { Content } = await entry.render();
   }
 
   .project-description {
-    @apply text-lg leading-[1.6] text-customGray-300;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--gray-300);
   }
 
   .content {
@@ -154,7 +169,13 @@ const { Content } = await entry.render();
   }
 
   .content :global(blockquote) {
-    @apply text-[var(--text-lg)] border-s-[0.25rem] border-[var(--accent-dark)] font-semibold leading-[1.1] ps-6 text-customGray-0;
+    font-size: var(--text-lg);
+    font-family: var(--font-brand);
+    font-weight: 600;
+    line-height: 1.1;
+    padding-inline-start: 1.5rem;
+    border-inline-start: 0.25rem solid var(--accent-dark);
+    color: var(--gray-0);
   }
 
   .content :global(a) {
