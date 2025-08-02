@@ -33,17 +33,11 @@ const { data, slug } = Astro.props.project;
 
 <style>
   :global(.card img[src='/fallback-image.jpg']) {
-    object-fit: cover;
-    background-color: var(--gray-800);
+    @apply bg-customGray-800 object-cover;
   }
 
   .card {
-    @apply flex flex-col rounded-lg overflow-hidden no-underline relative;
-    background: var(--gray-100);
-    border: 1px solid var(--gray-800);
-    box-shadow: var(--shadow-sm);
-    height: 100%;
-    transition: all 0.3s ease;
+    @apply flex flex-col rounded-lg overflow-hidden no-underline relative bg-customGray-100 border border-customGray-800 h-full shadow-[var(--shadow-sm)] transition-all duration-300 ease-in-out;
   }
 
   .card:hover {
@@ -74,27 +68,15 @@ const { data, slug } = Astro.props.project;
   }
 
   .title {
-    @apply text-lg font-bold mb-2;
-    color: var(--gray-0);
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    @apply text-lg font-bold mb-2 text-customGray-0 line-clamp-2;
   }
 
   .description {
-    @apply text-sm mb-3 flex-grow;
-    color: var(--gray-300);
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    @apply text-sm mb-3 flex-grow text-customGray-300 line-clamp-3;
   }
 
   .card-meta {
-    @apply flex justify-between items-center text-xs mt-2 pt-2;
-    border-top: 1px solid var(--gray-800);
-    color: var(--gray-400);
+    @apply flex justify-between items-center text-xs mt-2 pt-2 border-t border-customGray-800 text-customGray-400;
   }
 
   .date,

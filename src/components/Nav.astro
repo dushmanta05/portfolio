@@ -209,25 +209,16 @@ const iconLinks: {
 </script>
 
 <style>
-  .navbar {
-    @apply fixed top-0 left-0 right-0 z-[9999] font-medium backdrop-blur-[2px];
-    backdrop-filter: blur(32px);
-    -webkit-backdrop-filter: blur(32px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
-  }
+.navbar {
+  @apply fixed top-0 left-0 right-0 z-[9999] font-medium bg-white/5 dark:bg-black/5 border-b border-white/10 dark:border-white/5 backdrop-blur-lg transition-all duration-300 ease-in-out;
+}
 
   .nav-link {
-    @apply px-4 py-2 text-sm font-medium no-underline rounded-full;
-    @apply transition-all duration-200 ease-in-out;
-    color: var(--gray-300);
-    position: relative;
+    @apply px-4 py-2 text-sm font-medium no-underline rounded-full transition-all duration-200 ease-in-out relative text-customGray-300;
   }
 
   .nav-link:hover {
-    color: var(--gray-0);
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-1px);
+    @apply text-customGray-0 bg-white/10 -translate-y-px;
   }
 
   .nav-link.active {
@@ -302,23 +293,18 @@ const iconLinks: {
   }
 
   .brand-title {
-    @apply flex items-center gap-2 text-xl font-bold no-underline;
-    color: var(--gray-0);
-    transition: color 0.3s ease;
+    @apply flex items-center gap-2 text-xl font-bold no-underline text-customGray-0 transition-colors duration-300 ease-in-out;
   }
   .brand-title:hover {
     color: var(--accent-regular);
   }
 
   .close-menu {
-    @apply border-0 bg-transparent cursor-pointer;
-    @apply transition-all duration-200;
-    color: var(--gray-0);
+    @apply border-0 bg-transparent cursor-pointer transition-all duration-200 text-customGray-0;
   }
 
   .close-menu:hover {
-    color: var(--gray-0);
-    background: rgba(255, 255, 255, 0.15);
+    @apply text-customGray-0 bg-white/15;
   }
 
   .mobile-menu-content {
@@ -336,17 +322,11 @@ const iconLinks: {
   }
 
   .mobile-nav-link {
-    @apply block px-6 py-4 text-lg font-medium no-underline rounded-xl;
-    @apply transition-all duration-200;
-    color: var(--gray-300);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    @apply block px-6 py-4 text-lg font-medium no-underline rounded-xl transition-all duration-200 text-customGray-300 bg-white/5 border border-white/10;
   }
 
   .mobile-nav-link:hover {
-    color: var(--gray-0);
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateX(8px);
+    @apply text-customGray-0 bg-white/10 translate-x-2;
   }
 
   .mobile-nav-link.active {
@@ -367,9 +347,7 @@ const iconLinks: {
   }
 
   .mobile-social-link {
-    @apply p-3 rounded-full no-underline transition-all duration-200;
-    color: var(--gray-300);
-    background: rgba(255, 255, 255, 0.1);
+    @apply p-3 rounded-full no-underline transition-all duration-200 text-customGray-300 bg-white/10;
   }
 
   .mobile-social-link:hover {
@@ -389,19 +367,6 @@ const iconLinks: {
 
   :global(body) {
     padding-top: 4rem;
-  }
-
-  /* Enhanced backdrop filter support */
-  @supports (backdrop-filter: blur(20px)) {
-    .navbar {
-      /* No background color - pure backdrop blur */
-    }
-  }
-
-  @supports not (backdrop-filter: blur(20px)) {
-    .navbar {
-      background: rgba(0, 0, 0, 0.85);
-    }
   }
 
   @media (prefers-color-scheme: dark) {

@@ -198,16 +198,11 @@ const ogImage = `${siteUrl}/og-image.png`;
   }
 
   .header-content h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: var(--gray-0);
+    @apply text-2xl font-bold mb-2 text-customGray-0;
   }
 
   .header-content p {
-    font-size: 1rem;
-    max-width: 50ch;
-    color: var(--gray-300);
+    @apply text-base max-w-[50ch] text-customGray-300;
   }
 
   .section-cta {
@@ -270,17 +265,11 @@ const ogImage = `${siteUrl}/og-image.png`;
   }
 
   .skills-header {
-    text-align: center;
-    max-width: 50ch;
-    margin: 0 auto;
-    color: var(--gray-400);
+    @apply text-center max-w-[50ch] mx-auto text-customGray-400;
   }
 
   .skills-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: var(--gray-0);
+    @apply text-2xl font-bold mb-4 text-customGray-0;
   }
 
   @media (min-width: 1024px) {
@@ -299,18 +288,7 @@ const ogImage = `${siteUrl}/og-image.png`;
   }
 
   .skill-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    height: 7rem;
-    border-radius: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border: 1px solid var(--gray-800);
-    color: var(--gray-400);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
+    @apply flex items-center justify-center text-center h-28 rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.1)] border border-customGray-800 bg-[linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0.05))] backdrop-blur-[10px] transition-all duration-300 ease-in-out text-customGray-400;
   }
 
   .skill-item:hover {
