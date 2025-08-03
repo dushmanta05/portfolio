@@ -42,9 +42,17 @@ const ogImage = `${siteUrl}/og-image.png`;
         </Hero>
       </header>
       <Skills />
+      <div class='hidden lg:flex justify-center mt-16 animate-fadeIn'>
+        <Icon
+          color='var(--accent-regular)'
+          icon='chevronDoubleDown'
+          class='transform rotate-[-45deg] animate-bounce'
+          size='1.5rem'
+        />
+      </div>
     </div>
 
-    <main class='wrapper flex flex-col gap-20 lg:gap-32'>
+    <main class='wrapper flex flex-col lg:gap-20'>
       <!-- Projects Section -->
       <section class='content-section'>
         <div class='section-header'>

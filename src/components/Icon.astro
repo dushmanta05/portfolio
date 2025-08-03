@@ -8,6 +8,7 @@ interface Props {
   color?: string;
   gradient?: boolean;
   size?: string;
+  class?: string;
 }
 
 const { color = 'currentcolor', gradient, icon, size } = Astro.props;
@@ -25,6 +26,7 @@ const gradientId = `icon-gradient-${Math.round(Math.random() * 10e12).toString(3
   height='40'
   viewBox='0 0 256 256'
   aria-hidden='true'
+  class={Astro.props?.class}
   stroke={gradient ? `url(#${gradientId})` : color}
   fill={gradient ? `url(#${gradientId})` : color}
   {...attrs}
