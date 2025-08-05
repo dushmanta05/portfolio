@@ -58,7 +58,7 @@ const canonicalURL = new URL(Astro.url.pathname, 'https://dushmanta.dev');
     <div class='stack backgrounds'>
       <Nav />
       <slot />
-      <div class='wrapper stack gap-8 lg:gap-20'>
+      <div class='wrapper gap-12 lg:gap-16'>
         <Footer />
       </div>
     </div>
@@ -103,12 +103,24 @@ const canonicalURL = new URL(Astro.url.pathname, 'https://dushmanta.dev');
           /*header2*/ normal,
           /*base*/ normal;
       }
+
+      .wrapper {
+        max-width: 80rem;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
       @media (forced-colors: active) {
         /* Deactivate custom backgrounds for high contrast users. */
         .backgrounds {
           background: none;
           background-blend-mode: none;
           --bg-gradient-size: none;
+        }
+      }
+
+      @media (min-width: 768px) {
+        .wrapper {
+          padding: 0 2rem;
         }
       }
     </style>
