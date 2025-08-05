@@ -3,30 +3,22 @@ import CallToAction from '@components/CallToAction.astro';
 import Icon from '@components/Icon.astro';
 ---
 
-<aside class='wrapper stack gap-8 lg:gap-20'>
+<section class='contact-section'>
   <h2>Interested in working together?</h2>
-  <CallToAction href='mailto:hello@dushmanta.dev'>
-    Send Me a Message
-    <Icon icon='paperPlaneTilt' size='1.2em' />
-  </CallToAction>
-</aside>
+  <div class='flex justify-center md:justify-end'>
+    <CallToAction href='mailto:hello@dushmanta.dev'>
+      Send Mail
+      <Icon icon='paperPlaneTilt' size='1.2em' />
+    </CallToAction>
+  </div>
+</section>
 
 <style>
-  aside {
-    @apply flex flex-col items-center gap-12 border-t border-b border-gray-800 px-6 py-20 bg-[var(--gray-999-40)];
+  .contact-section {
+    @apply mb-12 py-12 md:py-16 px-6 flex flex-col md:flex-row md:items-center md:justify-between gap-6 md:gap-8 text-center md:text-left backdrop-blur bg-[rgba(255,255,255,0.04)] border-t border-b border-[var(--gray-800)];
   }
 
-  h2 {
-    @apply text-center max-w-[15ch] text-xl;
-  }
-
-  @media (min-width: 50em) {
-    aside {
-      @apply flex-row flex-wrap justify-between;
-    }
-
-    h2 {
-      @apply text-3xl text-left;
-    }
+  .contact-section h2 {
+    @apply text-xl md:text-2xl lg:text-3xl font-bold text-[var(--gray-0)] max-w-[20ch] md:max-w-[25ch] mx-auto md:mx-0;
   }
 </style>

@@ -27,7 +27,7 @@ const ogImage = `${siteUrl}/og-image.png`;
 ---
 
 <BaseLayout title={title} description={description} image={ogImage}>
-  <div class='flex flex-col gap-20 lg:gap-32'>
+  <div class='flex flex-col gap-20 lg:gap-20'>
     <!-- Hero Section -->
     <div class='wrapper'>
       <header class='hero-container mt-12 mx-auto'>
@@ -52,7 +52,7 @@ const ogImage = `${siteUrl}/og-image.png`;
       </div>
     </div>
 
-    <main class='wrapper flex flex-col lg:gap-20'>
+    <main class='wrapper flex flex-col lg:gap-16'>
       <!-- Projects Section -->
       <section class='content-section'>
         <div class='section-header'>
@@ -133,7 +133,9 @@ const ogImage = `${siteUrl}/og-image.png`;
         </div>
       </section>
     </main>
-    <ContactCTA />
+    <div class='wrapper'>
+      <ContactCTA />
+    </div>
   </div>
 </BaseLayout>
 
@@ -181,8 +183,8 @@ const ogImage = `${siteUrl}/og-image.png`;
 
   /* Content Sections */
   .content-section {
+    @apply mb-12;
     padding: 4rem 1rem;
-    margin: 3rem 0;
     border-radius: 1rem;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--gray-800);
