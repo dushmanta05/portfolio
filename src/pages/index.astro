@@ -52,13 +52,13 @@ const ogImage = `${siteUrl}/og-image.png`;
       </div>
     </div>
 
-    <main class='wrapper flex flex-col lg:gap-16'>
+    <main class='wrapper flex flex-col gap-12 lg:gap-16'>
       <!-- Projects Section -->
       <section class='content-section'>
         <div class='section-header'>
           <div class='header-content'>
-            <h3 class='section-title'>Personal Projects</h3>
-            <p class='section-description'>
+            <h3 class='section-title text-3xl mb-4'>Personal Projects</h3>
+            <p class='section-description text-base'>
               Take a look at some highlighted personal projects, showcasing my skills and passion
               for development.
             </p>
@@ -82,10 +82,10 @@ const ogImage = `${siteUrl}/og-image.png`;
       </section>
 
       <!-- Skills Section -->
-      <section class='skills-section'>
+      <section class='skills-section mb-12'>
         <header class='skills-header'>
-          <h3 class='skills-title'>Skills & Expertise</h3>
-          <p class='skills-description'>
+          <h3 class='skills-title text-3xl'>Skills & Expertise</h3>
+          <p class='skills-description text-base'>
             I specialize in frontend and backend technologies. Below, you can explore my key skills
             and the tools I use to build efficient and scalable solutions.
           </p>
@@ -109,8 +109,8 @@ const ogImage = `${siteUrl}/og-image.png`;
       <section class='content-section'>
         <div class='section-header'>
           <div class='header-content'>
-            <h3 class='section-title'>Tech Blog</h3>
-            <p class='section-description'>
+            <h3 class='section-title text-3xl mb-4'>Tech Blog</h3>
+            <p class='section-description text-base'>
               Discover insights, learning, and experiences through my blogs, showcasing my skills
               and passion for development.
             </p>
@@ -207,14 +207,11 @@ const ogImage = `${siteUrl}/og-image.png`;
   }
 
   .header-content h3 {
-    font-size: 1.5rem;
     font-weight: 700;
-    margin-bottom: 0.5rem;
     color: var(--gray-0);
   }
 
   .header-content p {
-    font-size: 1rem;
     max-width: 50ch;
     color: var(--gray-300);
   }
@@ -286,7 +283,6 @@ const ogImage = `${siteUrl}/og-image.png`;
   }
 
   .skills-title {
-    font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 1rem;
     color: var(--gray-0);
@@ -294,13 +290,7 @@ const ogImage = `${siteUrl}/og-image.png`;
 
   @media (min-width: 1024px) {
     .skills-title {
-      font-size: 2.25rem;
     }
-  }
-
-  .skills-description {
-    font-size: 1rem;
-    line-height: 1.6;
   }
 
   .skills-grid {

@@ -142,10 +142,6 @@ h5 {
   color: var(--gray-100);
 }
 
-h3 {
-  font-size: var(--text-3xl);
-}
-
 h4 {
   font-size: var(--text-2xl);
 }
