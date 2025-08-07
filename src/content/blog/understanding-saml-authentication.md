@@ -8,7 +8,6 @@ img: https://cdn.hashnode.com/res/hashnode/image/upload/v1741349301800/a5658d4c-
 tags:
   - authentication
   - saml
-  - auth
 ---
 
 Most enterprises work with different services like Slack, Microsoft 365, Salesforce, and Google Workspace daily. So, have you ever wondered how these enterprises provide access to all these services in one dashboard for their employees? Or imagine you have an enterprise and want to give your employees access to these platforms.

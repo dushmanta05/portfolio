@@ -8,8 +8,6 @@ img: https://cdn.hashnode.com/res/hashnode/image/upload/v1731364644904/188b7635-
 tags:
   - cloudflare
   - digitalocean
-  - droplet
-  - caddy
   - vps-hosting
 ---
 

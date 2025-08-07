@@ -31,10 +31,10 @@ yarn add twilio # yarn
 Next, we need to set up the **Twilio** client using the **Account SID** and **Auth Token**, which you can get from the [Twilio console page](https://console.twilio.com/). Here is the code to do this:
 
 ```javascript
-const twilio = require("twilio");
+const twilio = require('twilio');
 
-const accountSID = "YOUR_ACCOUNT_SID";
-const authToken = "YOUR_AUTH_TOKEN";
+const accountSID = 'YOUR_ACCOUNT_SID';
+const authToken = 'YOUR_AUTH_TOKEN';
 const client = twilio(accountSID, authToken);
 ```
 
@@ -54,9 +54,9 @@ const deleteMessageLog = async (sid) => {
   } catch (error) {
     console.error(`Error deleting message ${sid}:`, error);
   }
-}
+};
 
-const messageSID = "MESSAGE_SID";
+const messageSID = 'MESSAGE_SID';
 deleteMessageLog(messageSID);
 ```
 
@@ -74,9 +74,9 @@ const deleteMessageLogs = async (messageSIDs) => {
       console.error(`Error deleting message ${sid}:`, error);
     }
   }
-}
+};
 
-const messageSIDs = ["MESSAGE_SID_1", "MESSAGE_SID_2", "MESSAGE_SID_3"];
+const messageSIDs = ['MESSAGE_SID_1', 'MESSAGE_SID_2', 'MESSAGE_SID_3'];
 deleteMessageLogs(messageSIDs);
 ```
 

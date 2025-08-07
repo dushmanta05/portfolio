@@ -9,7 +9,7 @@ tags:
   - nodejs
 ---
 
-Have you ever wondered how **JavaScript/Node.js** efficiently handles complex requests despite being single-threaded? What happens when a CPU-intensive task runs on your backend, affecting other requests? Is there a way to run these tasks separately and simultaneously? In this article, we'll explore how to achieve this by understanding single-threading vs. multi-threading and how the *Worker Threads* module can help improve Node.js performance.
+Have you ever wondered how **JavaScript/Node.js** efficiently handles complex requests despite being single-threaded? What happens when a CPU-intensive task runs on your backend, affecting other requests? Is there a way to run these tasks separately and simultaneously? In this article, we'll explore how to achieve this by understanding single-threading vs. multi-threading and how the _Worker Threads_ module can help improve Node.js performance.
 
 ##### **SIngle-threaded JavaScript:**
 
@@ -53,7 +53,6 @@ Well, there are a few important methods through which these results are achieved
 
 3. **Priority-based scheduling:** Priorities are assigned to threads, with higher-priority threads getting more time and being executed first. This is helpful for critical tasks that need to be prioritized.
 
-
 ##### Multi-core:
 
 The above methods for a single core work well when the number of threads is greater than the CPU cores. Let's discuss some additional methods:
@@ -63,7 +62,6 @@ The above methods for a single core work well when the number of threads is grea
 2. **Thread pools:** The number of active threads is kept to match the number of cores, and the rest are queued and executed as soon as a core becomes available.
 
 3. **Work Stealing:** In this method, idle cores will take tasks from the queues of busy cores, increasing the efficiency of running tasks.
-
 
 There are also several other methods to use multi-threading in single-core or multi-core systems, but the ones mentioned above are the most commonly used. It's worth mentioning that almost every modern CPU has multiple cores, making the use of multi-core threading increasingly relevant.
 
@@ -179,7 +177,7 @@ The worker page took 7 seconds, just like before.
 
 But surprisingly, the home page with just a minimal response took 5 seconds. This is because, since it's running on a single thread, the worker route blocked the execution of the request to the home page.
 
-To solve the blocking issue, we can offload the CPU-intensive task to another thread using Node.js's **worker\_threads** module.
+To solve the blocking issue, we can offload the CPU-intensive task to another thread using Node.js's **worker_threads** module.
 
 First, let's move the logic to a new file called `worker-thread.js`.
 
@@ -237,7 +235,7 @@ Response from the worker-threads route:
 
 As demonstrated, the **worker-thread** route no longer blocks the request to the home page, even though it still takes 7 seconds to complete the for loop and send the response. This improvement is possible because the logic is now handled in a separate thread, enabling our program to process tasks in parallel. If you'd like to explore the complete implementation, feel free to visit the full code in the [GitHub repository](https://github.com/dushmanta05/worker-threads).
 
-By utilizing the **worker\_threads** module, you can easily offload CPU-intensive tasks to separate threads, preventing them from impacting the performance of the main thread. This significantly boosts the efficiency of your application, particularly by avoiding event loop blocking. For more detailed information on **worker\_threads** or other methods of multi\_threading modules in Node.js, you can refer to the [official documents](https://nodejs.org/api/worker_threads.html).
+By utilizing the **worker_threads** module, you can easily offload CPU-intensive tasks to separate threads, preventing them from impacting the performance of the main thread. This significantly boosts the efficiency of your application, particularly by avoiding event loop blocking. For more detailed information on **worker_threads** or other methods of multi_threading modules in Node.js, you can refer to the [official documents](https://nodejs.org/api/worker_threads.html).
 
 ### Note:
 
@@ -247,4 +245,4 @@ By utilizing the **worker\_threads** module, you can easily offload CPU-intensiv
 
 ---
 
-I hope this article has helped clarify the concept of multi-threading and how you can leverage the **worker\_threads** module to enable multi-threading in Node.js. If you spot any errors or have feedback and suggestions for improvement, I'd love to hear from you. Thank you for reading, and have a wonderful day! :)
+I hope this article has helped clarify the concept of multi-threading and how you can leverage the **worker_threads** module to enable multi-threading in Node.js. If you spot any errors or have feedback and suggestions for improvement, I'd love to hear from you. Thank you for reading, and have a wonderful day! :)
