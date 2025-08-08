@@ -6,9 +6,13 @@ export default defineConfig({
   tsconfig: './tsconfig.json',
   markdown: {
     shikiConfig: {
-      theme: 'one-dark-pro',
+      themes: {
+        light: 'github-light',
+        dark: 'one-dark-pro'
+      },
+      defaultColor: 'dark',
       wrap: true,
-      langs: [],
+      langs: ['javascript', 'typescript', 'bash', 'json', 'html', 'css', 'astro', 'jsx', 'tsx', 'php'],
     },
   },
 });

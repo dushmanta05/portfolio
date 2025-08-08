@@ -190,3 +190,50 @@ h5 {
     gap: 12rem;
   }
 }
+
+/* Code block theme support */
+@media (prefers-color-scheme: light) {
+  .prose :global(pre[class*='language-']) {
+    background: #f8f8f8 !important;
+  }
+
+  .prose :global(pre[class*='language-'] code) {
+    color: #24292e !important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .prose :global(pre[class*='language-']) {
+    background: var(--gray-950) !important;
+  }
+}
+
+[data-theme='light'] .prose :global(pre[class*='language-']) {
+  background: #f8f8f8 !important;
+}
+
+[data-theme='light'] .prose :global(pre[class*='language-'] code) {
+  color: #24292e !important;
+}
+
+[data-theme='dark'] .prose :global(pre[class*='language-']) {
+  background: var(--gray-950) !important;
+}
+
+html.light .shiki,
+html.light .shiki span {
+  color: var(--shiki-light) !important;
+  background-color: var(--shiki-light-bg) !important;
+}
+
+html.dark .shiki,
+html.dark .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+
+.shiki,
+.shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
