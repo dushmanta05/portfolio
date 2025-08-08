@@ -21,6 +21,9 @@ export const collections = {
       tags: z.array(z.string()),
       img: z.string(),
       img_alt: z.string().optional(),
+      seoTitle: z.string().optional(),
+      seoDescription: z.string().optional(),
+      ogImage: z.string().optional(),
     }),
   }),
 };
