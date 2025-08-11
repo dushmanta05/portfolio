@@ -23,6 +23,7 @@
   --accent-overlay: #d3cef2;
   --accent-subtle-overlay: var(--accent-overlay);
   --accent-text-over: var(--gray-999);
+  --accent-regular-rgb: 127, 109, 242;
 
   --link-color: var(--accent-regular);
 
@@ -88,6 +89,7 @@
   --accent-overlay: #d3cef2;
   --accent-subtle-overlay: #3e2da8;
   --accent-text-over: var(--gray-0);
+  --accent-regular-rgb: 127, 109, 242; /* RGB value of #7f6df2 */
 
   --link-color: var(--accent-dark);
 
