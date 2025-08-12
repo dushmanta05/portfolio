@@ -7,12 +7,23 @@ export default defineConfig({
   markdown: {
     shikiConfig: {
       themes: {
-        light: 'github-light',
-        dark: 'one-dark-pro'
+        light: 'catppuccin-latte',
+        dark: 'catppuccin-mocha',
       },
-      defaultColor: 'dark',
+      defaultColor: false,
       wrap: true,
-      langs: ['javascript', 'typescript', 'bash', 'json', 'html', 'css', 'astro', 'jsx', 'tsx', 'php'],
+      langs: [
+        'javascript',
+        'typescript',
+        'bash',
+        'json',
+        'html',
+        'css',
+        'astro',
+        'jsx',
+        'tsx',
+        'php',
+      ],
     },
   },
 });

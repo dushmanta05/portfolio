@@ -521,7 +521,6 @@ const showToc = tocHeadings.length > 0;
 
   /* Code blocks with theme support */
   .prose :global(pre) {
-    background: var(--gray-950) !important;
     border: 1px solid var(--gray-800);
     border-radius: 0.75rem;
     padding: 1.5rem;
@@ -529,6 +528,15 @@ const showToc = tocHeadings.length > 0;
     margin: 2rem 0;
     font-size: 0.9em;
     line-height: 1.5;
+  }
+
+  .prose :global(pre) {
+    background: var(--shiki-light-bg) !important;
+    transition: background-color var(--theme-transition);
+  }
+
+  :global(.theme-dark) .prose :global(pre) {
+    background: var(--shiki-dark-bg) !important;
   }
 
   .prose :global(code) {

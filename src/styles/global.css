@@ -207,49 +207,27 @@ h5 {
   }
 }
 
-/* Code block theme support */
-@media (prefers-color-scheme: light) {
-  .prose pre[class*='language-'] {
-    background: #f8f8f8 !important;
+@tailwind base;
+@layer base {
+  /* Light theme (default) */
+  :root pre:has(code),
+  :root pre:has(code) span,
+  html:not(.theme-dark) pre:has(code),
+  html:not(.theme-dark) pre:has(code) span {
+    color: var(--shiki-light) !important;
+    background-color: var(--shiki-light-bg) !important;
+    font-style: var(--shiki-light-font-style) !important;
+    font-weight: var(--shiki-light-font-weight) !important;
+    text-decoration: var(--shiki-light-text-decoration) !important;
   }
 
-  .prose pre[class*='language-'] code {
-    color: #24292e !important;
+  /* Dark theme */
+  html.theme-dark pre:has(code),
+  html.theme-dark pre:has(code) span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
   }
-}
-
-@media (prefers-color-scheme: dark) {
-  .prose pre[class*='language-'] {
-    background: var(--gray-950) !important;
-  }
-}
-
-[data-theme='light'] .prose pre[class*='language-'] {
-  background: #f8f8f8 !important;
-}
-
-[data-theme='light'] .prose pre[class*='language-'] code {
-  color: #24292e !important;
-}
-
-[data-theme='dark'] .prose pre[class*='language-'] {
-  background: var(--gray-950) !important;
-}
-
-html.light .shiki,
-html.light .shiki span {
-  color: var(--shiki-light) !important;
-  background-color: var(--shiki-light-bg) !important;
-}
-
-html.dark .shiki,
-html.dark .shiki span {
-  color: var(--shiki-dark) !important;
-  background-color: var(--shiki-dark-bg) !important;
-}
-
-.shiki,
-.shiki span {
-  color: var(--shiki-dark) !important;
-  background-color: var(--shiki-dark-bg) !important;
 }
