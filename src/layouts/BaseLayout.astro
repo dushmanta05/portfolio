@@ -2,6 +2,7 @@
 import MainHead from '@components/MainHead.astro';
 import Nav from '@components/Nav.astro';
 import Footer from '@components/Footer.astro';
+import MoveToTop from '@components/common/MoveToTop.astro';
 
 interface Props {
   title?: string | undefined;
@@ -102,6 +103,9 @@ const canonicalURL = new URL(Astro.url.pathname, 'https://dushmanta.dev');
         <Footer />
       </div>
     </div>
+
+    <!-- Move to Top Component -->
+    <MoveToTop />
 
     <script>
       addEventListener('load', () => document.documentElement.classList.add('loaded'));
