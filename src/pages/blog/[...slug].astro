@@ -3,7 +3,6 @@ import { type CollectionEntry, getCollection } from 'astro:content';
 
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Icon from '@components/Icon.astro';
-import Pill from '@components/Pill.astro';
 import GradientPlaceholder from '@components/GradientPlaceholder.astro';
 
 interface Props {
@@ -65,8 +64,11 @@ const showToc = tocHeadings.length > 0;
           <div class='article-meta'>
             <time class='publish-date'>{formattedDate}</time>
             <div class='tags'>
-              {entry.data.tags.map((t) => <Pill>{t}</Pill>)}
+              {entry.data.tags.map((t) => <span class='tag'>#{t}</span>)}
             </div>
+            <!-- <div class='tags'>
+              {entry.data.tags.map((t) => <a href={`/tags/${t}`} class="tag">#{t}</a>)}
+            </div> -->
           </div>
           <p class='article-description'>{entry.data.description}</p>
         </div>
@@ -202,7 +204,7 @@ const showToc = tocHeadings.length > 0;
   }
 
   .publish-date {
-    font-size: 0.95rem;
+    font-size: var(--text-md);
     color: var(--gray-400);
     font-family: var(--font-brand);
     font-weight: 500;
@@ -223,6 +225,33 @@ const showToc = tocHeadings.length > 0;
     align-items: center;
     max-width: 100%;
   }
+
+  .tag {
+    color: var(--accent-regular);
+    font-size: var(--text-md);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .tag:hover {
+    color: var(--accent-dark, #0066cc);
+    text-decoration: underline;
+  }
+
+  /*
+  .tag {
+    color: var(--accent-regular);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .tag:hover {
+    color: var(--accent-dark, #0066cc);
+    text-decoration: underline;
+  }
+  */
 
   @media (min-width: 768px) {
     .tags {
