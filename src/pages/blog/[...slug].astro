@@ -81,13 +81,23 @@ const showToc = tocHeadings.length > 0;
           <div class='main-content'>
             <div class='stack gap-10 content'>
               <div class='featured-image-container'>
-                <div class='gradient-wrapper'>
-                  <GradientPlaceholder
-                    title={entry.data.title}
-                    size='large'
-                    alt={entry.data.img_alt || entry.data.title}
-                  />
-                </div>
+                {
+                  entry.data.img ? (
+                    <img
+                      src={entry.data.img}
+                      alt={entry.data.img_alt || entry.data.title}
+                      class='featured-image'
+                    />
+                  ) : (
+                    <div class='gradient-wrapper'>
+                      <GradientPlaceholder
+                        title={entry.data.title}
+                        size='large'
+                        alt={entry.data.img_alt || entry.data.title}
+                      />
+                    </div>
+                  )
+                }
               </div>
               <div class='prose'>
                 <Content />
@@ -279,6 +289,38 @@ const showToc = tocHeadings.length > 0;
     width: 100%;
     max-width: 1000px;
     margin: 0 auto 3rem auto;
+  }
+
+  .featured-image-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto 3rem auto;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .featured-image-container {
+      border-radius: 1.5rem;
+    }
+  }
+
+  .featured-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+  }
+
+  @media (min-width: 768px) {
+    .featured-image {
+      height: 400px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .featured-image {
+      height: 450px;
+    }
   }
 
   .gradient-wrapper {
@@ -710,11 +752,20 @@ const showToc = tocHeadings.length > 0;
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const images = document.querySelectorAll('img');
+    const images = document.querySelectorAll<HTMLImageElement>('.featured-image');
     images.forEach((img) => {
       img.addEventListener('error', () => {
-        img.src = '/fallback-image.jpg';
-        img.alt = 'Image failed to load';
+        const container = img.parentElement;
+        const placeholder = document.createElement('div');
+        placeholder.className = 'gradient-wrapper';
+        placeholder.innerHTML = `
+      <div class="gradient-placeholder">
+        <div class="placeholder-content">
+          <div class="placeholder-text">${img.alt || 'Blog Image'}</div>
+        </div>
+      </div>
+    `;
+        container?.replaceChild(placeholder, img);
       });
     });
 
@@ -740,9 +791,7 @@ const showToc = tocHeadings.length > 0;
     const calculate = () => {
       if (window.innerWidth >= 1024) {
         reset();
-        // Force a reflow to ensure accurate measurements
         void tocContainer.offsetHeight;
-        // Use a more reliable method to get the initial position
         const rect = tocContainer.getBoundingClientRect();
         initialTocTop = rect.top + window.scrollY;
       }
@@ -833,11 +882,8 @@ const showToc = tocHeadings.length > 0;
       }
     };
 
-    // Enhanced initialization sequence
     const initializeWhenReady = () => {
-      // Wait for images and other resources to load
       if (document.readyState === 'complete') {
-        // Additional delay to ensure layout is stable
         setTimeout(() => {
           init();
         }, 150);
@@ -850,15 +896,12 @@ const showToc = tocHeadings.length > 0;
       }
     };
 
-    // Start initialization
     initializeWhenReady();
 
-    // Add scroll and resize listeners
     window.addEventListener('scroll', throttle);
     window.addEventListener('resize', handleResize);
   });
 
-  // Fallback for cases where DOMContentLoaded has already fired
   if (document.readyState !== 'loading') {
     document.dispatchEvent(new Event('DOMContentLoaded'));
   }
