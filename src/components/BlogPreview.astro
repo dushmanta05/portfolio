@@ -1,6 +1,5 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import GradientPlaceholder from '@components/GradientPlaceholder.astro';
 
 interface Props {
   project: CollectionEntry<'blog'>;
@@ -11,7 +10,20 @@ const { data, slug } = Astro.props.project;
 
 <a class='card' href={`/blog/${slug}`}>
   <div class='card-image'>
-    <GradientPlaceholder title={data.title} size='small' alt={data.img_alt || data.title} />
+    {
+      data.img ? (
+        <img
+          src={data.img}
+          alt={data.img_alt || data.title}
+          loading='lazy'
+          class='w-full h-full object-cover'
+        />
+      ) : (
+        <div class='w-full h-full bg-gray-200 border-2 border-dashed rounded-xl flex items-center justify-center'>
+          <span class='text-gray-500'>No Image</span>
+        </div>
+      )
+    }
   </div>
   <div class='card-content'>
     <h3 class='title'>{data.title}</h3>
@@ -32,11 +44,6 @@ const { data, slug } = Astro.props.project;
 </a>
 
 <style>
-  :global(.card img[src='/fallback-image.jpg']) {
-    object-fit: cover;
-    background-color: var(--gray-800);
-  }
-
   .card {
     @apply flex flex-col rounded-lg overflow-hidden no-underline relative;
     background: var(--gray-100);
@@ -55,16 +62,11 @@ const { data, slug } = Astro.props.project;
     @apply w-full h-48 overflow-hidden relative;
   }
 
-  .card-image :global(.gradient-placeholder) {
-    @apply w-full h-full transition-transform duration-500;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+  .card-image img {
+    @apply w-full h-full transition-transform duration-500 object-cover;
   }
 
-  .card:hover .card-image :global(.gradient-placeholder) {
+  .card:hover .card-image img {
     transform: scale(1.03);
   }
 
