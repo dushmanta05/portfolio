@@ -25,6 +25,11 @@ pnpm-debug.log*
 
 # IDE setting
 .vscode/
+.zed/
 
 # Server
 Caddyfile
+
+# AI Tools
+QWEN.md
+GEMINI.md
