@@ -11,7 +11,7 @@ tags:
 
 Hello developers, In this article, we'll explore how you can delete message logs from your **Twilio** project using `Node.js`. This will help you manage your Twilio message logs efficiently.
 
-Prerequisite: Before diving in, you should have basic knowledge of `Node.js` and a Twilio account with messaging services. Make sure you have your **Twiliocredentials (Account SID** and **Auth Token)**.
+Prerequisite: Before diving in, you should have basic knowledge of `Node.js` and a Twilio account with messaging services. Make sure you have your **Twilio credentials (Account SID** and **Auth Token)**.
 
 I won't be explaining how to create a `Node.js` application, as I expect you already have a `Node.js` project.
 

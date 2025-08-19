@@ -1,7 +1,7 @@
 ---
 title: 'SAML Authentication: SP vs. IdP Flows Explained'
 description: |
-  Learn about SAML authentication, its definitions, workings, and the differences between SP and IdP initiated flows in this comprehensive guide
+  Learn about SAML authentication, its definitions, workings, and the differences between SP and IdP initiated flows
 publishDate: 2025-03-07 12:16:00
 img: https://cdn.hashnode.com/res/hashnode/image/upload/v1741349301800/a5658d4c-c526-4894-929f-b542519d9ea1.png
 # img_alt

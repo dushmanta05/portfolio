@@ -1,12 +1,12 @@
 ---
-title: 'Amazon Bedrock with JavaScript: Text, Chat, Streaming & Structured Output via SDK and REST'
+title: 'Amazon Bedrock with JavaScript'
 description: |
   Learn how to use Amazon Bedrock in JavaScript via SDK and REST for text, chat, streaming, and structured outputs.
 publishDate: 2025-08-07 01:28:00
 img: https://cdn.hashnode.com/res/hashnode/image/upload/v1754510173292/3d737f18-c411-4264-9ad6-4add600bd2a7.png
 # img_alt
 tags:
-  - amazon bedrock
+  - amazon-bedrock
   - ai
 ---
 
