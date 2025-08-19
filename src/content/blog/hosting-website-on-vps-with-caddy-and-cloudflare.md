@@ -3,7 +3,8 @@ title: Host Your Website with VPS, Caddy & Cloudflare
 description: |
   Learn how to host your website on a VPS using Caddy Server and Cloudflare with this step-by-step guide
 publishDate: 2024-11-11 22:39:07
-img: https://cdn.hashnode.com/res/hashnode/image/upload/v1731364644904/188b7635-5e25-4da3-97ed-b12af73c9cd3.png
+img: /assets/blog/hosting-website-on-vps-with-caddy-and-cloudflare/banner.svg
+ogImage: /assets/blog/hosting-website-on-vps-with-caddy-and-cloudflare/og.svg
 # img_alt
 tags:
   - cloudflare

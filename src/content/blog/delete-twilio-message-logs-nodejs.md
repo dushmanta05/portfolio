@@ -2,7 +2,8 @@
 title: Delete Twilio Message Logs in Node.js Application
 description: Learn to delete Twilio message logs in a Node.js application with simple steps
 publishDate: 2024-07-23 22:39:07
-img: https://cdn.hashnode.com/res/hashnode/image/upload/v1721676080628/3e456772-46a1-4ec4-a679-827014af7b8b.png
+img: /assets/blog/delete-twilio-message-logs-nodejs/banner.svg
+ogImage: /assets/blog/delete-twilio-message-logs-nodejs/og.svg
 # img_alt
 tags:
   - twilio-logs

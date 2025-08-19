@@ -2,7 +2,8 @@
 title: Node.js Multi-Threading with Worker Threads
 description: Boost Node.js performance for CPU-heavy tasks using Worker Threads
 publishDate: 2024-09-10 22:39:07
-img: https://cdn.hashnode.com/res/hashnode/image/upload/v1726017030358/0e5bc502-246f-4370-926b-a4243b5ad509.png
+img: /assets/blog/nodejs-multi-threading-with-worker-threads/banner.svg
+ogImage: /assets/blog/nodejs-multi-threading-with-worker-threads/og.svg
 # img_alt
 tags:
   - worker-threads

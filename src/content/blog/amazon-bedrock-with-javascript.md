@@ -3,8 +3,8 @@ title: 'Amazon Bedrock with JavaScript'
 description: |
   Learn how to use Amazon Bedrock in JavaScript via SDK and REST for text, chat, streaming, and structured outputs.
 publishDate: 2025-08-07 01:28:00
-img: https://cdn.hashnode.com/res/hashnode/image/upload/v1755607823279/37ff06f7-e0dd-4bf5-be86-34d3dd8e0507.png
-ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1755607615781/328ccd50-199a-4278-ac64-6e257b1c14a3.png
+img: /assets/blog/amazon-bedrock-with-javascript/banner.svg
+ogImage: /assets/blog/amazon-bedrock-with-javascript/og.svg
 # img_alt
 tags:
   - amazon-bedrock
