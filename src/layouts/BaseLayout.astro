@@ -88,6 +88,12 @@ const canonicalURL = new URL(Astro.url.pathname, 'https://dushmanta.dev');
     <meta name='robots' content='index, follow' />
     <meta name='theme-color' content='#7f6df2' />
 
+    <!-- Pinterest -->
+    <meta name='pinterest-rich-pin' content='true' />
+    <meta name='pinterest:title' content={title} />
+    <meta name='pinterest:description' content={description} />
+    <meta name='pinterest:image' content={finalImage} />
+
     <!-- Apple Touch Icon -->
     <link rel='apple-touch-icon' sizes='180x180' href='/apple-touch-icon.png' />
     <link rel='icon' type='image/png' sizes='32x32' href='/favicon-32x32.png' />
