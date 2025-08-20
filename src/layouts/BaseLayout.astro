@@ -34,7 +34,7 @@ const isHomePage = Astro.url.pathname === '/';
 const title = seoTitle || rawTitle;
 const description = isHomePage ? homepageDescription : seoDescription || rawDescription;
 
-const finalImage = ogImage || image;
+const finalImage = ogImage || (isHomePage ? `${Astro.site || 'https://dushmanta.dev'}/api/og-default` : image);
 const canonicalURL = new URL(Astro.url.pathname, 'https://dushmanta.dev');
 ---
 
@@ -54,16 +54,22 @@ const canonicalURL = new URL(Astro.url.pathname, 'https://dushmanta.dev');
     <!-- Open Graph / Meta -->
     <meta property='og:site_name' content='Dushmanta | Portfolio' />
     <meta property='og:type' content={articleType} />
-    {
-      articleType === 'article' && publishDate && (
-        <meta property='article:published_time' content={publishDate} />
-      )
-    }
     <meta property='og:url' content={canonicalURL} />
     <meta property='og:title' content={title} />
     <meta property='og:description' content={description} />
     <meta property='og:image' content={finalImage} />
     <meta property='og:image:alt' content='Dushmanta Portfolio Preview' />
+    <meta property='og:locale' content='en_US' />
+
+    <!-- Article specific meta tags -->
+    {articleType === 'article' && (
+      <>
+        <meta property='article:author' content='Dushmanta' />
+        <meta property='article:published_time' content={publishDate || new Date().toISOString()} />
+        <meta property='article:section' content='Technology' />
+        <meta property='article:tag' content='Web Development' />
+      </>
+    )}
 
     <!-- Twitter -->
     <meta name='twitter:card' content='summary_large_image' />
@@ -75,24 +81,12 @@ const canonicalURL = new URL(Astro.url.pathname, 'https://dushmanta.dev');
     <meta name='twitter:image' content={finalImage} />
     <meta name='twitter:image:alt' content='Dushmanta Portfolio Preview' />
 
-    <!-- LinkedIn -->
-    <meta property='og:type' content='article' />
-    <meta property='article:author' content='Dushmanta' />
-    <meta property='article:published_time' content={new Date().toISOString()} />
-
     <!-- Discord -->
     <meta property='og:image:width' content='1200' />
     <meta property='og:image:height' content='630' />
 
-    <meta name='author' content='Dushmanta' />
-    <meta name='robots' content='index, follow' />
-    <meta name='theme-color' content='#7f6df2' />
-
     <!-- Pinterest -->
-    <meta name='pinterest-rich-pin' content='true' />
-    <meta name='pinterest:title' content={title} />
-    <meta name='pinterest:description' content={description} />
-    <meta name='pinterest:image' content={finalImage} />
+    <meta name='application-name' content='Dushmanta Portfolio' />
 
     <!-- Apple Touch Icon -->
     <link rel='apple-touch-icon' sizes='180x180' href='/apple-touch-icon.png' />
@@ -118,20 +112,59 @@ const canonicalURL = new URL(Astro.url.pathname, 'https://dushmanta.dev');
     </script>
 
     <!-- JSON-LD Structured Data for better SEO -->
-    <script is:inline type='application/ld+json'>
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Dushmanta",
-        "url": "https://dushmanta.dev",
-        "sameAs": [
-          "https://twitter.com/dushmanta05",
-          "https://linkedin.com/in/your-linkedin-handle",
-          "https://github.com/your-github-handle"
-        ],
-        "jobTitle": "Full-Stack Developer",
-        "description": "Full-Stack Developer specializing in backend development. Building efficient digital solutions with Node.js, MongoDB, and modern web technologies."
-      }
+    <script is:inline type='application/ld+json' set:html={
+      JSON.stringify(
+        articleType === 'article' ? {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": title,
+          "description": description,
+          "image": {
+            "@type": "ImageObject",
+            "url": finalImage,
+            "width": 1200,
+            "height": 630
+          },
+          "author": {
+            "@type": "Person",
+            "name": "Dushmanta",
+            "url": "https://dushmanta.dev"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Dushmanta Portfolio",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://dushmanta.dev/og-image.png"
+            }
+          },
+          "datePublished": publishDate || new Date().toISOString(),
+          "dateModified": publishDate || new Date().toISOString(),
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": canonicalURL
+          }
+        } : {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "Dushmanta Portfolio",
+          "url": "https://dushmanta.dev",
+          "description": description,
+          "author": {
+            "@type": "Person",
+            "name": "Dushmanta",
+            "jobTitle": "Full-Stack Developer",
+            "url": "https://dushmanta.dev"
+          },
+          "image": {
+            "@type": "ImageObject",
+            "url": finalImage,
+            "width": 1200,
+            "height": 630
+          }
+        }
+      )
+    }>
     </script>
 
     <style>
