@@ -18,7 +18,7 @@ interface Props {
 const {
   seoTitle,
   seoDescription,
-  title: rawTitle = 'Dushmanta | Portfolio',
+  title: rawTitle = 'Dushmanta | Full-Stack Developer Portfolio',
   description: rawDescription,
   image = 'https://dushmanta.dev/og-image.png',
   ogImage,
@@ -34,11 +34,11 @@ const isHomePage = Astro.url.pathname === '/';
 const title = seoTitle || rawTitle;
 const description = isHomePage ? homepageDescription : seoDescription || rawDescription;
 
-const finalImage = ogImage || (isHomePage ? `${Astro.site || 'https://dushmanta.dev'}/api/og-default` : image);
+const finalImage = new URL(ogImage || image, 'https://dushmanta.dev').href;
 const canonicalURL = new URL(Astro.url.pathname, 'https://dushmanta.dev');
 ---
 
-<html lang='en'>
+<html lang='en' data-pinterest-rich='true'>
   <head>
     <meta charset='utf-8' />
     <meta name='viewport' content='width=device-width' />
@@ -52,7 +52,7 @@ const canonicalURL = new URL(Astro.url.pathname, 'https://dushmanta.dev');
     <meta name='description' content={description} />
 
     <!-- Open Graph / Meta -->
-    <meta property='og:site_name' content='Dushmanta | Portfolio' />
+    <meta property='og:site_name' content=`Dushmanta's Portfolio` />
     <meta property='og:type' content={articleType} />
     <meta property='og:url' content={canonicalURL} />
     <meta property='og:title' content={title} />
