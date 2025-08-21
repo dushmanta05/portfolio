@@ -39,7 +39,7 @@ const { align = 'center' } = Astro.props;
 
 <style>
   .gradient-text {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    background: linear-gradient(to right, #0751cf, #7928ca, #ff0080, #ff4d4d, #ffc700);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -47,7 +47,7 @@ const { align = 'center' } = Astro.props;
   }
 
   .highlight {
-    color: #667eea;
+    color: var(--accent-regular);
     font-weight: 500;
   }
 
@@ -57,7 +57,7 @@ const { align = 'center' } = Astro.props;
 
   @supports not (-webkit-background-clip: text) {
     .gradient-text {
-      color: #667eea;
+      color: var(--accent-regular);
     }
   }
 </style>
