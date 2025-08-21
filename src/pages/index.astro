@@ -8,6 +8,7 @@ import Icon from '@components/Icon.astro';
 import Pill from '@components/Pill.astro';
 import PortfolioPreview from '@components/PortfolioPreview.astro';
 import BlogPreview from '@components/BlogPreview.astro';
+import CallToAction from '@components/CallToAction.astro';
 import ContactCTA from '@components/ContactCTA.astro';
 import Skills from '@components/Skills.astro';
 
@@ -64,10 +65,10 @@ const ogImage = `${siteUrl}/og-image.png`;
             </p>
           </div>
           <div class='section-cta'>
-            <a href='/work/' class='cta-button'>
+            <CallToAction href='/work/'>
               View All
-              <Icon icon='arrowRight' size='1.2em' />
-            </a>
+              <Icon icon='arrowRight' size='1em' />
+            </CallToAction>
           </div>
         </div>
         <div class='projects-grid'>
@@ -116,10 +117,10 @@ const ogImage = `${siteUrl}/og-image.png`;
             </p>
           </div>
           <div class='section-cta'>
-            <a href='/blog/' class='cta-button'>
+            <CallToAction href='/blog/'>
               View All
-              <Icon icon='arrowRight' size='1.2em' />
-            </a>
+              <Icon icon='arrowRight' size='1em' />
+            </CallToAction>
           </div>
         </div>
         <div class='blogs-grid'>
@@ -225,26 +226,6 @@ const ogImage = `${siteUrl}/og-image.png`;
     .section-cta {
       justify-content: flex-end;
     }
-  }
-
-  .cta-button {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    background: linear-gradient(135deg, var(--accent-regular), var(--accent-dark));
-    color: white;
-    text-decoration: none;
-    font-size: 0.875rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-
-  .cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   }
 
   /* Projects Grid */
