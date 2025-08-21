@@ -17,13 +17,13 @@
   --gray-999-40: hsla(var(--gray-999-basis), 0.4);
   --gray-999: #ffffff;
 
-  --accent-light: #2200ff;
-  --accent-regular: #7f6df2;
-  --accent-dark: #1c0056;
-  --accent-overlay: #d3cef2;
+  --accent-light: #3e8bff;
+  --accent-regular: #0751cf;
+  --accent-dark: #023b94;
+  --accent-overlay: #cfe0ff;
   --accent-subtle-overlay: var(--accent-overlay);
   --accent-text-over: var(--gray-999);
-  --accent-regular-rgb: 127, 109, 242;
+  --accent-regular-rgb: 7, 81, 207;
 
   --link-color: var(--accent-regular);
 
@@ -32,13 +32,13 @@
   --gradient-stop-2: var(--accent-regular);
   --gradient-stop-3: var(--accent-dark);
   --gradient-subtle: linear-gradient(150deg, var(--gray-900) 19%, var(--gray-999) 150%);
-  --gradient-accent: linear-gradient(
-    150deg,
-    var(--gradient-stop-1),
-    var(--gradient-stop-2),
-    var(--gradient-stop-3)
+  --gradient-accent: var(--accent-regular);
+  --gradient-accent-cta: linear-gradient(
+    135deg,
+    var(--accent-light),
+    var(--accent-regular),
+    var(--accent-dark)
   );
-  --gradient-accent-cta: linear-gradient(150deg, var(--accent-regular), var(--accent-dark));
   --gradient-stroke: linear-gradient(180deg, var(--gray-900), var(--gray-700));
 
   /* Shadows */
@@ -83,19 +83,24 @@
   --gray-999-40: hsla(var(--gray-999-basis), 0.4);
   --gray-999: #090b11;
 
-  --accent-light: #1c0056;
-  --accent-regular: #7f6df2;
-  --accent-dark: #7f6df2;
-  --accent-overlay: #d3cef2;
-  --accent-subtle-overlay: #3e2da8;
+  --accent-light: #023b94;
+  --accent-regular: #0751cf;
+  --accent-dark: #3e8bff;
+  --accent-overlay: #1c2a4a;
+  --accent-subtle-overlay: #032b6a;
   --accent-text-over: var(--gray-0);
-  --accent-regular-rgb: 127, 109, 242; /* RGB value of #7f6df2 */
+  --accent-regular-rgb: 7, 81, 207;
 
   --link-color: var(--accent-dark);
 
-  --gradient-stop-1: #4c11c6;
+  --gradient-stop-1: var(--accent-regular);
   --gradient-subtle: linear-gradient(150deg, var(--gray-900) 19%, var(--gray-999) 81%);
-  --gradient-accent-cta: linear-gradient(150deg, var(--accent-light), var(--accent-regular));
+  --gradient-accent-cta: linear-gradient(
+    135deg,
+    var(--accent-light),
+    var(--accent-regular),
+    var(--accent-dark)
+  );
   --gradient-stroke: linear-gradient(180deg, var(--gray-600), var(--gray-800));
 
   --shadow-sm: 0px 6px 3px rgba(255, 255, 255, 0.01), 0px 4px 2px rgba(255, 255, 255, 0.01),
