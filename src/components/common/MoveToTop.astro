@@ -1,31 +1,14 @@
 ---
 import Icon from '@components/Icon.astro';
-
-// MoveToTop.astro
 ---
 
 <div id='move-to-top' class='move-to-top' aria-label='Scroll to top'>
   <div class='progress-ring'>
-    <svg class='progress-ring-svg' width='56' height='56'>
-      <circle
-        class='progress-ring-background'
-        stroke='currentColor'
-        stroke-width='3'
-        fill='transparent'
-        r='26'
-        cx='28'
-        cy='28'></circle>
-      <circle
-        class='progress-ring-progress'
-        stroke='currentColor'
-        stroke-width='3'
-        fill='transparent'
-        r='26'
-        cx='28'
-        cy='28'></circle>
+    <svg class='progress-ring-svg'>
+      <circle class='progress-ring-progress'></circle>
     </svg>
     <div class='arrow-icon'>
-      <Icon icon='caretUp' color='#7f6df2' size='20px' />
+      <Icon icon='caretUp' size='20px' />
     </div>
   </div>
   <div class='tooltip'>Back to top</div>
@@ -54,24 +37,33 @@ import Icon from '@components/Icon.astro';
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 56px;
-    height: 56px;
+    width: var(--svg-size);
+    height: var(--svg-size);
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
+    background: transparent;
     box-shadow:
       0 8px 32px rgba(0, 0, 0, 0.12),
       0 2px 8px rgba(0, 0, 0, 0.08);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 1;
   }
 
-  .progress-ring:hover {
-    transform: translateY(-2px);
-    box-shadow:
-      0 12px 48px rgba(0, 0, 0, 0.15),
-      0 4px 16px rgba(0, 0, 0, 0.1);
-    background: rgba(255, 255, 255, 0.98);
+  .progress-ring::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    background: hsla(var(--gray-999-basis), 0.5);
+    backdrop-filter: blur(10px);
+    z-index: -1;
+    transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .progress-ring:hover::before {
+    background: hsla(var(--gray-999-basis), 0.7);
   }
 
   .progress-ring-svg {
@@ -85,21 +77,24 @@ import Icon from '@components/Icon.astro';
     border-radius: 50%;
   }
 
-  .progress-ring-background {
-    color: rgba(127, 109, 242, 0.2);
+  .progress-ring-background,
+  .progress-ring-progress {
+    fill: transparent;
+    stroke-width: var(--stroke-width);
+    r: var(--radius);
+    cx: var(--center);
+    cy: var(--center);
   }
 
   .progress-ring-progress {
-    color: #7f6df2;
-    stroke-dasharray: 163.36; /* 2 * π * 26 */
-    stroke-dashoffset: 163.36;
+    stroke: var(--accent-regular);
     transition: stroke-dashoffset 0.1s ease-out;
   }
 
   .arrow-icon {
     position: relative;
     z-index: 1;
-    color: #7f6df2;
+    color: var(--accent-regular);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -115,8 +110,8 @@ import Icon from '@components/Icon.astro';
     bottom: 100%;
     left: 50%;
     transform: translateX(-50%) translateY(-8px);
-    background: rgba(17, 24, 39, 0.95);
-    color: white;
+    background: hsla(var(--gray-999-basis), 0.95);
+    color: var(--gray-0);
     padding: 8px 12px;
     border-radius: 8px;
     font-size: 0.875rem;
@@ -136,7 +131,7 @@ import Icon from '@components/Icon.astro';
     left: 50%;
     transform: translateX(-50%);
     border: 5px solid transparent;
-    border-top-color: rgba(17, 24, 39, 0.95);
+    border-top-color: hsla(var(--gray-999-basis), 0.95);
   }
 
   .move-to-top:hover .tooltip {
@@ -147,21 +142,20 @@ import Icon from '@components/Icon.astro';
 
   /* Dark theme styles */
   :root.theme-dark .progress-ring {
-    background: rgba(17, 24, 39, 0.95);
-    border-color: rgba(75, 85, 99, 0.3);
+    background: hsla(var(--gray-999-basis), 0.5);
   }
 
   :root.theme-dark .progress-ring:hover {
-    background: rgba(17, 24, 39, 0.98);
+    background: hsla(var(--gray-999-basis), 0.7);
   }
 
   :root.theme-dark .tooltip {
-    background: rgba(255, 255, 255, 0.95);
-    color: rgba(17, 24, 39, 0.9);
+    background: hsla(var(--gray-0-basis), 0.95);
+    color: var(--gray-999);
   }
 
   :root.theme-dark .tooltip::after {
-    border-top-color: rgba(255, 255, 255, 0.95);
+    border-top-color: hsla(var(--gray-0-basis), 0.95);
   }
 
   /* Mobile optimizations */
@@ -172,22 +166,8 @@ import Icon from '@components/Icon.astro';
     }
 
     .progress-ring {
-      width: 52px;
-      height: 52px;
-    }
-
-    .progress-ring-svg {
-      width: 52px;
-      height: 52px;
-      transform: rotate(-90deg);
-      transform-origin: 26px 26px;
-    }
-
-    .progress-ring-background,
-    .progress-ring-progress {
-      r: 24;
-      cx: 26;
-      cy: 26;
+      width: var(--svg-size-mobile);
+      height: var(--svg-size-mobile);
     }
 
     .arrow-icon svg {
@@ -216,14 +196,28 @@ import Icon from '@components/Icon.astro';
   class MoveToTopComponent {
     private moveToTopBtn: HTMLElement | null = null;
     private progressRing: SVGCircleElement | null = null;
-    private circumference: number = 163.36;
+    private circumference: number = 0;
+
+    private readonly SVG_SIZE = 56;
+    private readonly SVG_SIZE_MOBILE = 52;
+    private readonly STROKE_WIDTH = 3;
 
     constructor() {
       this.init();
     }
 
+    private get radius() {
+      const size = window.innerWidth <= 768 ? this.SVG_SIZE_MOBILE : this.SVG_SIZE;
+      return size / 2 - this.STROKE_WIDTH;
+    }
+
+    private get center() {
+      const size = window.innerWidth <= 768 ? this.SVG_SIZE_MOBILE : this.SVG_SIZE;
+      return size / 2;
+    }
+
     private init(): void {
-      // Wait for DOM to be ready
+      if (typeof window === 'undefined') return;
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => this.setup());
       } else {
@@ -233,12 +227,22 @@ import Icon from '@components/Icon.astro';
 
     private setup(): void {
       this.moveToTopBtn = document.getElementById('move-to-top');
-      this.progressRing = document.querySelector('.progress-ring-progress');
+      if (!this.moveToTopBtn) return;
 
-      if (!this.moveToTopBtn || !this.progressRing) return;
+      this.progressRing = this.moveToTopBtn.querySelector('.progress-ring-progress');
+      if (!this.progressRing) return;
 
       const isMobile = window.innerWidth <= 768;
-      this.circumference = isMobile ? 150.8 : 163.36;
+      const svgSize = isMobile ? this.SVG_SIZE_MOBILE : this.SVG_SIZE;
+      const radius = svgSize / 2 - this.STROKE_WIDTH;
+      const center = svgSize / 2;
+      this.circumference = 2 * Math.PI * radius;
+
+      this.moveToTopBtn.style.setProperty('--svg-size', `${this.SVG_SIZE}px`);
+      this.moveToTopBtn.style.setProperty('--svg-size-mobile', `${this.SVG_SIZE_MOBILE}px`);
+      this.moveToTopBtn.style.setProperty('--stroke-width', `${this.STROKE_WIDTH}px`);
+      this.moveToTopBtn.style.setProperty('--radius', `${radius}px`);
+      this.moveToTopBtn.style.setProperty('--center', `${center}px`);
 
       this.progressRing.style.strokeDasharray = `${this.circumference}`;
       this.progressRing.style.strokeDashoffset = `${this.circumference}`;
@@ -270,12 +274,12 @@ import Icon from '@components/Icon.astro';
       this.moveToTopBtn.setAttribute('role', 'button');
     }
 
-    private updateScrollProgress(): void {
+    private updateScrollProgress = () => {
       if (!this.moveToTopBtn || !this.progressRing) return;
 
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      const scrollPercent = docHeight > 0 ? scrollTop / docHeight : 0;
 
       if (scrollTop > 300) {
         this.moveToTopBtn.classList.add('visible');
@@ -283,9 +287,9 @@ import Icon from '@components/Icon.astro';
         this.moveToTopBtn.classList.remove('visible');
       }
 
-      const offset = this.circumference - (scrollPercent / 100) * this.circumference;
+      const offset = this.circumference * (1 - scrollPercent);
       this.progressRing.style.strokeDashoffset = `${offset}`;
-    }
+    };
 
     private scrollToTop = (): void => {
       window.scrollTo({
@@ -299,7 +303,7 @@ import Icon from '@components/Icon.astro';
       limit: number
     ): (...args: Parameters<T>) => void {
       let inThrottle: boolean;
-      return function (this: any, ...args: Parameters<T>) {
+      return (...args: Parameters<T>) => {
         if (!inThrottle) {
           func.apply(this, args);
           inThrottle = true;
@@ -309,9 +313,11 @@ import Icon from '@components/Icon.astro';
     }
   }
 
-  new MoveToTopComponent();
-
-  document.addEventListener('astro:page-load', () => {
+  if (typeof window !== 'undefined') {
     new MoveToTopComponent();
-  });
+
+    document.addEventListener('astro:page-load', () => {
+      new MoveToTopComponent();
+    });
+  }
 </script>
