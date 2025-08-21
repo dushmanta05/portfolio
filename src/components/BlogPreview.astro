@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import Tag from '@components/common/Tag.astro';
 
 interface Props {
   project: CollectionEntry<'blog'>;
@@ -38,7 +39,7 @@ const { data, slug } = Astro.props.project;
           })
         }</span
       >
-      {data.tags && data.tags.length > 0 && <span class='tag'>{data.tags[0]}</span>}
+      {data.tags && data.tags.length > 0 && <Tag tag={data.tags[0]} />}
     </div>
   </div>
 </a>
