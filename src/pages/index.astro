@@ -9,6 +9,8 @@ import ProjectsSection from '@components/ProjectsSection.astro';
 import BlogPreview from '@components/BlogPreview.astro';
 import CallToAction from '@components/CallToAction.astro';
 import ContactCTA from '@components/ContactCTA.astro';
+import SkillsSection from '@components/SkillsSection.astro';
+import OSSContributions from '@components/OSSContributions.astro';
 import Skills from '@components/Skills.astro';
 
 const projects = (await getCollection('work')).sort(
@@ -74,26 +76,7 @@ const ogImage = `${siteUrl}/og-image.png`;
 
       <!-- Skills Section -->
       <section class='skills-section mb-12'>
-        <header class='skills-header'>
-          <h3 class='skills-title text-3xl'>Skills & Expertise</h3>
-          <p class='skills-description text-base'>
-            I specialize in frontend and backend technologies. Below, you can explore my key skills
-            and the tools I use to build efficient and scalable solutions.
-          </p>
-        </header>
-        <div class='skills-grid'>
-          <Grid variant='small'>
-            {
-              ['JavaScript', 'Node.js', 'MongoDB', 'Express.js', 'React', 'TypeScript'].map(
-                (brand) => (
-                  <li class='skill-item'>
-                    <p class='skill-name'>{brand}</p>
-                  </li>
-                )
-              )
-            }
-          </Grid>
-        </div>
+        <SkillsSection />
       </section>
 
       <!-- Blog Section -->
@@ -122,6 +105,19 @@ const ogImage = `${siteUrl}/og-image.png`;
             ))
           }
         </div>
+      </section>
+
+      <!-- OSS Contributions -->
+      <section class='oss-section'>
+        <div class='section-header'>
+          <div class='header-content'>
+            <h3 class='section-title text-3xl mb-4'>Open Source Contributions</h3>
+            <p class='section-description text-base'>
+              Check out my contributions to open-source projects and the developer community.
+            </p>
+          </div>
+        </div>
+        <OSSContributions />
       </section>
     </main>
     <div class='wrapper'>
@@ -244,12 +240,13 @@ const ogImage = `${siteUrl}/og-image.png`;
     display: grid;
     gap: 2rem;
     position: relative;
+    padding: 3rem 0;
   }
 
   .skills-header {
     text-align: center;
     max-width: 50ch;
-    margin: 0 auto;
+    margin: 0 auto 2rem auto;
     color: var(--gray-400);
   }
 
@@ -305,6 +302,12 @@ const ogImage = `${siteUrl}/og-image.png`;
     .skill-name {
       font-size: 1rem;
     }
+  }
+
+  /* OSS Section */
+  .oss-section {
+    margin: 0 0 3rem 0;
+    padding: 3rem 0;
   }
 
   /* Blog Grid */

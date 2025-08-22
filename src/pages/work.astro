@@ -5,6 +5,8 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import ContactCTA from '@components/ContactCTA.astro';
 import ProjectsSection from '@components/ProjectsSection.astro';
 import PageHeader from '@components/PageHeader.astro';
+import Miscellaneous from '@components/Miscellaneous.astro';
+import OSSContributions from '@components/OSSContributions.astro';
 import Icon from '@components/Icon.astro';
 
 const projects = (await getCollection('work')).sort(
@@ -25,6 +27,14 @@ const projects = (await getCollection('work')).sort(
       />
 
       <ProjectsSection projects={projects} />
+
+      <section class='oss-section'>
+        <OSSContributions />
+      </section>
+
+      <section class='miscellaneous-section'>
+        <Miscellaneous />
+      </section>
 
       <section class='all-projects-section' id='all-projects'>
         <div class='section-header'>
@@ -78,7 +88,9 @@ const projects = (await getCollection('work')).sort(
         </div>
       </section>
     </main>
-    <ContactCTA />
+    <div class='wrapper'>
+      <ContactCTA />
+    </div>
   </div>
 </BaseLayout>
 

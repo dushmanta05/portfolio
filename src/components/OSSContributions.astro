@@ -1,0 +1,194 @@
+---
+interface OSSContribution {
+  project: string;
+  description: string;
+  url: string;
+  technologies: string[];
+  imageUrl?: string;
+}
+
+const contributions: OSSContribution[] = [
+  {
+    project: 'Astro Portfolio Theme',
+    description:
+      'Contributed accessibility improvements and responsive design fixes to a popular Astro portfolio template.',
+    url: 'https://github.com/example/astro-portfolio',
+    technologies: ['Astro', 'Tailwind CSS', 'TypeScript'],
+    imageUrl: '/og-image.png',
+  },
+  {
+    project: 'Open Source Documentation',
+    description:
+      'Wrote comprehensive documentation for a widely-used JavaScript library, improving developer onboarding experience.',
+    url: 'https://github.com/example/js-library',
+    technologies: ['JavaScript', 'Markdown'],
+    imageUrl: '/og-image.png',
+  },
+  {
+    project: 'Community Forum Platform',
+    description:
+      'Developed moderation tools and notification features for an open-source community platform.',
+    url: 'https://github.com/example/forum-platform',
+    technologies: ['React', 'Node.js', 'MongoDB'],
+    imageUrl: '/og-image.png',
+  },
+];
+---
+
+<section class='oss-section'>
+  <div class='section-header'>
+    <h2 class='section-title'>Open Source Contributions</h2>
+    <p class='section-description'>
+      Check out my contributions to open-source projects and the developer community.
+    </p>
+  </div>
+  <div class='oss-grid'>
+    {
+      contributions.map((contribution) => (
+        <a href={contribution.url} target='_blank' rel='noopener noreferrer' class='oss-card'>
+          <div class='oss-image'>
+            {contribution.imageUrl ? (
+              <img
+                src={contribution.imageUrl}
+                alt={contribution.project}
+                width='400'
+                height='200'
+              />
+            ) : (
+              <div class='placeholder-image'>
+                <span>No Image</span>
+              </div>
+            )}
+          </div>
+          <div class='oss-content'>
+            <h3 class='oss-title'>{contribution.project}</h3>
+            <p class='oss-description'>{contribution.description}</p>
+            <div class='oss-tech'>
+              {contribution.technologies.map((tech) => (
+                <span class='tech-tag'>{tech}</span>
+              ))}
+            </div>
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .oss-section {
+    margin: 3rem 0;
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gray-0);
+    margin-bottom: 0.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: 1.75rem;
+    }
+  }
+
+  .section-description {
+    font-size: 1rem;
+    color: var(--gray-300);
+    max-width: 50ch;
+  }
+
+  .oss-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .oss-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .oss-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .oss-card {
+    display: block;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--gray-800);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+  }
+
+  .oss-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .oss-image {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+  }
+
+  .oss-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .placeholder-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gray-800);
+    color: var(--gray-400);
+  }
+
+  .oss-content {
+    padding: 1.5rem;
+  }
+
+  .oss-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--gray-0);
+    margin: 0 0 1rem 0;
+  }
+
+  .oss-description {
+    color: var(--gray-300);
+    margin: 0 0 1.5rem 0;
+    line-height: 1.6;
+  }
+
+  .oss-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+  }
+
+  .tech-tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    background: rgba(102, 126, 234, 0.1);
+    color: var(--accent-regular);
+    font-weight: 500;
+  }
+</style>

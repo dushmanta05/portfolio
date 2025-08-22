@@ -1,0 +1,101 @@
+---
+import Skills from '@components/Skills.astro';
+---
+
+<section class='skills-section'>
+  <div class='section-header'>
+    <h2 class='section-title'>Skills & Expertise</h2>
+    <p class='section-description'>
+      Discover my key skills and the tools I use to build efficient and scalable solutions.
+    </p>
+  </div>
+  <div class='skills-grid'>
+    <div class='mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4'>
+      {
+        [
+          'JavaScript',
+          'Node.js',
+          'MongoDB',
+          'Express.js',
+          'React',
+          'TypeScript',
+          'Python',
+          'PostgreSQL',
+          'Docker',
+          'AWS',
+          'Next.js',
+          'Tailwind CSS',
+        ].map((brand) => (
+          <div class='skill-item'>
+            <p class='skill-name'>{brand}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .skills-section {
+    margin: 3rem 0;
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gray-0);
+    margin-bottom: 0.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: 1.75rem;
+    }
+  }
+
+  .section-description {
+    font-size: 1rem;
+    color: var(--gray-300);
+    max-width: 50ch;
+  }
+
+  .skills-grid {
+    margin-top: 2rem;
+  }
+
+  .skill-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 5rem;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--gray-800);
+    color: var(--gray-400);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+
+  .skill-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    color: var(--gray-200);
+  }
+
+  .skill-name {
+    font-weight: 500;
+    font-size: 0.875rem;
+  }
+
+  @media (min-width: 768px) {
+    .skill-name {
+      font-size: 1rem;
+    }
+  }
+</style>

@@ -1,0 +1,181 @@
+---
+interface MiscellaneousItem {
+  title: string;
+  description: string;
+  url?: string;
+  imageUrl?: string;
+}
+
+const items: MiscellaneousItem[] = [
+  {
+    title: 'Developers Odisha Community',
+    description:
+      'Founder of the largest tech community in Odisha, organizing monthly meetups and workshops for developers.',
+    url: 'https://developersodisha.community',
+    imageUrl: '/og-image.png',
+  },
+  {
+    title: 'Odisha Food Website',
+    description:
+      'Created a comprehensive website showcasing traditional Odisha cuisine with recipes and cultural significance.',
+    url: 'https://odisha.food',
+    imageUrl: '/og-image.png',
+  },
+  {
+    title: 'Tech Blog',
+    description:
+      'Writing technical articles about web development, AI/ML, and software engineering best practices.',
+    url: '/blog',
+  },
+];
+---
+
+<section class='miscellaneous-section'>
+  <div class='section-header'>
+    <h2 class='section-title'>Beyond Code</h2>
+    <p class='section-description'>
+      Explore my interests and activities outside of programming and technology.
+    </p>
+  </div>
+  <div class='miscellaneous-grid'>
+    {
+      items.map((item) => (
+        <div class='miscellaneous-card'>
+          {item.imageUrl && (
+            <div class='misc-image'>
+              <img src={item.imageUrl} alt={item.title} width='400' height='200' />
+            </div>
+          )}
+          <div class='misc-content'>
+            <h3 class='misc-title'>
+              {item.url ? (
+                <a
+                  href={item.url}
+                  target={item.url.startsWith('http') ? '_blank' : '_self'}
+                  rel='noopener noreferrer'
+                >
+                  {item.title}
+                </a>
+              ) : (
+                item.title
+              )}
+            </h3>
+            <p class='misc-description'>{item.description}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .miscellaneous-section {
+    margin: 3rem 0;
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gray-0);
+    margin-bottom: 0.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: 1.75rem;
+    }
+  }
+
+  .section-description {
+    font-size: 1rem;
+    color: var(--gray-300);
+    max-width: 50ch;
+  }
+
+  .miscellaneous-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .miscellaneous-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .miscellaneous-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .miscellaneous-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--gray-800);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .miscellaneous-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .misc-image {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+  }
+
+  .misc-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .miscellaneous-card:hover .misc-image img {
+    transform: scale(1.05);
+  }
+
+  .misc-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .misc-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--gray-0);
+    margin: 0 0 1rem 0;
+  }
+
+  .misc-title a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s ease;
+  }
+
+  .misc-title a:hover {
+    color: var(--accent-regular);
+    border-bottom: 1px solid var(--accent-regular);
+  }
+
+  .misc-description {
+    color: var(--gray-300);
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+</style>
