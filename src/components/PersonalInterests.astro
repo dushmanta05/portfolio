@@ -1,0 +1,189 @@
+---
+import Icon from '@components/Icon.astro';
+
+interface Interest {
+  title: string;
+  description: string;
+  icon: keyof typeof import('@components/IconPaths').iconPaths;
+}
+
+const interests: Interest[] = [
+  {
+    title: 'Football Enthusiast',
+    description: 'Die-hard Real Madrid and Odisha FC supporter who never misses a match.',
+    icon: 'football',
+  },
+  {
+    title: 'Formula 1 Racing',
+    description: 'Following every F1 race, supporting Red Bull Racing and Max Verstappen.',
+    icon: 'checkeredFlag',
+  },
+  {
+    title: 'Travel & Exploration',
+    description: 'Love discovering new places, cultures, and creating unforgettable memories.',
+    icon: 'airplane',
+  },
+  {
+    title: 'Culinary Explorer',
+    description: 'Food lover with special appreciation for Indian homely food and Odia cuisine.',
+    icon: 'food',
+  },
+  {
+    title: 'Community Helper',
+    description: 'Believe in giving back to society by helping those in need.',
+    icon: 'handshake',
+  },
+  {
+    title: 'Teaching & Mentoring',
+    description: 'Passionate about teaching underprivileged kids and sharing knowledge.',
+    icon: 'teaching',
+  },
+];
+---
+
+<section class='interests-section'>
+  <h2 class='section-title'>When I'm Not Coding</h2>
+  <p class='section-subtitle'>
+    Here's what keeps me passionate and engaged with life outside of technology
+  </p>
+
+  <div class='interests-grid'>
+    {
+      interests.map((interest) => (
+        <div class='interest-card'>
+          <div class='interest-content'>
+            <div class='interest-icon'>
+              <Icon icon={interest.icon} color='var(--accent-regular)' size='2.5rem' />
+            </div>
+            <h3 class='interest-title'>{interest.title}</h3>
+            <p class='interest-description'>{interest.description}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .interests-section {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--gray-800);
+  }
+
+  .interests-section:last-child {
+    border-bottom: none;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gray-0);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: 1.75rem;
+    }
+  }
+
+  .section-subtitle {
+    @apply text-base;
+    color: var(--gray-300);
+    text-align: center;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .interests-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .interests-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .interests-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .interest-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--gray-800);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .interest-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border-color: var(--accent-regular);
+  }
+
+  .interest-content {
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .interest-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .interest-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--gray-0);
+    margin: 0 0 1rem 0;
+  }
+
+  .interest-description {
+    color: var(--gray-300);
+    line-height: 1.5;
+    margin: 0;
+    @apply text-base;
+  }
+
+  /* Mobile responsive adjustments */
+  @media (max-width: 768px) {
+    .section-subtitle {
+      margin-bottom: 2rem;
+      @apply text-base;
+    }
+
+    .interests-grid {
+      gap: 1rem;
+    }
+
+    .interest-content {
+      padding: 1.5rem;
+    }
+
+    .interest-icon {
+      font-size: 2rem;
+    }
+
+    .interest-title {
+      font-size: 1rem;
+    }
+
+    .interest-description {
+      font-size: 0.85rem;
+    }
+  }
+</style>
