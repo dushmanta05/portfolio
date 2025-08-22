@@ -1,5 +1,6 @@
 import tailwind from '@astrojs/tailwind';
 import { defineConfig } from 'astro/config';
+import devtoolsJson from 'vite-plugin-devtools-json';
 
 export default defineConfig({
   integrations: [tailwind()],
@@ -25,5 +26,21 @@ export default defineConfig({
         'php',
       ],
     },
+  },
+  vite: {
+    plugins: [
+      devtoolsJson({
+        name: 'Portfolio',
+        version: '1.0.0',
+        description: 'Full-Stack Developer Portfolio',
+        devtools: {
+          type: 'page',
+          title: 'Portfolio',
+          description: 'Full-Stack Developer specializing in backend development.',
+          faviconUrl: '/favicon.ico',
+          url: import.meta.env.PROD ? 'https://dushmanta.dev' : '/',
+        },
+      }),
+    ],
   },
 });
