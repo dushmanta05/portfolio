@@ -2,74 +2,62 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import ContactCTA from '@components/ContactCTA.astro';
 import PageHeader from '@components/PageHeader.astro';
+import EmploymentHistory from '@components/EmploymentHistory.astro';
 ---
 
 <BaseLayout
   title='About | Dushmanta'
   description='Learn about Dushmanta - Full Stack Developer passionate about backend technologies and AI/ML'
 >
-  <div class='stack gap-20'>
-    <main class='wrapper about'>
+  <div class='wrapper stack gap-20'>
+    <main class='wrapper stack gap-12'>
       <PageHeader
         title='About Me'
         subtitle="Thanks for stopping by! Here's my journey from electrical engineering to full-stack development, and my passion for building solutions that matter."
-        align='start'
+        align='center'
       />
 
-      <div class='content-sections'>
-        <section class='content-section'>
-          <h2 class='section-title'>My Journey</h2>
-          <div class='journey-content'>
-            <div class='content'>
-              <p>
-                I'm a full-stack developer with a focus on backend development, although I know
-                frontend technologies as well. I work with Node.js, JavaScript, TypeScript, Laravel,
-                React, Next.js, Astro, Vite, MongoDB, and PostgreSQL - all technologies I have
-                experience with.
-              </p>
-              <p>
-                I'm actually an Electrical Engineer by graduation, but due to my passion I switched
-                to the computer science domain. I like building and solving real-world problems, and
-                I have a key focus on getting into the AI/ML field next and working with AI/ML.
-              </p>
-              <p>
-                Currently, I have nearly 2 years of experience in this field. I also like talking
-                about tech, teaching tech to people and newcomers, guiding them through their
-                journey.
-              </p>
-            </div>
-            <div class='image-container'>
-              <img
-                src='/assets/at-work.jpg'
-                alt='Dushmanta at work with a colleague'
-                class='journey-image'
-                width='400'
-                height='300'
-              />
-            </div>
+      <section class='content-section'>
+        <h2 class='section-title'>My Journey</h2>
+        <div class='journey-content'>
+          <div class='content'>
+            <p>
+              I'm a full-stack developer with a focus on backend development, although I know
+              frontend technologies as well. I work with Node.js, JavaScript, TypeScript, Laravel,
+              React, Next.js, Astro, Vite, MongoDB, and PostgreSQL - all technologies I have
+              experience with.
+            </p>
+            <p>
+              I'm actually an Electrical Engineer by graduation, but due to my passion I switched to
+              the computer science domain. I like building and solving real-world problems, and I
+              have a key focus on getting into the AI/ML field next and working with AI/ML.
+            </p>
+            <p>
+              Currently, I have nearly 2 years of experience in this field. I also like talking
+              about tech, teaching tech to people and newcomers, guiding them through their journey.
+            </p>
           </div>
-        </section>
-      </div>
-    </main>
+          <div class='image-container'>
+            <img
+              src='/assets/at-work.jpg'
+              alt='Dushmanta at work with a colleague'
+              class='journey-image'
+              width='400'
+              height='300'
+            />
+          </div>
+        </div>
+      </section>
 
-    <ContactCTA />
+      <EmploymentHistory />
+    </main>
+    <div class='wrapper'>
+      <ContactCTA />
+    </div>
   </div>
 </BaseLayout>
 
 <style>
-  .about {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-  }
-
-  .content-sections {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    margin-top: 2rem;
-  }
-
   .content-section {
     padding: 2rem 0;
     border-bottom: 1px solid var(--gray-800);

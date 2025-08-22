@@ -1,0 +1,410 @@
+---
+interface Employment {
+  company: string;
+  website?: string;
+  location: string;
+  startDate: string;
+  endDate: string;
+  positions: Position[];
+}
+
+interface Position {
+  title: string;
+  startDate: string;
+  endDate: string;
+  description: string;
+  bulletPoints: string[];
+  techStack: string[];
+}
+
+// Calculate total tenure in years and months
+const calculateTenure = (startDate: string, endDate: string): string => {
+  const start = new Date(startDate);
+  const end = endDate === 'Present' ? new Date() : new Date(endDate);
+  
+  let years = end.getFullYear() - start.getFullYear();
+  let months = end.getMonth() - start.getMonth();
+  
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+  
+  const yearText = years > 0 ? `${years} yr${years > 1 ? 's' : ''}` : '';
+  const monthText = months > 0 ? `${months} mo${months > 1 ? 's' : ''}` : '';
+  
+  if (years > 0 && months > 0) {
+    return `${yearText} ${monthText}`;
+  } else if (years > 0) {
+    return yearText;
+  } else {
+    return monthText;
+  }
+};
+
+const employments: Employment[] = [
+  {
+    company: "Tech Innovations Inc.",
+    website: "https://techinnovations.example.com",
+    location: "Bhubaneswar, Odisha",
+    startDate: "2023-01-01",
+    endDate: "Present",
+    positions: [
+      {
+        title: "Senior Full Stack Developer",
+        startDate: "2023-01-01",
+        endDate: "Present",
+        description: "Led development of scalable web applications and mentored junior developers.",
+        bulletPoints: [
+          "Architected and implemented microservices architecture",
+          "Reduced application load time by 40%",
+          "Mentored 5 junior developers"
+        ],
+        techStack: ["Node.js", "React", "MongoDB", "AWS"]
+      }
+    ]
+  },
+  {
+    company: "Digital Solutions Ltd.",
+    website: "https://digitalsolutions.example.com",
+    location: "Cuttack, Odisha",
+    startDate: "2021-06-01",
+    endDate: "2022-12-31",
+    positions: [
+      {
+        title: "Full Stack Developer",
+        startDate: "2021-06-01",
+        endDate: "2022-12-31",
+        description: "Developed and maintained client web applications.",
+        bulletPoints: [
+          "Built 10+ client projects using React and Node.js",
+          "Implemented CI/CD pipelines",
+          "Improved code quality through peer reviews"
+        ],
+        techStack: ["React", "Node.js", "PostgreSQL", "Docker"]
+      },
+      {
+        title: "Junior Developer",
+        startDate: "2021-06-01",
+        endDate: "2021-12-31",
+        description: "Assisted in development and testing of web applications.",
+        bulletPoints: [
+          "Contributed to 15+ projects",
+          "Wrote unit tests for core components",
+          "Participated in Agile ceremonies"
+        ],
+        techStack: ["JavaScript", "HTML/CSS", "MySQL"]
+      }
+    ]
+  },
+  {
+    company: "StartUp Ventures",
+    location: "Remote",
+    startDate: "2020-01-01",
+    endDate: "2021-05-31",
+    positions: [
+      {
+        title: "Frontend Developer (Intern)",
+        startDate: "2020-01-01",
+        endDate: "2021-05-31",
+        description: "Developed user interfaces for web applications.",
+        bulletPoints: [
+          "Created responsive UI components",
+          "Optimized application performance",
+          "Collaborated with UX designers"
+        ],
+        techStack: ["React", "CSS", "JavaScript"]
+      }
+    ]
+  }
+];
+---
+
+<section class="employment-section">
+  <h2 class="section-title">Work Experience</h2>
+  <div class="employment-timeline">
+    {
+      employments.map((employment, index) => {
+        const totalTenure = calculateTenure(employment.startDate, employment.endDate);
+        return (
+          <div class="employment-item">
+            {index !== employments.length - 1 && (
+              <div class="timeline-marker">
+                <div class="timeline-dot"></div>
+              </div>
+            )}
+            <div class="employment-content">
+              <div class="employment-header">
+                <div class="company-info">
+                  {
+                    employment.website ? (
+                      <h3 class="company-name">
+                        <a href={employment.website} target="_blank" rel="noopener noreferrer">
+                          {employment.company}
+                        </a>
+                      </h3>
+                    ) : (
+                      <h3 class="company-name">{employment.company}</h3>
+                    )
+                  }
+                  <div class="company-meta">
+                    <span class="employment-location">{employment.location}</span>
+                    <span class="employment-dates">
+                      {new Date(employment.startDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short' })} - 
+                      {employment.endDate === 'Present' 
+                        ? ' Present' 
+                        : ' ' + new Date(employment.endDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}
+                      <span class="total-tenure"> · {totalTenure}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="positions">
+                {
+                  employment.positions.map((position, posIndex) => (
+                    <div class={`position ${posIndex !== employment.positions.length - 1 ? 'has-separator' : ''}`}>
+                      <div class="position-header">
+                        <h4 class="position-title">{position.title}</h4>
+                        <span class="position-dates">
+                          {new Date(position.startDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short' })} - 
+                          {position.endDate === 'Present' 
+                            ? ' Present' 
+                            : ' ' + new Date(position.endDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}
+                        </span>
+                      </div>
+                      <p class="position-description">{position.description}</p>
+                      <ul class="position-bullets">
+                        {
+                          position.bulletPoints.map((point) => (
+                            <li>{point}</li>
+                          ))
+                        }
+                      </ul>
+                      <div class="tech-stack">
+                        {
+                          position.techStack.map((tech) => (
+                            <span class="tech-tag">{tech}</span>
+                          ))
+                        }
+                      </div>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        );
+      })
+    }
+  </div>
+</section>
+
+<style>
+  .employment-section {
+    margin: 3rem 0;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gray-0);
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: 1.75rem;
+    }
+  }
+
+  .employment-timeline {
+    position: relative;
+    padding-left: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .employment-timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--gray-800);
+  }
+
+  .employment-item {
+    position: relative;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+  }
+
+  /* Remove the ::after pseudo-element to eliminate duplicate dot */
+
+  .timeline-marker {
+    position: absolute;
+    left: -1.5rem;
+    top: 0.5rem;
+  }
+
+  .timeline-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent-regular);
+    border: 3px solid var(--gray-999);
+    z-index: 1;
+  }
+
+  .employment-content {
+    flex: 1;
+  }
+
+  .employment-header {
+    margin-bottom: 1.5rem;
+    padding-top: 0.25rem;
+  }
+
+  .company-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .company-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--gray-0);
+    margin: 0;
+  }
+
+  .company-name a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s ease;
+  }
+
+  .company-name a:hover {
+    color: var(--accent-regular);
+    border-bottom: 1px solid var(--accent-regular);
+  }
+
+  .company-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .company-meta {
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+
+  .employment-location {
+    color: var(--gray-400);
+    font-size: 0.875rem;
+  }
+
+  .employment-dates {
+    color: var(--gray-400);
+    font-size: 0.875rem;
+  }
+
+  .total-tenure {
+    color: var(--gray-500);
+  }
+
+  .positions {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .position {
+    padding-left: 1rem;
+    border-left: 2px solid var(--gray-800);
+  }
+
+  .position.has-separator {
+    border-bottom: 1px dashed var(--gray-800);
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .position-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .position-header {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .position-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--gray-0);
+    margin: 0;
+  }
+
+  .position-dates {
+    color: var(--gray-400);
+    font-size: 0.875rem;
+    white-space: nowrap;
+  }
+
+  .position-description {
+    color: var(--gray-300);
+    margin: 0 0 1rem 0;
+    line-height: 1.6;
+    padding-left: 1rem;
+  }
+
+  .position-bullets {
+    margin: 0 0 1.5rem 1rem;
+    padding-left: 1.25rem;
+  }
+
+  .position-bullets li {
+    color: var(--gray-300);
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+    list-style-type: disc;
+  }
+
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-left: 1rem;
+  }
+
+  .tech-tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    background: rgba(102, 126, 234, 0.1);
+    color: var(--accent-regular);
+    font-weight: 500;
+  }
+
+  .position.has-separator {
+    border-bottom: 1px dashed var(--gray-800);
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+</style>
