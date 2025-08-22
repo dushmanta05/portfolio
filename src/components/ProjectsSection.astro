@@ -1,0 +1,267 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Icon from '@components/Icon.astro';
+
+interface Props {
+  projects: CollectionEntry<'work'>[];
+  featuredCount?: number;
+}
+
+const { projects, featuredCount = 4 } = Astro.props;
+
+const featuredProjects = projects.slice(0, featuredCount);
+const otherProjects = projects.slice(featuredCount);
+---
+
+<section class='projects-section'>
+  <div class='featured-projects'>
+    <div class='featured-grid'>
+      {
+        featuredProjects.map((project) => (
+          <div class='featured-project'>
+            <div class='project-card'>
+              <div class='project-image'>
+                <img
+                  src={project.data.img}
+                  alt={project.data.img_alt || project.data.title}
+                  width='400'
+                  height='200'
+                />
+              </div>
+              <div class='project-content'>
+                <h4 class='project-title'>{project.data.title}</h4>
+                <p class='project-description'>{project.data.description}</p>
+                <div class='project-links'>
+                  <a href={`/work/${project.slug}`} class='project-link'>
+                    View Details
+                  </a>
+                  {project.data.githubUrl && (
+                    <a
+                      href={project.data.githubUrl}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      class='project-link'
+                    >
+                      <Icon icon='github' size='1em' />
+                      GitHub
+                    </a>
+                  )}
+                  {project.data.liveUrl && (
+                    <a
+                      href={project.data.liveUrl}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      class='project-link'
+                    >
+                      <Icon icon='globe' size='1em' />
+                      Live Demo
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  {
+    otherProjects.length > 0 && (
+      <div class='other-projects'>
+        <h3 class='subsection-title'>Other Projects</h3>
+        <div class='other-grid'>
+          {otherProjects.map((project) => (
+            <div class='other-project'>
+              <div class='project-card'>
+                <div class='project-image'>
+                  <img
+                    src={project.data.img}
+                    alt={project.data.img_alt || project.data.title}
+                    width='400'
+                    height='200'
+                  />
+                </div>
+                <div class='project-content'>
+                  <h4 class='project-title'>{project.data.title}</h4>
+                  <p class='project-description'>{project.data.description}</p>
+                  <div class='project-links'>
+                    <a href={`/work/${project.slug}`} class='project-link'>
+                      View Details
+                    </a>
+                    {project.data.githubUrl && (
+                      <a
+                        href={project.data.githubUrl}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        class='project-link'
+                      >
+                        <Icon icon='github' size='1em' />
+                        GitHub
+                      </a>
+                    )}
+                    {project.data.liveUrl && (
+                      <a
+                        href={project.data.liveUrl}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        class='project-link'
+                      >
+                        <Icon icon='globe' size='1em' />
+                        Live Demo
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+</section>
+
+<style>
+  .projects-section {
+    margin: 2rem 0;
+  }
+
+  .featured-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (min-width: 768px) {
+    .featured-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .featured-project {
+    transition: transform 0.3s ease;
+  }
+
+  .featured-project:hover {
+    transform: translateY(-5px);
+  }
+
+  .project-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--gray-800);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+  }
+
+  .project-card:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .project-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+  }
+
+  .project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .project-card:hover .project-image img {
+    transform: scale(1.05);
+  }
+
+  .project-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .project-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--gray-0);
+    margin: 0 0 1rem 0;
+  }
+
+  .project-description {
+    color: var(--gray-300);
+    margin: 0 0 1.5rem 0;
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: auto;
+  }
+
+  .project-link {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background: rgba(102, 126, 234, 0.1);
+    color: var(--accent-regular);
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+  }
+
+  .project-link:hover {
+    background: rgba(102, 126, 234, 0.2);
+    border-color: var(--accent-regular);
+  }
+
+  .subsection-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--gray-0);
+    margin: 2rem 0 1.5rem 0;
+  }
+
+  .other-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .other-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .other-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .other-project {
+    transition: transform 0.3s ease;
+  }
+
+  .other-project:hover {
+    transform: translateY(-3px);
+  }
+
+  .other-project .project-card:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+</style>

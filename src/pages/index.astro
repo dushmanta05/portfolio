@@ -2,23 +2,22 @@
 import { getCollection } from 'astro:content';
 
 import BaseLayout from '@layouts/BaseLayout.astro';
-import Grid from '@components/Grid.astro';
 import Hero from '@components/Hero.astro';
 import Icon from '@components/Icon.astro';
 import Pill from '@components/Pill.astro';
-import PortfolioPreview from '@components/PortfolioPreview.astro';
+import ProjectsSection from '@components/ProjectsSection.astro';
 import BlogPreview from '@components/BlogPreview.astro';
 import CallToAction from '@components/CallToAction.astro';
 import ContactCTA from '@components/ContactCTA.astro';
 import Skills from '@components/Skills.astro';
 
-const projects = (await getCollection('work'))
-  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-  .slice(0, 4);
+const projects = (await getCollection('work')).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
 
-const blogs = (await getCollection('blog'))
-  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-  .slice(0, 4);
+const blogs = (await getCollection('blog')).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
 
 const siteUrl = 'https://dushmanta.dev';
 const title = 'Dushmanta | Full-Stack Developer Portfolio';
@@ -60,26 +59,17 @@ const ogImage = `${siteUrl}/og-image.png`;
           <div class='header-content'>
             <h3 class='section-title text-3xl mb-4'>Personal Projects</h3>
             <p class='section-description text-base'>
-              Take a look at some highlighted personal projects, showcasing my skills and passion
-              for development.
+              Take a look at my featured projects showcasing my skills and passion for development.
             </p>
           </div>
           <div class='section-cta'>
-            <CallToAction href='/work/'>
+            <CallToAction href='/work/#all-projects'>
               View All
               <Icon icon='arrowRight' size='1em' />
             </CallToAction>
           </div>
         </div>
-        <div class='projects-grid'>
-          {
-            projects.map((project) => (
-              <div class='project-card'>
-                <PortfolioPreview project={project} />
-              </div>
-            ))
-          }
-        </div>
+        <ProjectsSection projects={projects} featuredCount={4} />
       </section>
 
       <!-- Skills Section -->
@@ -112,8 +102,8 @@ const ogImage = `${siteUrl}/og-image.png`;
           <div class='header-content'>
             <h3 class='section-title text-3xl mb-4'>Tech Blog</h3>
             <p class='section-description text-base'>
-              Discover insights, learning, and experiences through my blogs, showcasing my skills
-              and passion for development.
+              Dive into my technical insights, learning, and experiences from the world of
+              development.
             </p>
           </div>
           <div class='section-cta'>
@@ -185,7 +175,7 @@ const ogImage = `${siteUrl}/og-image.png`;
   /* Content Sections */
   .content-section {
     @apply mb-12;
-    padding: 4rem 1rem;
+    padding: 3rem 1rem;
     border-radius: 1rem;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--gray-800);
@@ -346,7 +336,9 @@ const ogImage = `${siteUrl}/og-image.png`;
   }
 
   /* Enhanced animations */
-  .content-section {
+  .content-section,
+  .skills-section,
+  .oss-section {
     animation: fadeInUp 0.6s ease-out;
   }
 

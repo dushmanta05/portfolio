@@ -8,4 +8,6 @@ tags:
   - React
   - Frontend
   - Travel
+githubUrl: https://github.com/dushmanta05/trippz
+liveUrl: https://trippz.vercel.app
 ---

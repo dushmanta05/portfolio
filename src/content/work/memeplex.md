@@ -8,4 +8,6 @@ tags:
   - React
   - JavaScript
   - API
+githubUrl: https://github.com/dushmanta05/memeplex
+liveUrl: https://memeplex.vercel.app
 ---

@@ -3,9 +3,9 @@ import { getCollection } from 'astro:content';
 
 import BaseLayout from '@layouts/BaseLayout.astro';
 import ContactCTA from '@components/ContactCTA.astro';
-import PortfolioPreview from '@components/PortfolioPreview.astro';
+import ProjectsSection from '@components/ProjectsSection.astro';
 import PageHeader from '@components/PageHeader.astro';
-import Grid from '@components/Grid.astro';
+import Icon from '@components/Icon.astro';
 
 const projects = (await getCollection('work')).sort(
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
@@ -16,24 +16,66 @@ const projects = (await getCollection('work')).sort(
   title='My Work | Dushmanta'
   description="Explore Dushmanta's portfolio of projects showcasing full-stack development expertise"
 >
-  <div class='stack gap-20'>
+  <div class='wrapper stack gap-20'>
     <main class='wrapper stack gap-12'>
       <PageHeader
         title='My Work'
         subtitle='From concept to deployment, here are some of my most impactful projects that demonstrate my expertise in full-stack development.'
-        align='start'
+        align='center'
       />
 
-      <section class='projects-grid'>
-        <Grid variant='offset'>
+      <ProjectsSection projects={projects} />
+
+      <section class='all-projects-section' id='all-projects'>
+        <div class='section-header'>
+          <h2 class='section-title'>All Projects</h2>
+          <p class='section-description'>
+            Explore my complete portfolio of projects, including featured work and additional
+            contributions.
+          </p>
+        </div>
+        <div class='all-projects-list'>
           {
             projects.map((project) => (
-              <li class='project-item'>
-                <PortfolioPreview project={project} />
-              </li>
+              <div class='project-list-item'>
+                <div class='project-list-image'>
+                  <img src={project.data.img} alt={project.data.img_alt || project.data.title} />
+                </div>
+                <div class='project-list-content'>
+                  <h3 class='project-list-title'>{project.data.title}</h3>
+                  <p class='project-list-description'>{project.data.description}</p>
+                  <div class='project-list-links'>
+                    <a href={`/work/${project.slug}`} class='project-link'>
+                      View Details
+                    </a>
+                    {project.data.githubUrl && (
+                      <a
+                        href={project.data.githubUrl}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        class='project-link'
+                      >
+                        <Icon icon='github' size='1em' />
+                        GitHub
+                      </a>
+                    )}
+                    {project.data.liveUrl && (
+                      <a
+                        href={project.data.liveUrl}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        class='project-link'
+                      >
+                        <Icon icon='globe' size='1em' />
+                        Live Demo
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
             ))
           }
-        </Grid>
+        </div>
       </section>
     </main>
     <ContactCTA />
@@ -51,5 +93,123 @@ const projects = (await getCollection('work')).sort(
 
   .project-item:hover {
     transform: translateY(-4px);
+  }
+
+  .all-projects-section {
+    margin: 3rem 0;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gray-0);
+    margin-bottom: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: 1.75rem;
+    }
+  }
+
+  .all-projects-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-list-item {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--gray-800);
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+  }
+
+  .project-list-item:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .project-list-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 0.5rem;
+  }
+
+  .project-list-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .project-list-item:hover .project-list-image img {
+    transform: scale(1.05);
+  }
+
+  .project-list-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .project-list-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--gray-0);
+    margin: 0;
+  }
+
+  .project-list-description {
+    color: var(--gray-300);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .project-list-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .project-link {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background: rgba(102, 126, 234, 0.1);
+    color: var(--accent-regular);
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+  }
+
+  .project-link:hover {
+    background: rgba(102, 126, 234, 0.2);
+    border-color: var(--accent-regular);
+  }
+
+  @media (min-width: 768px) {
+    .project-list-item {
+      flex-direction: row;
+      gap: 1.5rem;
+    }
+
+    .project-list-image {
+      width: 250px;
+      height: 150px;
+    }
+
+    .project-list-content {
+      flex: 1;
+    }
   }
 </style>

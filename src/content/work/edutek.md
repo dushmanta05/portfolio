@@ -8,4 +8,6 @@ tags:
   - Next.js
   - MySQL
   - TypeScript
+githubUrl: https://github.com/dushmanta05/edutek
+liveUrl: https://edutek.vercel.app
 ---

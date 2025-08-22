@@ -8,4 +8,6 @@ tags:
   - React
   - Frontend
   - RapidAPI
+githubUrl: https://github.com/dushmanta05/gymbull
+liveUrl: https://fit-bull.netlify.app/
 ---

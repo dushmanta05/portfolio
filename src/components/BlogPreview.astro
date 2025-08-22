@@ -41,53 +41,71 @@ const { data, slug } = Astro.props.project;
       >
       {data.tags && data.tags.length > 0 && <Tag tag={data.tags[0]} />}
     </div>
+    <div class='card-links'>
+      <span class='read-more'>Read More</span>
+    </div>
   </div>
 </a>
 
 <style>
   .card {
-    @apply flex flex-col rounded-lg overflow-hidden no-underline relative;
-    background: var(--gray-100);
+    display: block;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--gray-800);
-    box-shadow: var(--shadow-sm);
+    border-radius: 0.75rem;
+    overflow: hidden;
     height: 100%;
     transition: all 0.3s ease;
+    position: relative;
   }
 
   .card:hover {
-    @apply shadow-md;
     transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   }
 
   .card-image {
-    @apply w-full h-48 overflow-hidden relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
   }
 
   .card-image img {
-    @apply w-full h-full transition-transform duration-500 object-cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
   }
 
   .card:hover .card-image img {
-    transform: scale(1.03);
+    transform: scale(1.05);
   }
 
   .card-content {
-    @apply p-5 flex flex-col flex-grow;
-    background: var(--gradient-subtle);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
   }
 
   .title {
-    @apply text-lg font-bold mb-3;
+    font-size: 1.25rem;
+    font-weight: 600;
     color: var(--gray-0);
+    margin: 0 0 1rem 0;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    min-height: 3rem;
   }
 
   .description {
-    @apply text-sm mb-3 flex-grow;
     color: var(--gray-300);
+    margin: 0 0 1.5rem 0;
+    line-height: 1.6;
+    flex-grow: 1;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -95,42 +113,34 @@ const { data, slug } = Astro.props.project;
   }
 
   .card-meta {
-    @apply flex justify-between items-center text-xs mt-2 pt-2;
-    border-top: 1px solid var(--gray-800);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .date {
+    font-size: 0.875rem;
     color: var(--gray-400);
   }
 
-  .date,
-  .tag {
-    @apply inline-block;
+  .card-links {
+    margin-top: auto;
   }
 
-  .tag {
-    @apply px-2 py-1 rounded-sm;
-    background-color: var(--accent-regular);
-    color: white;
+  .read-more {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background: rgba(102, 126, 234, 0.1);
+    color: var(--accent-regular);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
   }
 
-  /* Mobile */
-  @media (max-width: 40em) {
-    .card-image {
-      @apply h-44;
-    }
-  }
-
-  /* Tablet and Desktop */
-  @media (min-width: 40em) {
-    .card-image {
-      @apply h-52 relative;
-      min-height: 200px;
-    }
-
-    .title {
-      @apply text-xl mb-3;
-    }
-
-    .description {
-      @apply text-base;
-    }
+  .card:hover .read-more {
+    background: rgba(102, 126, 234, 0.2);
+    border-color: var(--accent-regular);
   }
 </style>

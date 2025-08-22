@@ -10,6 +10,8 @@ export const collections = {
       tags: z.array(z.string()),
       img: z.string(),
       img_alt: z.string().optional(),
+      githubUrl: z.string().optional(),
+      liveUrl: z.string().optional(),
     }),
   }),
   blog: defineCollection({
