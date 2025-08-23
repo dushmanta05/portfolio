@@ -2,16 +2,18 @@
 interface Props {
   title: string;
   subtitle: string;
-  align?: 'start' | 'center';
+  align?: 'start' | 'center' | 'left';
   showImage?: boolean;
   imageSrc?: string;
   imageAlt?: string;
 }
 
 const { title, subtitle, align = 'start', showImage = false, imageSrc, imageAlt } = Astro.props;
+
+const normalizedAlign = align === 'left' ? 'start' : align;
 ---
 
-<header class={`page-header ${align}`}>
+<header class={`page-header ${normalizedAlign}`}>
   <div class='header-content'>
     <div class='text-content'>
       <h1 class='page-title'>{title}</h1>
@@ -39,7 +41,7 @@ const { title, subtitle, align = 'start', showImage = false, imageSrc, imageAlt 
     gap: 2rem;
     max-width: 80rem;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0;
   }
 
   @media (min-width: 768px) {

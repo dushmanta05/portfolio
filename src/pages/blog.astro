@@ -19,8 +19,8 @@ const allTags = [...new Set(blogs.flatMap((blog) => blog.data.tags || []))];
   title='Tech Blog | Dushmanta'
   description="Read Dushmanta's technical insights, tutorials, and experiences from the world of development"
 >
-  <div class='wrapper stack gap-20'>
-    <main class='wrapper stack gap-12'>
+  <div class='wrapper flex flex-col gap-20 lg:gap-20'>
+    <main class='flex flex-col gap-12 lg:gap-16'>
       <PageHeader
         title='Tech Blog'
         subtitle="Dive into my technical journey through detailed articles, tutorials, and insights. Here I share what I've learned, problems I've solved, and discoveries that have shaped my development path."
@@ -96,9 +96,7 @@ const allTags = [...new Set(blogs.flatMap((blog) => blog.data.tags || []))];
       </div>
     </main>
     <SectionDivider />
-    <div class='wrapper'>
-      <ContactCTA />
-    </div>
+    <ContactCTA />
   </div>
 </BaseLayout>
 

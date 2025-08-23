@@ -32,7 +32,9 @@ const otherProjects = projects.slice(featuredCount);
                 <h4 class='project-title'>{project.data.title}</h4>
                 <p class='project-description'>{project.data.description}</p>
                 <div class='project-links'>
-                  <a href={`/work/${project.slug}`} class='project-link'>
+                  {/* Desktop: Text links with View Details */}
+                  <a href={`/work/${project.slug}`} class='project-link desktop-link'>
+                    <Icon icon='eye' size='1em' />
                     View Details
                   </a>
                   {project.data.githubUrl && (
@@ -40,7 +42,7 @@ const otherProjects = projects.slice(featuredCount);
                       href={project.data.githubUrl}
                       target='_blank'
                       rel='noopener noreferrer'
-                      class='project-link'
+                      class='project-link desktop-link'
                     >
                       <Icon icon='github' size='1em' />
                       GitHub
@@ -51,10 +53,35 @@ const otherProjects = projects.slice(featuredCount);
                       href={project.data.liveUrl}
                       target='_blank'
                       rel='noopener noreferrer'
-                      class='project-link'
+                      class='project-link desktop-link'
                     >
                       <Icon icon='globe' size='1em' />
                       Live Demo
+                    </a>
+                  )}
+
+                  {/* Mobile: Icon-only links */}
+                  <a href={`/work/${project.slug}`} class='project-link mobile-link'>
+                    <Icon icon='eye' size='1.25em' />
+                  </a>
+                  {project.data.githubUrl && (
+                    <a
+                      href={project.data.githubUrl}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      class='project-link mobile-link'
+                    >
+                      <Icon icon='github' size='1.25em' />
+                    </a>
+                  )}
+                  {project.data.liveUrl && (
+                    <a
+                      href={project.data.liveUrl}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      class='project-link mobile-link'
+                    >
+                      <Icon icon='globe' size='1.25em' />
                     </a>
                   )}
                 </div>
@@ -86,7 +113,9 @@ const otherProjects = projects.slice(featuredCount);
                   <h4 class='project-title'>{project.data.title}</h4>
                   <p class='project-description'>{project.data.description}</p>
                   <div class='project-links'>
-                    <a href={`/work/${project.slug}`} class='project-link'>
+                    {/* Desktop: Text links with View Details */}
+                    <a href={`/work/${project.slug}`} class='project-link desktop-link'>
+                      <Icon icon='eye' size='1em' />
                       View Details
                     </a>
                     {project.data.githubUrl && (
@@ -94,7 +123,7 @@ const otherProjects = projects.slice(featuredCount);
                         href={project.data.githubUrl}
                         target='_blank'
                         rel='noopener noreferrer'
-                        class='project-link'
+                        class='project-link desktop-link'
                       >
                         <Icon icon='github' size='1em' />
                         GitHub
@@ -105,10 +134,35 @@ const otherProjects = projects.slice(featuredCount);
                         href={project.data.liveUrl}
                         target='_blank'
                         rel='noopener noreferrer'
-                        class='project-link'
+                        class='project-link desktop-link'
                       >
                         <Icon icon='globe' size='1em' />
                         Live Demo
+                      </a>
+                    )}
+
+                    {/* Mobile: Icon-only links */}
+                    <a href={`/work/${project.slug}`} class='project-link mobile-link'>
+                      <Icon icon='eye' size='1.25em' />
+                    </a>
+                    {project.data.githubUrl && (
+                      <a
+                        href={project.data.githubUrl}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        class='project-link mobile-link'
+                      >
+                        <Icon icon='github' size='1.25em' />
+                      </a>
+                    )}
+                    {project.data.liveUrl && (
+                      <a
+                        href={project.data.liveUrl}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        class='project-link mobile-link'
+                      >
+                        <Icon icon='globe' size='1.25em' />
                       </a>
                     )}
                   </div>
@@ -207,9 +261,10 @@ const otherProjects = projects.slice(featuredCount);
     margin-top: auto;
   }
 
-  .project-link {
+  /* Mobile: Icon-only links */
+  .mobile-link {
     font-size: 0.875rem;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem;
     border-radius: 0.5rem;
     background: rgba(102, 126, 234, 0.1);
     color: var(--accent-regular);
@@ -219,13 +274,46 @@ const otherProjects = projects.slice(featuredCount);
     border: 1px solid transparent;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     white-space: nowrap;
   }
 
-  .project-link:hover {
+  .desktop-link {
+    display: none;
+  }
+
+  .mobile-link:hover {
     background: rgba(102, 126, 234, 0.2);
     border-color: var(--accent-regular);
+  }
+
+  /* Desktop: Text links */
+  @media (min-width: 768px) {
+    .mobile-link {
+      display: none;
+    }
+
+    .desktop-link {
+      font-size: 0.875rem;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      background: rgba(102, 126, 234, 0.1);
+      color: var(--accent-regular);
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+    }
+
+    .desktop-link:hover {
+      background: rgba(102, 126, 234, 0.2);
+      border-color: var(--accent-regular);
+    }
   }
 
   .subsection-title {
