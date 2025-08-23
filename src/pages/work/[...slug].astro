@@ -3,8 +3,8 @@ import { type CollectionEntry, getCollection } from 'astro:content';
 
 import BaseLayout from '@layouts/BaseLayout.astro';
 import ContactCTA from '@components/ContactCTA.astro';
+import SectionDivider from '@components/common/SectionDivider.astro';
 import Icon from '@components/Icon.astro';
-import Pill from '@components/Pill.astro';
 import GradientPlaceholder from '@components/GradientPlaceholder.astro';
 
 interface Props {
@@ -20,53 +20,421 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+
+const formatDate = (date: Date) => {
+  const months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+  const month = months[date.getMonth()];
+  const day = date.getDate();
+  const year = date.getFullYear();
+  return `${month} ${day}, ${year}`;
+};
+
+const formattedDate = formatDate(new Date(entry.data.publishDate));
 ---
 
 <BaseLayout title={entry.data.title} description={entry.data.description}>
-  <div class='stack gap-20'>
-    <div class='stack gap-15'>
-      <header class='project-header'>
-        <div class='wrapper stack gap-4'>
-          <a class='back-link' href='/work/'>
-            <Icon icon='arrowLeft' /> Work
-          </a>
+  <div class='wrapper stack gap-15'>
+    <!-- Header Section -->
+    <header class='project-header'>
+      <div class='stack gap-4'>
+        <a class='back-link' href='/work/'>
+          <Icon icon='arrowLeft' /> Work
+        </a>
 
-          <div class='project-info'>
-            <h1 class='project-title'>{entry.data.title}</h1>
+        <div class='project-hero'>
+          <h1 class='project-title'>{entry.data.title}</h1>
+          <div class='project-meta'>
+            <time class='publish-date'>{formattedDate}</time>
             <div class='tags'>
-              {entry.data.tags.map((t) => <Pill>{t}</Pill>)}
+              {entry.data.tags.map((t) => <span class='tag'>#{t}</span>)}
             </div>
-            <p class='project-description'>{entry.data.description}</p>
           </div>
-        </div>
-      </header>
 
-      <main class='wrapper'>
-        <div class='stack gap-10 content'>
-          <div class='featured-image-container'>
-            <div class='gradient-wrapper'>
-              <GradientPlaceholder
-                title={entry.data.title}
-                size='large'
-                alt={entry.data.img_alt || entry.data.title}
-              />
-            </div>
-          </div>
-          <div class='content'>
-            <Content />
+          <p class='project-description'>{entry.data.description}</p>
+
+          <!-- Project Links -->
+          <div class='project-links'>
+            {
+              entry.data.liveUrl && (
+                <a
+                  href={entry.data.liveUrl}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  class='btn btn-primary'
+                >
+                  <Icon icon='globe' size='1em' />
+                  View Live Demo
+                </a>
+              )
+            }
+            {
+              entry.data.githubUrl && (
+                <a
+                  href={entry.data.githubUrl}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  class='btn btn-secondary'
+                >
+                  <Icon icon='github' size='1em' />
+                  View Code
+                </a>
+              )
+            }
           </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </header>
+
+    <main class='project-main'>
+      <div class='content-layout'>
+        <div class='main-content'>
+          <!-- Hero Image/Preview -->
+          <div class='hero-image-container'>
+            {
+              entry.data.img ? (
+                <img
+                  src={entry.data.img}
+                  alt={entry.data.img_alt || entry.data.title}
+                  class='hero-image'
+                />
+              ) : (
+                <div class='gradient-wrapper'>
+                  <GradientPlaceholder
+                    title={entry.data.title}
+                    size='large'
+                    alt={entry.data.img_alt || entry.data.title}
+                  />
+                </div>
+              )
+            }
+          </div>
+
+          <!-- Project Overview -->
+          {
+            entry.data.overview && (
+              <section class='content-section overview-section'>
+                <h2>Project Overview</h2>
+                <div class='overview-content'>
+                  <p>{entry.data.overview}</p>
+                  {entry.data.role && (
+                    <div class='role-info'>
+                      <strong>My Role:</strong> {entry.data.role}
+                    </div>
+                  )}
+                </div>
+              </section>
+            )
+          }
+
+          <!-- Problem & Goals -->
+          {
+            (entry.data.problem || entry.data.goals) && (
+              <section class='content-section problem-section'>
+                <h2>Problem & Goals</h2>
+                <div class='problem-goals-content'>
+                  {entry.data.problem && (
+                    <div class='problem-content'>
+                      <h3>The Problem</h3>
+                      <p>{entry.data.problem}</p>
+                    </div>
+                  )}
+
+                  {entry.data.goals && (
+                    <div class='goals-content'>
+                      <h3>Goals & Objectives</h3>
+                      {Array.isArray(entry.data.goals) ? (
+                        <ul>
+                          {entry.data.goals.map((goal) => (
+                            <li>{goal}</li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p>{entry.data.goals}</p>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </section>
+            )
+          }
+
+          <!-- Challenges & Solutions -->
+          {
+            entry.data.challenges && (
+              <section class='content-section challenges-section'>
+                <h2>Challenges & Solutions</h2>
+                <div class='challenges-content'>
+                  {Array.isArray(entry.data.challenges) ? (
+                    <div class='challenges-list'>
+                      {entry.data.challenges.map((challenge) => (
+                        <div class='challenge-item'>
+                          <h4>
+                            {typeof challenge === 'object' && challenge.challenge
+                              ? challenge.challenge
+                              : typeof challenge === 'object' && challenge.title
+                                ? challenge.title
+                                : challenge}
+                          </h4>
+                          <p>
+                            {typeof challenge === 'object' && challenge.solution
+                              ? challenge.solution
+                              : typeof challenge === 'object' && challenge.description
+                                ? challenge.description
+                                : ''}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p>{entry.data.challenges}</p>
+                  )}
+                </div>
+              </section>
+            )
+          }
+
+          <!-- Results & Impact -->
+          {
+            entry.data.results && (
+              <section class='content-section results-section'>
+                <h2>Results & Impact</h2>
+                <div class='results-content'>
+                  {Array.isArray(entry.data.results) ? (
+                    <ul class='results-list'>
+                      {entry.data.results.map((result) => (
+                        <li>{result}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>{entry.data.results}</p>
+                  )}
+
+                  {entry.data.metrics && (
+                    <div class='metrics-grid'>
+                      {entry.data.metrics.map((metric) => (
+                        <div class='metric-item'>
+                          <div class='metric-value'>{metric.value}</div>
+                          <div class='metric-label'>{metric.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </section>
+            )
+          }
+
+          <!-- Learnings & Reflections -->
+          {
+            entry.data.learnings && (
+              <section class='content-section learnings-section'>
+                <h2>Key Learnings</h2>
+                <div class='learnings-content'>
+                  {Array.isArray(entry.data.learnings) ? (
+                    <ul>
+                      {entry.data.learnings.map((learning) => (
+                        <li>{learning}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>{entry.data.learnings}</p>
+                  )}
+                </div>
+              </section>
+            )
+          }
+
+          <!-- Future Improvements -->
+          {
+            entry.data.improvements && (
+              <section class='content-section improvements-section'>
+                <h2>Future Improvements</h2>
+                <div class='improvements-content'>
+                  {Array.isArray(entry.data.improvements) ? (
+                    <ul>
+                      {entry.data.improvements.map((improvement) => (
+                        <li>{improvement}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>{entry.data.improvements}</p>
+                  )}
+                </div>
+              </section>
+            )
+          }
+        </div>
+
+        <!-- Project Navigation Sidebar -->
+        <aside class='project-sidebar'>
+          <div class='sidebar-content'>
+            <!-- Project Info Card (visible on desktop, mobile card below) -->
+            <div class='project-info-card'>
+              <h3>Project Info</h3>
+              <div class='info-items'>
+                <div class='info-item'>
+                  <span class='info-label'>Built with:</span>
+                  <div class='info-value'>
+                    {
+                      entry.data.techStack ? (
+                        <div class='tech-list-sidebar'>
+                          {entry.data.techStack.map((tech, index) => (
+                            <span class='tech-tag-small'>{tech}</span>
+                          ))}
+                        </div>
+                      ) : (
+                        <div class='info-value'>
+                          {entry.data.tags.map((tag, index) => (
+                            <span>
+                              {tag}
+                              {index < entry.data.tags.length - 1 ? ', ' : ''}
+                            </span>
+                          ))}
+                        </div>
+                      )
+                    }
+                  </div>
+                </div>
+
+                <div class='info-item'>
+                  <span class='info-label'>Completed:</span>
+                  <span class='info-value'>{formattedDate}</span>
+                </div>
+
+                {
+                  entry.data.timeline && (
+                    <div class='info-item'>
+                      <span class='info-label'>Duration:</span>
+                      <span class='info-value'>{entry.data.timeline}</span>
+                    </div>
+                  )
+                }
+
+                {
+                  entry.data.team && (
+                    <div class='info-item'>
+                      <span class='info-label'>Team:</span>
+                      <span class='info-value'>{entry.data.team}</span>
+                    </div>
+                  )
+                }
+
+                {
+                  entry.data.projectType && (
+                    <div class='info-item'>
+                      <span class='info-label'>Project Type:</span>
+                      <span class='info-value'>{entry.data.projectType}</span>
+                    </div>
+                  )
+                }
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Mobile Project Info Card -->
+        <div class='mobile-project-info'>
+          <div class='project-info-card'>
+            <h3>Project Info</h3>
+            <div class='info-items'>
+              <div class='info-item'>
+                <span class='info-label'>Built with:</span>
+                <div class='info-value'>
+                  {
+                    entry.data.techStack ? (
+                      <div class='tech-list-sidebar'>
+                        {entry.data.techStack.map((tech, index) => (
+                          <span class='tech-tag-small'>{tech}</span>
+                        ))}
+                      </div>
+                    ) : (
+                      <div class='info-value'>
+                        {entry.data.tags.map((tag, index) => (
+                          <span>
+                            {tag}
+                            {index < entry.data.tags.length - 1 ? ', ' : ''}
+                          </span>
+                        ))}
+                      </div>
+                    )
+                  }
+                </div>
+              </div>
+
+              <div class='info-item'>
+                <span class='info-label'>Completed:</span>
+                <span class='info-value'>{formattedDate}</span>
+              </div>
+
+              {
+                entry.data.timeline && (
+                  <div class='info-item'>
+                    <span class='info-label'>Duration:</span>
+                    <span class='info-value'>{entry.data.timeline}</span>
+                  </div>
+                )
+              }
+
+              {
+                entry.data.team && (
+                  <div class='info-item'>
+                    <span class='info-label'>Team:</span>
+                    <span class='info-value'>{entry.data.team}</span>
+                  </div>
+                )
+              }
+
+              {
+                entry.data.projectType && (
+                  <div class='info-item'>
+                    <span class='info-label'>Project Type:</span>
+                    <span class='info-value'>{entry.data.projectType}</span>
+                  </div>
+                )
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <SectionDivider />
+    <!-- Contact CTA -->
     <ContactCTA />
   </div>
 </BaseLayout>
 
 <style>
+  .wrapper {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .wrapper {
+      padding: 0 2rem;
+    }
+  }
+
+  /* Header Styles */
   .project-header {
     padding: 2rem 0;
     border-bottom: 1px solid var(--gray-800);
+    margin-bottom: 3rem;
   }
 
   .back-link {
@@ -85,23 +453,39 @@ const { Content } = await entry.render();
     color: var(--gray-0);
   }
 
-  .project-info {
+  .project-hero {
     text-align: center;
-    max-width: 70ch;
-    margin: 0 auto;
+    max-width: 75ch;
+    margin: 2rem auto 0;
   }
 
   .project-title {
-    font-size: 1.875rem;
+    font-size: 2.5rem;
     font-weight: 700;
-    line-height: 1.2;
+    line-height: 1.1;
     color: var(--gray-0);
     margin-bottom: 1rem;
   }
 
   @media (min-width: 768px) {
     .project-title {
-      font-size: 2.25rem;
+      font-size: 3rem;
+    }
+  }
+
+  .project-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .project-meta {
+      flex-direction: row;
+      justify-content: center;
+      gap: 2rem;
     }
   }
 
@@ -110,95 +494,623 @@ const { Content } = await entry.render();
     gap: 0.75rem;
     flex-wrap: wrap;
     justify-content: center;
-    margin-bottom: 1.5rem;
+  }
+
+  .tag {
+    color: var(--accent-regular);
+    font-size: var(--text-md);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .tag:hover {
+    color: var(--accent-dark, #0066cc);
+    text-decoration: underline;
+  }
+
+  .publish-date {
+    color: var(--gray-400);
+    font-size: var(--text-sm);
   }
 
   .project-description {
     font-size: 1.25rem;
     line-height: 1.6;
-    color: var(--gray-300);
-  }
-
-  .content {
-    max-width: 65ch;
-    margin-inline: auto;
-  }
-
-  .content > :global(* + *) {
-    margin-top: 1rem;
-  }
-
-  .content :global(h1),
-  .content :global(h2),
-  .content :global(h3),
-  .content :global(h4),
-  .content :global(h5) {
-    margin: 1.5rem 0;
-  }
-
-  .content :global(img) {
-    border-radius: 1.5rem;
-    box-shadow: var(--shadow-sm);
-    background: var(--gradient-subtle);
-    border: 1px solid var(--gray-800);
-  }
-
-  .featured-image-container {
-    width: 100%;
-    max-width: 900px;
-    margin-inline: auto;
+    color: var(--gray-200);
     margin-bottom: 2rem;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+  }
+
+  .btn-primary {
+    background: var(--accent-regular);
+    color: var(--accent-text-over);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--gray-0);
+    border-color: var(--gray-700);
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: var(--accent-regular);
+    transform: translateY(-2px);
+  }
+
+  /* Main Content Layout */
+  .content-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  @media (min-width: 1024px) {
+    .content-layout {
+      flex-direction: row;
+      gap: 4rem;
+    }
+  }
+
+  .main-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Hero Image */
+  .hero-image-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto 3rem;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .hero-image-container {
+      border-radius: 1.5rem;
+    }
+  }
+
+  .hero-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
+
+  @media (min-width: 768px) {
+    .hero-image {
+      height: 500px;
+    }
   }
 
   .gradient-wrapper {
     width: 100%;
-    height: 400px;
+    height: 300px;
     position: relative;
-    border-radius: 1.5rem;
+    border-radius: 1rem;
     overflow: hidden;
   }
 
-  .featured-image-container :global(.gradient-placeholder) {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 1.5rem;
-    margin: 0 auto;
+  @media (min-width: 768px) {
+    .gradient-wrapper {
+      height: 500px;
+      border-radius: 1.5rem;
+    }
   }
 
-  .content :global(blockquote) {
-    font-size: var(--text-lg);
-    font-family: var(--font-brand);
+  /* Content Sections */
+  .content-section {
+    margin-bottom: 3rem;
+  }
+
+  .content-section h2 {
+    font-size: 1.75rem;
     font-weight: 600;
-    line-height: 1.1;
-    padding-inline-start: 1.5rem;
-    border-inline-start: 0.25rem solid var(--accent-dark);
     color: var(--gray-0);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
   }
 
-  .content :global(a) {
-    text-decoration: 1px solid underline transparent;
-    text-underline-offset: 0.25em;
-    transition: text-decoration-color var(--theme-transition);
+  .content-section h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--gray-0);
+    margin-bottom: 1rem;
   }
 
-  .content :global(a:hover),
-  .content :global(a:focus) {
-    text-decoration-color: currentColor;
+  .content-section h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--gray-100);
+    margin-bottom: 0.75rem;
   }
 
-  /* Fallback for gradient text */
-  @supports not (-webkit-background-clip: text) {
+  .content-section p {
+    line-height: 1.7;
+    color: var(--gray-200);
+    margin-bottom: 1rem;
+  }
+
+  /* Problem & Goals Section */
+  .problem-goals-content {
+    display: grid;
+    gap: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .problem-goals-content {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .problem-content,
+  .goals-content {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 2rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--gray-800);
+  }
+
+  /* Challenges Section */
+  .challenges-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .challenge-item {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    border-left: 4px solid var(--accent-regular);
+  }
+
+  /* Results Section */
+  .results-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .results-list li {
+    padding: 0.75rem 0;
+    position: relative;
+    padding-left: 1.5rem;
+  }
+
+  .results-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent-regular);
+    font-weight: bold;
+  }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .metric-item {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--gray-800);
+  }
+
+  .metric-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-regular);
+    margin-bottom: 0.5rem;
+  }
+
+  .metric-label {
+    font-size: 0.875rem;
+    color: var(--gray-400);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Sidebar */
+  .project-sidebar {
+    width: 280px;
+    position: relative;
+  }
+
+  @media (max-width: 1023px) {
+    .project-sidebar {
+      width: 100%;
+      order: -1;
+    }
+  }
+
+  .sidebar-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  @media (min-width: 1024px) {
+    .sidebar-content.is-fixed {
+      position: fixed;
+      max-height: calc(100vh - 4rem);
+      overflow-y: auto;
+    }
+
+    .sidebar-content.is-fixed .project-info-card {
+      border: 1px solid var(--gray-700);
+    }
+  }
+
+  .project-info-card {
+    background: var(--gray-900);
+    border: 1px solid var(--gray-800);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+  }
+
+  .project-info-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gray-0);
+    margin-bottom: 1rem;
+  }
+
+  .info-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .info-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--gray-400);
+  }
+
+  .info-value {
+    font-size: 0.9rem;
+    color: var(--gray-200);
+  }
+
+  /* Mobile Project Info Card */
+  .mobile-project-info {
+    display: block;
+    width: 100%;
+    margin-bottom: 2rem;
+    order: -1;
+  }
+
+  @media (min-width: 1024px) {
+    .mobile-project-info {
+      display: none;
+    }
+  }
+
+  /* Tech Stack Styling */
+  .tech-list-sidebar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .tech-tag-small {
+    background: var(--accent-regular);
+    color: var(--accent-text-over);
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  /* Lists */
+  .content-section ul {
+    padding-left: 0;
+    margin: 1rem 0;
+    list-style: none;
+  }
+
+  .content-section li {
+    margin: 0.75rem 0;
+    line-height: 1.6;
+    color: var(--gray-200);
+    position: relative;
+    padding-left: 1.5rem;
+  }
+
+  .content-section li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--accent-regular);
+    font-weight: bold;
+    font-size: 1.2em;
+    line-height: 1.6;
+  }
+
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
     .project-title {
-      color: #667eea;
+      font-size: 2rem;
+    }
+
+    .project-description {
+      font-size: 1.125rem;
+    }
+
+    .project-links {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .btn {
+      width: 100%;
+      max-width: 300px;
+      justify-content: center;
+    }
+
+    .problem-goals-content {
+      grid-template-columns: 1fr;
+    }
+
+    .metrics-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .content-section h2 {
+      font-size: 1.5rem;
+    }
+
+    .hero-image-container {
+      margin-bottom: 2rem;
+    }
+
+    .sidebar-content {
+      position: static;
+    }
+
+    .project-sidebar {
+      display: none;
     }
   }
 
-  @media (min-width: 50em) {
-    .content :global(blockquote) {
-      font-size: var(--text-2xl);
-    }
+  /* Smooth scrolling for navigation links */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Focus styles for accessibility */
+  .btn:focus,
+  .project-info-card a:focus {
+    outline: 2px solid var(--accent-regular);
+    outline-offset: 2px;
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const navLinks = document.querySelectorAll('.project-nav a');
+
+    navLinks.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          const targetId = href.substring(1);
+          const targetElement =
+            document.getElementById(targetId) ||
+            document.querySelector(`[data-section="${targetId}"]`);
+
+          if (targetElement) {
+            const yOffset = -80;
+            const y = targetElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+            window.scrollTo({
+              top: y,
+              behavior: 'smooth',
+            });
+          }
+        }
+      });
+    });
+
+    const sections = document.querySelectorAll('.content-section');
+    sections.forEach((section, index) => {
+      const heading = section.querySelector('h2');
+      if (heading) {
+        const text =
+          heading.textContent
+            ?.toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-|-$/g, '') || `section-${index}`;
+        section.id = text;
+        section.setAttribute('data-section', text);
+      }
+    });
+
+    const images = document.querySelectorAll<HTMLImageElement>('.hero-image, .screenshot-item img');
+    images.forEach((img) => {
+      img.addEventListener('error', () => {
+        const container = img.parentElement;
+        const placeholder = document.createElement('div');
+        placeholder.className = 'gradient-wrapper';
+        placeholder.innerHTML = `
+          <div class="gradient-placeholder" style="
+            background: linear-gradient(135deg, var(--accent-regular), var(--accent-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+          ">
+            ${img.alt || 'Project Image'}
+          </div>
+        `;
+        container?.replaceChild(placeholder, img);
+      });
+    });
+
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px',
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const target = entry.target as HTMLElement;
+          target.style.opacity = '1';
+          target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    const contentSections = document.querySelectorAll<HTMLElement>('.content-section');
+    contentSections.forEach((section) => {
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(20px)';
+      section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(section);
+    });
+
+    const sidebarContent = document.querySelector(
+      '.project-sidebar .sidebar-content'
+    ) as HTMLElement;
+    const mainContent = document.querySelector('.main-content') as HTMLElement;
+
+    if (sidebarContent && mainContent) {
+      let initialSidebarTop = 0;
+      let isSticky = false;
+      let isInitialized = false;
+
+      const reset = () => {
+        sidebarContent.classList.remove('is-fixed');
+        sidebarContent.style.position = '';
+        sidebarContent.style.top = '';
+        sidebarContent.style.width = '';
+        sidebarContent.style.zIndex = '';
+      };
+
+      const calculate = () => {
+        if (window.innerWidth >= 1024) {
+          reset();
+          void sidebarContent.offsetHeight;
+          const rect = sidebarContent.getBoundingClientRect();
+          initialSidebarTop = rect.top + window.scrollY;
+        }
+      };
+
+      const onScroll = () => {
+        if (!isInitialized || window.innerWidth < 1024) return;
+
+        const stickyTop = 64 + 32;
+        const shouldStick = window.scrollY + stickyTop >= initialSidebarTop;
+
+        const mainRect = mainContent.getBoundingClientRect();
+        const sidebarRect = sidebarContent.getBoundingClientRect();
+
+        const shouldScrollWithContent = mainRect.bottom <= sidebarRect.bottom && shouldStick;
+
+        if (shouldStick && !shouldScrollWithContent && !isSticky) {
+          isSticky = true;
+          sidebarContent.classList.add('is-fixed');
+          sidebarContent.style.position = 'fixed';
+          sidebarContent.style.top = `${stickyTop}px`;
+          sidebarContent.style.width = '280px';
+          sidebarContent.style.zIndex = '10';
+        } else if (shouldStick && shouldScrollWithContent && isSticky) {
+          isSticky = false;
+          reset();
+          sidebarContent.style.position = 'absolute';
+          sidebarContent.style.top = `${mainContent.offsetHeight - sidebarContent.offsetHeight - 50}px`;
+          sidebarContent.style.width = '280px';
+        } else if (!shouldStick && isSticky) {
+          isSticky = false;
+          reset();
+        }
+      };
+
+      const init = () => {
+        calculate();
+        isInitialized = true;
+        onScroll();
+      };
+
+      const handleResize = () => {
+        isSticky = false;
+        reset();
+        setTimeout(() => {
+          calculate();
+        }, 100);
+      };
+
+      let ticking = false;
+      const throttle = () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            onScroll();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      };
+
+      const initializeWhenReady = () => {
+        if (document.readyState === 'complete') {
+          setTimeout(() => {
+            init();
+          }, 150);
+        } else {
+          window.addEventListener('load', () => {
+            setTimeout(() => {
+              init();
+            }, 150);
+          });
+        }
+      };
+
+      initializeWhenReady();
+
+      window.addEventListener('scroll', throttle);
+      window.addEventListener('resize', handleResize);
+    }
+  });
+</script>

@@ -746,12 +746,13 @@ const showToc = tocHeadings.length > 0;
       });
     });
 
-    const tocContainer = document.querySelector('.toc-container') as HTMLElement;
+    const tocContainer = document.querySelector('.toc-sidebar .toc-container') as HTMLElement;
     const tocSidebar = document.querySelector('.toc-sidebar') as HTMLElement;
+    const mainContent = document.querySelector('.main-content') as HTMLElement;
     const tocLinks = document.querySelectorAll('.toc a');
     const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6') as NodeListOf<HTMLElement>;
 
-    if (!tocContainer || !tocSidebar || tocLinks.length === 0) return;
+    if (!tocContainer || !tocSidebar || !mainContent || tocLinks.length === 0) return;
 
     let initialTocTop = 0;
     let isSticky = false;
@@ -791,26 +792,32 @@ const showToc = tocHeadings.length > 0;
     };
 
     const onScroll = () => {
-      if (!isInitialized) return;
+      if (!isInitialized || window.innerWidth < 1024) return;
 
       updateActive();
 
-      if (window.innerWidth >= 1024 && initialTocTop > 0) {
-        const stickyTop = 64 + 32;
-        const shouldStick = window.scrollY + stickyTop >= initialTocTop;
+      const stickyTop = 64 + 32;
+      const shouldStick = window.scrollY + stickyTop >= initialTocTop;
 
-        if (shouldStick && !isSticky) {
-          isSticky = true;
-          tocContainer.classList.add('is-fixed');
-          tocContainer.style.position = 'fixed';
-          tocContainer.style.top = `${stickyTop}px`;
-          tocContainer.style.width = '280px';
-          tocContainer.style.zIndex = '10';
-        } else if (!shouldStick && isSticky) {
-          isSticky = false;
-          reset();
-        }
-      } else if (isSticky) {
+      const mainRect = mainContent.getBoundingClientRect();
+      const tocRect = tocContainer.getBoundingClientRect();
+
+      const shouldScrollWithContent = mainRect.bottom <= tocRect.bottom && shouldStick;
+
+      if (shouldStick && !shouldScrollWithContent && !isSticky) {
+        isSticky = true;
+        tocContainer.classList.add('is-fixed');
+        tocContainer.style.position = 'fixed';
+        tocContainer.style.top = `${stickyTop}px`;
+        tocContainer.style.width = '280px';
+        tocContainer.style.zIndex = '10';
+      } else if (shouldStick && shouldScrollWithContent && isSticky) {
+        isSticky = false;
+        reset();
+        tocContainer.style.position = 'absolute';
+        tocContainer.style.top = `${mainContent.offsetHeight - tocContainer.offsetHeight - 50}px`;
+        tocContainer.style.width = '280px';
+      } else if (!shouldStick && isSticky) {
         isSticky = false;
         reset();
       }

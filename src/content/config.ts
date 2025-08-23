@@ -12,8 +12,42 @@ export const collections = {
       img_alt: z.string().optional(),
       githubUrl: z.string().optional(),
       liveUrl: z.string().optional(),
+      role: z.string().optional(),
+      timeline: z.string().optional(),
+      team: z.string().optional(),
+      projectType: z.string().optional(),
+      techStack: z.array(z.string()).optional(),
+      overview: z.string().optional(),
+      problem: z.string().optional(),
+      goals: z.union([z.string(), z.array(z.string())]).optional(),
+      challenges: z
+        .union([
+          z.string(),
+          z.array(z.string()),
+          z.array(
+            z.object({
+              challenge: z.string().optional(),
+              title: z.string().optional(),
+              solution: z.string().optional(),
+              description: z.string().optional(),
+            })
+          ),
+        ])
+        .optional(),
+      results: z.union([z.string(), z.array(z.string())]).optional(),
+      metrics: z
+        .array(
+          z.object({
+            value: z.string(),
+            label: z.string(),
+          })
+        )
+        .optional(),
+      learnings: z.union([z.string(), z.array(z.string())]).optional(),
+      improvements: z.union([z.string(), z.array(z.string())]).optional(),
     }),
   }),
+
   blog: defineCollection({
     type: 'content',
     schema: z.object({
