@@ -449,7 +449,6 @@ const formattedDate = formatDate(new Date(entry.data.publishDate));
   }
 
   .back-link:hover {
-    background-color: var(--gray-800);
     color: var(--gray-0);
   }
 
@@ -765,10 +764,6 @@ const formattedDate = formatDate(new Date(entry.data.publishDate));
       max-height: calc(100vh - 4rem);
       overflow-y: auto;
     }
-
-    .sidebar-content.is-fixed .project-info-card {
-      border: 1px solid var(--gray-700);
-    }
   }
 
   .project-info-card {
@@ -1042,29 +1037,39 @@ const formattedDate = formatDate(new Date(entry.data.publishDate));
         if (!isInitialized || window.innerWidth < 1024) return;
 
         const stickyTop = 64 + 32;
-        const shouldStick = window.scrollY + stickyTop >= initialSidebarTop;
+        const scrollTop = window.scrollY;
+        const shouldStick = scrollTop + stickyTop >= initialSidebarTop;
 
-        const mainRect = mainContent.getBoundingClientRect();
-        const sidebarRect = sidebarContent.getBoundingClientRect();
+        const sidebarHeight = sidebarContent.offsetHeight;
 
-        const shouldScrollWithContent = mainRect.bottom <= sidebarRect.bottom && shouldStick;
+        const mainContentDiv = document.querySelector('.main-content') as HTMLElement;
 
-        if (shouldStick && !shouldScrollWithContent && !isSticky) {
+        if (!mainContentDiv) return;
+
+        const contentBottom = mainContentDiv.offsetTop + mainContentDiv.scrollHeight;
+        const maxFixedScroll = contentBottom - sidebarHeight - stickyTop;
+
+        if (shouldStick && scrollTop < maxFixedScroll && !isSticky) {
           isSticky = true;
           sidebarContent.classList.add('is-fixed');
           sidebarContent.style.position = 'fixed';
           sidebarContent.style.top = `${stickyTop}px`;
           sidebarContent.style.width = '280px';
           sidebarContent.style.zIndex = '10';
-        } else if (shouldStick && shouldScrollWithContent && isSticky) {
+        } else if (scrollTop >= maxFixedScroll && isSticky) {
           isSticky = false;
-          reset();
+          sidebarContent.classList.remove('is-fixed');
           sidebarContent.style.position = 'absolute';
-          sidebarContent.style.top = `${mainContent.offsetHeight - sidebarContent.offsetHeight - 50}px`;
+          sidebarContent.style.top = `${maxFixedScroll - mainContent.offsetTop + stickyTop}px`;
           sidebarContent.style.width = '280px';
-        } else if (!shouldStick && isSticky) {
+          sidebarContent.style.zIndex = '10';
+        } else if (!shouldStick && (isSticky || sidebarContent.style.position === 'absolute')) {
           isSticky = false;
-          reset();
+          sidebarContent.classList.remove('is-fixed');
+          sidebarContent.style.position = '';
+          sidebarContent.style.top = '';
+          sidebarContent.style.width = '';
+          sidebarContent.style.zIndex = '';
         }
       };
 

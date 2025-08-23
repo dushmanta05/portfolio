@@ -379,10 +379,6 @@ const showToc = tocHeadings.length > 0;
       overflow-y: auto;
       backdrop-filter: blur(10px);
     }
-
-    .toc-container.is-fixed .toc {
-      border: 1px solid var(--gray-700);
-    }
   }
 
   .toc {
@@ -797,29 +793,35 @@ const showToc = tocHeadings.length > 0;
       updateActive();
 
       const stickyTop = 64 + 32;
-      const shouldStick = window.scrollY + stickyTop >= initialTocTop;
+      const scrollTop = window.scrollY;
+      const shouldStick = scrollTop + stickyTop >= initialTocTop;
 
-      const mainRect = mainContent.getBoundingClientRect();
-      const tocRect = tocContainer.getBoundingClientRect();
+      const tocHeight = tocContainer.offsetHeight;
+      const contentElement = (mainContent.querySelector('.content') as HTMLElement) || mainContent;
+      const contentBottom = contentElement.offsetTop + contentElement.offsetHeight;
+      const maxFixedScroll = contentBottom - tocHeight - stickyTop;
 
-      const shouldScrollWithContent = mainRect.bottom <= tocRect.bottom && shouldStick;
-
-      if (shouldStick && !shouldScrollWithContent && !isSticky) {
+      if (shouldStick && scrollTop < maxFixedScroll && !isSticky) {
         isSticky = true;
         tocContainer.classList.add('is-fixed');
         tocContainer.style.position = 'fixed';
         tocContainer.style.top = `${stickyTop}px`;
         tocContainer.style.width = '280px';
         tocContainer.style.zIndex = '10';
-      } else if (shouldStick && shouldScrollWithContent && isSticky) {
+      } else if (scrollTop >= maxFixedScroll && isSticky) {
         isSticky = false;
-        reset();
+        tocContainer.classList.remove('is-fixed');
         tocContainer.style.position = 'absolute';
-        tocContainer.style.top = `${mainContent.offsetHeight - tocContainer.offsetHeight - 50}px`;
+        tocContainer.style.top = `${contentBottom - tocHeight}px`;
         tocContainer.style.width = '280px';
-      } else if (!shouldStick && isSticky) {
+        tocContainer.style.zIndex = '10';
+      } else if (!shouldStick && (isSticky || tocContainer.style.position === 'absolute')) {
         isSticky = false;
-        reset();
+        tocContainer.classList.remove('is-fixed');
+        tocContainer.style.position = '';
+        tocContainer.style.top = '';
+        tocContainer.style.width = '';
+        tocContainer.style.zIndex = '';
       }
     };
 
