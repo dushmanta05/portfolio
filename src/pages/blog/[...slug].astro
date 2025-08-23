@@ -4,6 +4,8 @@ import { type CollectionEntry, getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Icon from '@components/Icon.astro';
 import GradientPlaceholder from '@components/GradientPlaceholder.astro';
+import ContactCTA from '@components/ContactCTA.astro';
+import SectionDivider from '@components/common/SectionDivider.astro';
 
 interface Props {
   entry: CollectionEntry<'blog'>;
@@ -127,6 +129,8 @@ const showToc = tocHeadings.length > 0;
         </div>
       </div>
     </main>
+    <SectionDivider />
+    <ContactCTA />
   </div>
 </BaseLayout>
 
@@ -136,6 +140,7 @@ const showToc = tocHeadings.length > 0;
     border-bottom: 1px solid var(--gray-800);
     width: 100%;
     margin-bottom: 2rem;
+    max-width: 100%;
   }
 
   .wrapper {
@@ -148,11 +153,6 @@ const showToc = tocHeadings.length > 0;
     .wrapper {
       padding: 0 2rem;
     }
-  }
-
-  .article-header {
-    max-width: 100%;
-    width: 100%;
   }
 
   .back-link {
@@ -236,6 +236,12 @@ const showToc = tocHeadings.length > 0;
     max-width: 100%;
   }
 
+  @media (min-width: 768px) {
+    .tags {
+      max-width: 60ch;
+    }
+  }
+
   .tag {
     color: var(--accent-regular);
     font-size: var(--text-md);
@@ -246,27 +252,6 @@ const showToc = tocHeadings.length > 0;
   .tag:hover {
     color: var(--accent-dark, #0066cc);
     text-decoration: underline;
-  }
-
-  /*
-  .tag {
-    color: var(--accent-regular);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .tag:hover {
-    color: var(--accent-dark, #0066cc);
-    text-decoration: underline;
-  }
-  */
-
-  @media (min-width: 768px) {
-    .tags {
-      max-width: 60ch;
-    }
   }
 
   .article-description {
@@ -283,12 +268,6 @@ const showToc = tocHeadings.length > 0;
       font-size: 1.25rem;
       line-height: 1.7;
     }
-  }
-
-  .featured-image-container {
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto 3rem auto;
   }
 
   .featured-image-container {
@@ -380,6 +359,7 @@ const showToc = tocHeadings.length > 0;
   @media (max-width: 1023px) {
     .toc-sidebar {
       width: 100%;
+      display: none;
     }
   }
 
@@ -599,9 +579,6 @@ const showToc = tocHeadings.length > 0;
     margin: 2rem 0;
     font-size: 0.9em;
     line-height: 1.5;
-  }
-
-  .prose :global(pre) {
     background: var(--shiki-light-bg) !important;
     transition: background-color var(--theme-transition);
   }

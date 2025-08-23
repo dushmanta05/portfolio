@@ -12,6 +12,7 @@ import ContactCTA from '@components/ContactCTA.astro';
 import SkillsSection from '@components/SkillsSection.astro';
 import OSSContributions from '@components/OSSContributions.astro';
 import Skills from '@components/Skills.astro';
+import SectionDivider from '@components/common/SectionDivider.astro';
 
 const projects = (await getCollection('work')).sort(
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
@@ -112,6 +113,9 @@ const ogImage = `${siteUrl}/og-image.png`;
         <OSSContributions />
       </section>
     </main>
+    <div class='wrapper'>
+      <SectionDivider />
+    </div>
     <div class='wrapper'>
       <ContactCTA />
     </div>

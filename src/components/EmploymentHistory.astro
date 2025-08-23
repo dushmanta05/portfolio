@@ -168,13 +168,9 @@ const employments: Employment[] = [
       employments.map((employment, empIndex) => {
         const totalTenure = calculateTenure(employment.startDate, employment.endDate);
         const hasMultiplePositions = employment.positions.length > 1;
-        const isAlternate = empIndex % 2 === 1;
 
         return (
           <div class='employment-item'>
-            <div class='company-bullet'>
-              <div class='diamond-bullet'>◆</div>
-            </div>
             <div class='employment-content'>
               {/* Company Header */}
               <div class='company-header'>
@@ -319,29 +315,6 @@ const employments: Employment[] = [
     .section-title {
       font-size: 1.75rem;
     }
-  }
-
-  /* Decorative section dividers */
-  .section-divider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 2rem 0;
-    color: var(--gray-600);
-  }
-
-  .section-divider::before,
-  .section-divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--gray-700), transparent);
-  }
-
-  .section-divider-icon {
-    margin: 0 1rem;
-    font-size: 1.5rem;
-    color: var(--accent-regular);
   }
 
   .employment-timeline {

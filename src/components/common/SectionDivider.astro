@@ -1,0 +1,18 @@
+---
+
+---
+
+<div class='section-divider flex items-center justify-center my-8 text-[var(--gray-600)]'>
+  <div class='mx-4 text-2xl text-[var(--accent-regular)]'>◆</div>
+</div>
+
+<style>
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gray-700), transparent);
+    /* @apply content-[''] flex-1 h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent; */
+  }
+</style>
