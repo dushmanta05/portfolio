@@ -2,6 +2,7 @@
 import type { iconPaths } from '@components/IconPaths';
 import Icon from '@components/Icon.astro';
 import ThemeToggle from '@components/ThemeToggle.astro';
+import SectionDivider from '@components/common/SectionDivider.astro';
 
 const textLinks: { label: string; href: string }[] = [
   { label: 'Home', href: '/' },
@@ -33,59 +34,57 @@ const iconLinks: {
 ];
 ---
 
-<nav class='w-full mx-auto px-6 gap-8 lg:gap-20 navbar'>
+<nav class='w-full mx-auto px-6 navbar'>
   <div class='max-w-7xl flex items-center justify-between h-16 mx-auto md:px-4 sm:px-6 lg:px-8'>
+    <!-- Brand/Logo -->
     <div class='flex-shrink-0'>
       <a href='/' class='brand-title'>
-        <Icon icon='terminal' color=' var(--accent-regular)' size='1.6em' gradient />
+        <Icon icon='terminal' color='var(--accent-regular)' size='1.6em' gradient />
         Dushmanta
       </a>
     </div>
 
-    <!-- Desktop Navigation -->
-    <div class='hidden md:flex flex-1 items-center justify-between'>
-      <div class='flex-1 flex justify-center'>
-        <ul class='flex items-center gap-1 list-none m-0 p-0'>
-          {
-            textLinks.map(({ label, href }) => (
-              <li>
-                <a
-                  aria-current={Astro.url.pathname === href}
-                  class:list={[
-                    'nav-link',
-                    {
-                      active:
-                        Astro.url.pathname === href ||
-                        (href !== '/' && Astro.url.pathname.startsWith(href)),
-                    },
-                  ]}
-                  href={href}
-                >
-                  {label}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-
-      <div class='flex items-center gap-4'>
-        <div class='flex items-center gap-2'>
-          {
-            iconLinks.map(({ href, icon, label }) => (
-              <a href={href} class='social-link'>
-                <span class='sr-only'>{label}</span>
-                <Icon icon={icon} size='1.4em' />
+    <div class='hidden md:flex flex-1 justify-center'>
+      <ul class='flex items-center gap-1 list-none m-0 p-0'>
+        {
+          textLinks.map(({ label, href }) => (
+            <li>
+              <a
+                aria-current={Astro.url.pathname === href}
+                class:list={[
+                  'nav-link',
+                  {
+                    active:
+                      Astro.url.pathname === href ||
+                      (href !== '/' && Astro.url.pathname.startsWith(href)),
+                  },
+                ]}
+                href={href}
+              >
+                {label}
               </a>
-            ))
-          }
-        </div>
-        <ThemeToggle />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class='hidden md:flex items-center gap-4'>
+      <div class='flex items-center gap-2'>
+        {
+          iconLinks.map(({ href, icon, label }) => (
+            <a href={href} class='social-link'>
+              <span class='sr-only'>{label}</span>
+              <Icon icon={icon} size='1.4em' />
+            </a>
+          ))
+        }
       </div>
+      <ThemeToggle />
     </div>
 
     <!-- Mobile Menu Button -->
-    <menu-button>
+    <menu-button class='md:hidden'>
       <template>
         <button class='menu-toggle' aria-expanded='false'>
           <span class='sr-only'>Menu</span>
@@ -100,7 +99,7 @@ const iconLinks: {
   </div>
 
   <!-- Mobile Menu Overlay -->
-  <div id='mobile-menu' class='mobile-menu bg-white dark:bg-black/95' hidden>
+  <div id='mobile-menu' class='mobile-menu' hidden>
     <div class='mobile-menu-header'>
       <a href='/' class='brand-title'>
         <Icon icon='terminal' color='var(--accent-regular)' size='1.6em' gradient />
@@ -134,6 +133,8 @@ const iconLinks: {
           ))
         }
       </ul>
+
+      <SectionDivider />
 
       <div class='mobile-menu-footer'>
         <div class='mobile-socials'>
@@ -177,10 +178,12 @@ const iconLinks: {
           body.style.overflow = 'hidden';
           body.style.position = 'fixed';
           body.style.width = '100%';
+          document.documentElement.style.overflow = 'hidden';
         } else {
           body.style.overflow = '';
           body.style.position = '';
           body.style.width = '';
+          document.documentElement.style.overflow = '';
         }
       };
 
@@ -213,7 +216,7 @@ const iconLinks: {
     @apply fixed top-0 left-0 right-0 z-[9999] font-medium backdrop-blur-[2px];
     backdrop-filter: blur(32px);
     -webkit-backdrop-filter: blur(32px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--gray-800);
     transition: all 0.3s ease;
   }
 
@@ -226,7 +229,7 @@ const iconLinks: {
 
   .nav-link:hover {
     color: var(--gray-0);
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--gray-800);
     transform: translateY(-1px);
   }
 
@@ -237,32 +240,69 @@ const iconLinks: {
   }
 
   .social-link {
-    @apply p-2 rounded-full no-underline transition-all duration-200 text-[var(--gray-300)] bg-[#ffffff0d];
+    @apply p-2 rounded-full no-underline transition-all duration-200;
+    color: var(--gray-300);
+    background: var(--gray-800);
   }
 
   .social-link:hover {
     color: var(--accent-regular);
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--gray-700);
     transform: translateY(-2px);
   }
 
   /* Mobile Menu Button */
   .menu-toggle {
-    @apply md:hidden relative border-0 bg-transparent cursor-pointer;
+    @apply md:hidden relative border-0 cursor-pointer;
     @apply transition-all duration-200;
-    background: rgba(255, 255, 255, 0.1);
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border-radius: 0;
   }
 
   .menu-toggle:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: transparent;
+  }
+
+  /* Remove flash background on click */
+  .menu-toggle:focus {
+    outline: none;
+  }
+
+  .menu-toggle:active {
+    background: transparent;
+  }
+
+  .hamburger {
+    width: 1.5rem;
+    height: 1.25rem;
   }
 
   .hamburger span {
-    @apply block absolute h-0.5 w-full left-0 rounded-sm transition-all duration-300 bg-[--gray-0] origin-center;
+    @apply block absolute h-0.5 w-full left-0 rounded-sm transition-all duration-300;
+    background-color: var(--gray-0);
+    origin: center;
+  }
+
+  .hamburger span:nth-child(1) {
+    top: 0;
+  }
+
+  .hamburger span:nth-child(2) {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .hamburger span:nth-child(3) {
+    bottom: 0;
   }
 
   .menu-toggle.active .hamburger span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
+    transform: rotate(45deg) translate(0.375rem, 0.125rem);
   }
 
   .menu-toggle.active .hamburger span:nth-child(2) {
@@ -270,17 +310,18 @@ const iconLinks: {
   }
 
   .menu-toggle.active .hamburger span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -6px);
+    transform: rotate(-45deg) translate(0.375rem, -0.125rem);
   }
 
   .mobile-menu {
     @apply fixed inset-0 z-[9998] md:hidden;
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
     animation: fadeIn 0.3s ease-out;
     height: 100vh;
     height: 100dvh;
+    width: 100vw;
+    width: 100dvw;
     overflow: hidden;
+    background: var(--gray-999);
   }
 
   .mobile-menu[hidden] {
@@ -297,8 +338,13 @@ const iconLinks: {
   }
 
   .mobile-menu-header {
-    @apply flex items-center justify-between p-4 border-b border-gray-800 bg-[--gray-999];
+    @apply flex items-center justify-between h-16;
     flex-shrink: 0;
+    padding: 0 1.5rem;
+    background: transparent;
+    border-bottom: 1px solid var(--gray-800);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
   }
 
   .brand-title {
@@ -311,22 +357,30 @@ const iconLinks: {
   }
 
   .close-menu {
-    @apply border-0 bg-transparent cursor-pointer;
+    @apply border-0 cursor-pointer p-2;
     @apply transition-all duration-200;
+    background: transparent;
     color: var(--gray-0);
+    border-radius: 0;
+  }
+
+  .menu-toggle:hover .hamburger span {
+    background-color: var(--accent-regular);
   }
 
   .close-menu:hover {
-    color: var(--gray-0);
-    background: rgba(255, 255, 255, 0.15);
+    color: var(--accent-regular);
+    background: transparent;
   }
 
   .mobile-menu-content {
-    @apply bg-[--gray-999];
     @apply flex flex-col px-4;
-    height: calc(100vh - 80px);
-    height: calc(100dvh - 80px);
+    height: calc(100vh - 4rem);
+    height: calc(100dvh - 4rem);
     overflow-y: auto;
+    min-height: calc(100vh - 4rem);
+    min-height: calc(100dvh - 4rem);
+    background: var(--gray-999);
   }
 
   .mobile-nav-items {
@@ -339,13 +393,13 @@ const iconLinks: {
     @apply block px-6 py-4 text-lg font-medium no-underline rounded-xl;
     @apply transition-all duration-200;
     color: var(--gray-300);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--gray-900);
+    border: 1px solid var(--gray-800);
   }
 
   .mobile-nav-link:hover {
     color: var(--gray-0);
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--gray-800);
     transform: translateX(8px);
   }
 
@@ -356,7 +410,7 @@ const iconLinks: {
   }
 
   .mobile-menu-footer {
-    @apply pt-6 border-t border-gray-800;
+    @apply pt-4 flex flex-col items-center justify-center flex-grow;
     flex-shrink: 0;
     margin-top: auto;
     padding-bottom: 2rem;
@@ -369,17 +423,22 @@ const iconLinks: {
   .mobile-social-link {
     @apply p-3 rounded-full no-underline transition-all duration-200;
     color: var(--gray-300);
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--gray-800);
   }
 
   .mobile-social-link:hover {
     color: var(--accent-regular);
-    background: rgba(255, 255, 255, 0.15);
+    background: var(--gray-700);
     transform: translateY(-2px);
   }
 
   .mobile-theme-toggle {
     @apply flex justify-center;
+  }
+
+  .SectionDivider {
+    margin: 1rem 0;
+    width: 100%;
   }
 
   .sr-only {
@@ -406,13 +465,13 @@ const iconLinks: {
 
   @media (prefers-color-scheme: dark) {
     .navbar {
-      border-bottom-color: rgba(255, 255, 255, 0.05);
+      border-bottom-color: var(--gray-800);
     }
   }
 
   @media (prefers-color-scheme: light) {
     .navbar {
-      border-bottom-color: rgba(0, 0, 0, 0.08);
+      border-bottom-color: var(--gray-700);
     }
   }
 
@@ -427,9 +486,24 @@ const iconLinks: {
       position: fixed;
       top: 0;
       left: 0;
+      right: 0;
+      bottom: 0;
       width: 100vw;
+      width: 100dvw;
       height: 100vh;
       height: 100dvh;
+    }
+
+    /* Ensure full coverage */
+    .mobile-menu::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--gray-999);
+      z-index: -1;
     }
   }
 </style>
