@@ -75,7 +75,7 @@ const iconLinks: {
           iconLinks.map(({ href, icon, label }) => (
             <a href={href} class='social-link'>
               <span class='sr-only'>{label}</span>
-              <Icon icon={icon} size='1.4em' />
+              <Icon icon={icon} size='1em' />
             </a>
           ))
         }
@@ -142,7 +142,7 @@ const iconLinks: {
             iconLinks.map(({ href, icon, label }) => (
               <a href={href} class='mobile-social-link'>
                 <span class='sr-only'>{label}</span>
-                <Icon icon={icon} size='1.2em' />
+                <Icon icon={icon} size='1em' />
               </a>
             ))
           }
@@ -213,10 +213,9 @@ const iconLinks: {
 
 <style>
   .navbar {
-    @apply fixed top-0 left-0 right-0 z-[9999] font-medium backdrop-blur-[2px];
+    @apply fixed top-0 left-0 right-0 z-[9999] font-medium;
     backdrop-filter: blur(32px);
     -webkit-backdrop-filter: blur(32px);
-    border-bottom: 1px solid var(--gray-800);
     transition: all 0.3s ease;
   }
 
@@ -240,15 +239,26 @@ const iconLinks: {
   }
 
   .social-link {
-    @apply p-2 rounded-full no-underline transition-all duration-200;
+    @apply p-1 rounded-full no-underline transition-all duration-200;
     color: var(--gray-300);
     background: var(--gray-800);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
   }
 
   .social-link:hover {
     color: var(--accent-regular);
     background: var(--gray-700);
     transform: translateY(-2px);
+  }
+
+  .brand-title {
+    @apply flex items-center gap-2 text-xl font-bold no-underline;
+    color: var(--gray-0);
+    transition: color 0.3s ease;
   }
 
   /* Mobile Menu Button */
@@ -421,7 +431,7 @@ const iconLinks: {
   }
 
   .mobile-social-link {
-    @apply p-3 rounded-full no-underline transition-all duration-200;
+    @apply p-2 rounded-full no-underline transition-all duration-200;
     color: var(--gray-300);
     background: var(--gray-800);
   }
@@ -460,18 +470,6 @@ const iconLinks: {
   @supports not (backdrop-filter: blur(20px)) {
     .navbar {
       background: rgba(0, 0, 0, 0.85);
-    }
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .navbar {
-      border-bottom-color: var(--gray-800);
-    }
-  }
-
-  @media (prefers-color-scheme: light) {
-    .navbar {
-      border-bottom-color: var(--gray-700);
     }
   }
 
