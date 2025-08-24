@@ -27,6 +27,17 @@
 
   --link-color: var(--accent-regular);
 
+  /* Response message colors - Light mode */
+  --response-success-bg: rgba(7, 81, 207, 0.1);
+  --response-success-border: rgba(7, 81, 207, 0.3);
+  --response-success-text: var(--accent-regular);
+  --response-success-shadow: rgba(7, 81, 207, 0.1);
+
+  --response-error-bg: rgba(239, 68, 68, 0.1);
+  --response-error-border: rgba(239, 68, 68, 0.3);
+  --response-error-text: #ef4444;
+  --response-error-shadow: rgba(239, 68, 68, 0.1);
+
   /* Gradients */
   --gradient-stop-1: var(--accent-light);
   --gradient-stop-2: var(--accent-regular);
@@ -92,6 +103,16 @@
   --accent-regular-rgb: 7, 81, 207;
 
   --link-color: var(--accent-dark);
+
+  --response-success-bg: rgba(62, 139, 255, 0.15);
+  --response-success-border: rgba(62, 139, 255, 0.4);
+  --response-success-text: var(--accent-light);
+  --response-success-shadow: rgba(62, 139, 255, 0.1);
+
+  --response-error-bg: rgba(248, 113, 113, 0.15);
+  --response-error-border: rgba(248, 113, 113, 0.4);
+  --response-error-text: #f87171;
+  --response-error-shadow: rgba(248, 113, 113, 0.1);
 
   --gradient-stop-1: var(--accent-regular);
   --gradient-subtle: linear-gradient(150deg, var(--gray-900) 19%, var(--gray-999) 81%);

@@ -1,12 +1,16 @@
 ---
 interface Props {
   href: string;
+  disabled?: boolean;
+  id?: string;
 }
 
-const { href } = Astro.props;
+const { href, disabled = false, id } = Astro.props;
 ---
 
-<a href={href}><slot /></a>
+<a href={href} class:list={[{ disabled }]} data-disabled={disabled} id={id}>
+  <slot />
+</a>
 
 <style>
   a {
@@ -15,6 +19,14 @@ const { href } = Astro.props;
     line-height: 1.1;
     background: var(--gradient-accent-cta);
     font-size: var(--text-base);
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  a.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+    cursor: not-allowed;
   }
 
   @media (min-width: 768px) {
@@ -23,7 +35,6 @@ const { href } = Astro.props;
     }
   }
 
-  /* Overlay for hover effects. */
   a::after {
     @apply absolute inset-0 pointer-events-none;
     content: '';
@@ -31,8 +42,12 @@ const { href } = Astro.props;
     mix-blend-mode: overlay;
   }
 
-  a:focus::after,
-  a:hover::after {
+  a:not(.disabled):focus::after,
+  a:not(.disabled):hover::after {
     background-color: hsla(var(--gray-999-basis), 0.3);
+  }
+
+  a:not(.disabled):active {
+    transform: translateY(1px);
   }
 </style>

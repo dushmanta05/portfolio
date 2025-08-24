@@ -1,16 +1,21 @@
 ---
 import CallToAction from './CallToAction.astro';
 import Icon from './Icon.astro';
-
-// ContactForm.astro
 ---
 
-<form class='contact-form' method='POST' action='/api/contact'>
-  <!-- Name and Email Row -->
+<form class='contact-form' id='contactForm'>
   <div class='form-row'>
     <div class='form-group'>
-      <label for='name'>Name</label>
-      <input type='text' id='name' name='name' required placeholder='Your name' />
+      <label for='fullName'>Name</label>
+      <input
+        type='text'
+        id='fullName'
+        name='fullName'
+        required
+        placeholder='Your name'
+        maxlength='20'
+        minlength='3'
+      />
     </div>
     <div class='form-group'>
       <label for='email'>Email</label>
@@ -18,7 +23,6 @@ import Icon from './Icon.astro';
     </div>
   </div>
 
-  <!-- Subject -->
   <div class='form-group'>
     <label for='subject'>Subject</label>
     <input
@@ -27,27 +31,31 @@ import Icon from './Icon.astro';
       name='subject'
       required
       placeholder='What would you like to discuss?'
+      maxlength='50'
+      minlength='10'
     />
   </div>
 
-  <!-- Message -->
   <div class='form-group'>
-    <label for='message'>Message</label>
+    <label for='description'>Message</label>
     <textarea
-      id='message'
-      name='message'
+      id='description'
+      name='description'
       required
       rows='5'
-      placeholder='Tell me about your project or idea...'></textarea>
+      placeholder='Tell me about your project or idea...'
+      maxlength='500'
+      minlength='50'></textarea>
   </div>
 
-  <!-- Submit Button -->
   <div class='submit-wrapper'>
-    <CallToAction href='#' data-submit-form>
-      Send Message
+    <CallToAction href='javascript:void(0)' id='submitButton'>
+      <span id='submitBtn'>Send Message</span>
       <Icon icon='paperPlaneTilt' size='1em' />
     </CallToAction>
   </div>
+
+  <div id='responseMessage' class='response-message'></div>
 </form>
 
 <style>
@@ -85,4 +93,175 @@ import Icon from './Icon.astro';
   .submit-wrapper {
     @apply self-start;
   }
+
+  .response-message {
+    @apply mt-4 p-4 rounded-lg text-center font-medium transition-all duration-200 opacity-0;
+    transform: translateY(10px);
+  }
+
+  .response-message.show {
+    @apply opacity-100;
+    transform: translateY(0);
+  }
+
+  .response-message.success {
+    background: linear-gradient(135deg, var(--response-success-bg), var(--response-success-bg));
+    color: var(--response-success-text);
+    border: 1px solid var(--response-success-border);
+    box-shadow: 0 4px 12px var(--response-success-shadow);
+  }
+
+  .response-message.error {
+    background: linear-gradient(135deg, var(--response-error-bg), var(--response-error-bg));
+    color: var(--response-error-text);
+    border: 1px solid var(--response-error-border);
+    box-shadow: 0 4px 12px var(--response-error-shadow);
+  }
+
+  /* Button disabled state styles */
+  .submit-wrapper .disabled {
+    opacity: 0.6;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const contactForm = document.getElementById('contactForm') as HTMLFormElement | null;
+    const responseMessage = document.getElementById('responseMessage') as HTMLDivElement | null;
+    const submitBtn = document.getElementById('submitBtn') as HTMLSpanElement | null;
+    const submitButton = document.getElementById('submitButton') as HTMLAnchorElement | null;
+
+    if (!contactForm || !responseMessage || !submitBtn || !submitButton) {
+      console.error('Required form elements not found');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    const validateForm = (data: { [key: string]: string }) => {
+      const errors: string[] = [];
+
+      const fullName = data.fullName?.trim() || '';
+      const email = data.email?.trim() || '';
+      const subject = data.subject?.trim() || '';
+      const description = data.description?.trim() || '';
+
+      if (!fullName && !email && !subject && !description) {
+        return ['All fields are required'];
+      }
+
+      if (!fullName) {
+        errors.push('Name is required');
+      } else if (fullName.length < 3) {
+        errors.push('Name must be at least 3 characters');
+      } else if (fullName.length > 20) {
+        errors.push('Name must be 20 characters or less');
+      }
+
+      if (!email) {
+        errors.push('Email is required');
+      } else if (!emailRegex.test(email)) {
+        errors.push('Please enter a valid email address');
+      }
+
+      if (!subject) {
+        errors.push('Subject is required');
+      } else if (subject.length < 10) {
+        errors.push('Subject must be at least 10 characters');
+      } else if (subject.length > 50) {
+        errors.push('Subject must be 50 characters or less');
+      }
+
+      if (!description) {
+        errors.push('Message is required');
+      } else if (description.length < 50) {
+        errors.push('Message must be at least 50 characters');
+      } else if (description.length > 500) {
+        errors.push('Message must be 500 characters or less');
+      }
+
+      return errors;
+    };
+
+    const setButtonState = (disabled: boolean, text: string) => {
+      if (disabled) {
+        submitButton.classList.add('disabled');
+        submitButton.style.pointerEvents = 'none';
+        submitButton.style.opacity = '0.6';
+      } else {
+        submitButton.classList.remove('disabled');
+        submitButton.style.pointerEvents = '';
+        submitButton.style.opacity = '';
+      }
+      submitBtn.textContent = text;
+    };
+
+    const showResponseMessage = (message: string, isSuccess: boolean) => {
+      responseMessage.textContent = message;
+      responseMessage.className = `response-message ${isSuccess ? 'success' : 'error'} show`;
+
+      setTimeout(() => {
+        responseMessage.classList.remove('show');
+        setTimeout(() => {
+          responseMessage.textContent = '';
+          responseMessage.className = 'response-message';
+        }, 200);
+      }, 5000);
+    };
+
+    const handleSubmit = async (e: Event) => {
+      e.preventDefault();
+
+      const formData = new FormData(contactForm);
+      const data: { [key: string]: string } = {};
+
+      formData.forEach((value, key) => {
+        data[key] = typeof value === 'string' ? value.trim() : String(value);
+      });
+
+      const validationErrors = validateForm(data);
+      if (validationErrors.length > 0) {
+        showResponseMessage(validationErrors[0], false);
+        return;
+      }
+
+      setButtonState(true, 'Sending...');
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        if (result.success) {
+          showResponseMessage(result.message || 'Message sent successfully!', true);
+          contactForm.reset();
+        } else {
+          showResponseMessage(
+            result.message || result.error || 'Failed to send message. Please try again.',
+            false
+          );
+        }
+      } catch (error) {
+        showResponseMessage('Network error. Please check your connection and try again.', false);
+      } finally {
+        setButtonState(false, 'Send Message');
+      }
+    };
+
+    submitButton.addEventListener('click', handleSubmit);
+    contactForm.addEventListener('submit', handleSubmit);
+  });
+</script>
