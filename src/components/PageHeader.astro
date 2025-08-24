@@ -2,30 +2,18 @@
 interface Props {
   title: string;
   subtitle: string;
-  align?: 'start' | 'center' | 'left';
-  showImage?: boolean;
-  imageSrc?: string;
-  imageAlt?: string;
+  align?: 'start' | 'center';
 }
 
-const { title, subtitle, align = 'start', showImage = false, imageSrc, imageAlt } = Astro.props;
-
-const normalizedAlign = align === 'left' ? 'start' : align;
+const { title, subtitle, align = 'start' } = Astro.props;
 ---
 
-<header class={`page-header ${normalizedAlign}`}>
+<header class:list={['page-header', align]}>
   <div class='header-content'>
     <div class='text-content'>
       <h1 class='page-title'>{title}</h1>
       <p class='page-subtitle'>{subtitle}</p>
     </div>
-    {
-      showImage && imageSrc && (
-        <div class='image-container'>
-          <img src={imageSrc} alt={imageAlt} class='header-image' width='400' height='300' />
-        </div>
-      )
-    }
   </div>
 </header>
 
@@ -33,30 +21,12 @@ const normalizedAlign = align === 'left' ? 'start' : align;
   .page-header {
     padding: 2rem 0 3rem;
     position: relative;
+    text-align: left; /* Default alignment */
   }
 
   .header-content {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
     max-width: 80rem;
     margin: 0 auto;
-    padding: 0;
-  }
-
-  @media (min-width: 768px) {
-    .header-content {
-      padding: 0 2rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .header-content {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      gap: 4rem;
-    }
   }
 
   .text-content {
@@ -97,48 +67,15 @@ const normalizedAlign = align === 'left' ? 'start' : align;
     }
   }
 
-  .image-container {
-    flex-shrink: 0;
-    max-width: 400px;
-  }
-
-  .header-image {
-    width: 100%;
-    height: auto;
-    border-radius: 1rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
-  }
-
-  .header-image:hover {
-    transform: translateY(-4px);
-  }
-
-  /* Center alignment styles */
-  .center .header-content {
-    text-align: center;
-  }
-
-  .center .text-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .center .page-subtitle {
-    margin: 0 auto;
-  }
-
+  /* Center alignment styles for desktop */
   @media (min-width: 1024px) {
-    .center .header-content {
-      flex-direction: column;
+    .center {
       text-align: center;
     }
-  }
 
-  /* Start alignment styles (default) */
-  .start .header-content {
-    text-align: left;
+    .center .page-subtitle {
+      margin: 0 auto;
+    }
   }
 
   /* Animation */

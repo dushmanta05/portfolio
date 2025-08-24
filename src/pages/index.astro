@@ -30,36 +30,30 @@ const ogImage = `${siteUrl}/og-image.png`;
 ---
 
 <BaseLayout title={title} description={description} image={ogImage}>
-  <div class='flex flex-col gap-20 lg:gap-20'>
-    <!-- Hero Section -->
-    <div class='wrapper'>
-      <header class='hero-container mt-12 mx-auto'>
-        <Hero align='center'>
-          <div class='hero-content'>
-            <div class='pills-container mb-2'>
-              <div class="pills-row">
-                <Pill><Icon icon='code' size='1.33em' /> Developer</Pill>
-                <Pill><Icon icon='laptop' size='1.33em' /> Freelancer</Pill>
-              </div>
-              <div class="pills-row">
-                <Pill><Icon icon='pencil' size='1.33em' /> Tech Blogger</Pill>
-              </div>
+  <div class='wrapper'>
+    <div class='flex flex-col gap-20 lg:gap-32'>
+      <!-- Hero Section -->
+      <div>
+        <header class='hero-container mt-12 mx-auto'>
+          <Hero align='center'>
+            <div class='pills-container'>
+              <Pill><Icon icon='code' size='1.33em' /> Developer</Pill>
+              <Pill><Icon icon='laptop' size='1.33em' /> Freelancer</Pill>
+              <Pill><Icon icon='pencil' size='1.33em' /> Tech Blogger</Pill>
             </div>
-          </div>
-        </Hero>
-      </header>
-      <Skills />
-      <div class='hidden lg:flex justify-center mt-16 animate-fadeIn'>
-        <Icon
-          color='var(--accent-regular)'
-          icon='chevronDoubleDown'
-          class='transform rotate-[-45deg] animate-bounce'
-          size='1.5rem'
-        />
+          </Hero>
+        </header>
+        <Skills />
+        <div class='hidden lg:flex justify-center mt-16 animate-fadeIn'>
+          <Icon
+            color='var(--accent-regular)'
+            icon='chevronDoubleDown'
+            class='transform rotate-[-45deg] animate-bounce'
+            size='1.5rem'
+          />
+        </div>
       </div>
-    </div>
 
-    <main class='wrapper flex flex-col gap-12 lg:gap-16'>
       <!-- Projects Section -->
       <section class='content-section'>
         <div class='section-header'>
@@ -80,7 +74,7 @@ const ogImage = `${siteUrl}/og-image.png`;
       </section>
 
       <!-- Skills Section -->
-      <section class='skills-section mb-12'>
+      <section>
         <SkillsSection />
       </section>
 
@@ -113,14 +107,11 @@ const ogImage = `${siteUrl}/og-image.png`;
       </section>
 
       <!-- OSS Contributions -->
-      <section class='oss-section'>
+      <section>
         <OSSContributions />
       </section>
-    </main>
-    <div class='wrapper'>
+
       <SectionDivider />
-    </div>
-    <div class='wrapper'>
       <ContactCTA />
     </div>
   </div>
@@ -134,62 +125,26 @@ const ogImage = `${siteUrl}/og-image.png`;
     padding: 2rem 0;
   }
 
-  .hero-content {
+  .pills-container {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
     margin-top: 1.5rem;
   }
 
-  .pills-container {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    justify-content: center;
-  }
-
-  .pills-row {
-    display: flex;
-    gap: 0.5rem;
-    justify-content: center;
-  }
-
-  .current-work {
-    text-align: center;
-    margin-top: 0.5rem;
-  }
-
-  /* Mobile-first: start alignment */
   @media (max-width: 1024px) {
     .hero-container {
       text-align: left;
     }
-
     .pills-container {
-      align-items: flex-start;
-    }
-
-    .pills-row {
       justify-content: flex-start;
-    }
-
-    .current-work {
-      text-align: left;
-    }
-  }
-
-  /* Tablet and above */
-  @media (min-width: 768px) {
-    .pills-container {
-      flex-direction: row;
-      justify-content: center;
     }
   }
 
   /* Content Sections */
   .content-section {
-    @apply mb-12;
-    padding: 3rem 1rem;
+    padding: 3rem 1.5rem;
     border-radius: 1rem;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--gray-800);
@@ -232,113 +187,11 @@ const ogImage = `${siteUrl}/og-image.png`;
     }
   }
 
-  /* Projects Grid */
-  .projects-grid {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: 1fr;
-  }
-
-  @media (min-width: 768px) {
-    .projects-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  .project-card {
-    transition: transform 0.3s ease;
-  }
-
-  .project-card:hover {
-    transform: translateY(-4px);
-  }
-
-  /* Skills Section */
-  .skills-section {
-    display: grid;
-    gap: 2rem;
-    position: relative;
-    padding: 3rem 0;
-  }
-
-  .skills-header {
-    text-align: center;
-    max-width: 50ch;
-    margin: 0 auto 2rem auto;
-    color: var(--gray-400);
-  }
-
-  .skills-title {
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: var(--gray-0);
-  }
-
-  @media (min-width: 1024px) {
-    .skills-title {
-    }
-  }
-
-  .skills-grid {
-    margin-top: 2rem;
-  }
-
-  .skill-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    height: 7rem;
-    border-radius: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border: 1px solid var(--gray-800);
-    color: var(--gray-400);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-  }
-
-  .skill-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-    color: var(--gray-200);
-  }
-
-  @media (min-width: 768px) {
-    .skill-item {
-      height: 9.5rem;
-      border-radius: 1.875rem;
-    }
-  }
-
-  .skill-name {
-    font-weight: 500;
-    font-size: 0.875rem;
-  }
-
-  @media (min-width: 768px) {
-    .skill-name {
-      font-size: 1rem;
-    }
-  }
-
-  /* OSS Section */
-  .oss-section {
-    margin: 0 0 3rem 0;
-    padding: 3rem 0;
-  }
-
   /* Blog Grid */
   .blogs-grid {
     display: grid;
     gap: 1.5rem;
     grid-template-columns: 1fr;
-  }
-
-  @media (min-width: 768px) {
-    .blogs-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
   }
 
   @media (min-width: 1024px) {
@@ -373,6 +226,4 @@ const ogImage = `${siteUrl}/og-image.png`;
       transform: translateY(0);
     }
   }
-
-  
 </style>

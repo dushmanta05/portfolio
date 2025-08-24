@@ -19,8 +19,8 @@ const projects = (await getCollection('work')).sort(
   title='My Work | Dushmanta'
   description="Explore Dushmanta's portfolio of projects showcasing full-stack development expertise"
 >
-  <div class='wrapper stack gap-20'>
-    <main class='stack gap-12'>
+  <div class='wrapper'>
+    <div class='flex flex-col gap-20 lg:gap-32'>
       <PageHeader
         title='My Work'
         subtitle='From concept to deployment, here are some of my most impactful projects that demonstrate my expertise in full-stack development.'
@@ -29,13 +29,9 @@ const projects = (await getCollection('work')).sort(
 
       <ProjectsSection projects={projects} />
 
-      <section class='oss-section'>
-        <OSSContributions />
-      </section>
+      <OSSContributions />
 
-      <section class='miscellaneous-section'>
-        <Miscellaneous />
-      </section>
+      <Miscellaneous />
 
       <section class='all-projects-section' id='all-projects'>
         <div class='section-header'>
@@ -124,9 +120,10 @@ const projects = (await getCollection('work')).sort(
           }
         </div>
       </section>
-    </main>
-    <SectionDivider />
-    <ContactCTA />
+
+      <SectionDivider />
+      <ContactCTA />
+    </div>
   </div>
 </BaseLayout>
 
