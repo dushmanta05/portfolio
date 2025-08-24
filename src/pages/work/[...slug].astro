@@ -291,7 +291,7 @@ const formattedDate = formatDate(new Date(entry.data.publishDate));
                     {
                       entry.data.techStack ? (
                         <div class='tech-list-sidebar'>
-                          {entry.data.techStack.map((tech, index) => (
+                          {entry.data.techStack.map((tech) => (
                             <span class='tech-tag-small'>{tech}</span>
                           ))}
                         </div>
@@ -356,7 +356,7 @@ const formattedDate = formatDate(new Date(entry.data.publishDate));
                   {
                     entry.data.techStack ? (
                       <div class='tech-list-sidebar'>
-                        {entry.data.techStack.map((tech, index) => (
+                        {entry.data.techStack.map((tech) => (
                           <span class='tech-tag-small'>{tech}</span>
                         ))}
                       </div>

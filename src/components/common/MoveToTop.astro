@@ -206,16 +206,6 @@ import Icon from '@components/Icon.astro';
       this.init();
     }
 
-    private get radius() {
-      const size = window.innerWidth <= 768 ? this.SVG_SIZE_MOBILE : this.SVG_SIZE;
-      return size / 2 - this.STROKE_WIDTH;
-    }
-
-    private get center() {
-      const size = window.innerWidth <= 768 ? this.SVG_SIZE_MOBILE : this.SVG_SIZE;
-      return size / 2;
-    }
-
     private init(): void {
       if (typeof window === 'undefined') return;
       if (document.readyState === 'loading') {

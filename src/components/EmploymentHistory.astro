@@ -162,7 +162,7 @@ const employments: Employment[] = [
   </p>
   <div class='employment-timeline'>
     {
-      employments.map((employment, empIndex) => {
+      employments.map((employment) => {
         const totalTenure = calculateTenure(employment.startDate, employment.endDate);
         const hasMultiplePositions = employment.positions.length > 1;
 
@@ -242,7 +242,7 @@ const employments: Employment[] = [
 
                         {position.bulletPoints.length > 0 && (
                           <ul class='bullet-points'>
-                            {position.bulletPoints.map((point, idx) => (
+                            {position.bulletPoints.map((point) => (
                               <li>{point}</li>
                             ))}
                           </ul>
@@ -252,7 +252,7 @@ const employments: Employment[] = [
                           <div class='tech-stack'>
                             <span class='tech-label'>Skills:</span>
                             <div class='tech-tags'>
-                              {position.techStack.map((tech, idx) => (
+                              {position.techStack.map((tech) => (
                                 <span class='tech-tag'>{tech}</span>
                               ))}
                             </div>
