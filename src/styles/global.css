@@ -138,6 +138,20 @@ body {
   overflow-x: hidden;
 }
 
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--gray-900);
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--accent-regular);
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--accent-dark);
+}
+
 body {
   background-color: var(--gray-999);
   color: var(--gray-200);
