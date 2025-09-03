@@ -2,6 +2,7 @@ export const prerender = false;
 
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
+
 import { validateEmailData } from '@utils/validation';
 import { createEmailTemplate } from 'src/email/template';
 
@@ -42,13 +43,13 @@ export const POST: APIRoute = async ({ request, url }) => {
   }
 
   if (import.meta.env.DEV) {
-    return createResponse(true, "Message sent successfully! I'll get back to you soon.");
+    return createResponse(true, `Thank you for reaching out! I’ll respond to your message shortly.`);
   }
 
   try {
-    let emailData;
+    let emailData: EmailData;
     try {
-      emailData = await request.json();
+        emailData = await request.json() as EmailData;
     } catch {
       return createResponse(false, 'Invalid request format.', 400);
     }
@@ -74,7 +75,7 @@ export const POST: APIRoute = async ({ request, url }) => {
         return createResponse(false, 'Failed to send message. Please try again later.');
       }
 
-      return createResponse(true, "Message sent successfully! I'll get back to you soon.");
+      return createResponse(true, `Thank you for reaching out! I’ll respond to your message shortly.`);
     } catch (emailError) {
       console.error('Email sending error:', emailError);
       return createResponse(false, 'Failed to send message. Please try again later.');

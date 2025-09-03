@@ -1,11 +1,13 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
-import cloudflare from '@astrojs/cloudflare';
+import node from '@astrojs/node';
 import devtoolsJson from 'vite-plugin-devtools-json';
 
 export default defineConfig({
   integrations: [tailwind()],
-  adapter: cloudflare(),
+  adapter: node({
+      mode: 'standalone',
+    }),
   tsconfig: './tsconfig.json',
   markdown: {
     shikiConfig: {
